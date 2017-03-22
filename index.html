@@ -167,7 +167,7 @@
     <body>
         <div id="topMenu">
             <div class="break"></div>
-            <div class="logo"><img src="oe.png" height="68px" alt="optimal.efficient"/></div>
+            <div class="logo"><a href="http://optimal-efficient.github.io"><img src="oe.png" height="68px" alt="optimal.efficient"/></a></div>
             <div class="break"></div>
             <div id="title">optimal.efficient</div>
             <div class="topForm">
@@ -291,12 +291,12 @@
                     unloadPiece();
 
                     currentPiece.title = activePieceList[idNo]['Title'];
-                    currentPiece.elementOne = activePieceList[idNo]['Element 1'] / 1;
-                    currentPiece.elementTwo = activePieceList[idNo]['Element 2'] / 1;
-                    currentPiece.elementThree = activePieceList[idNo]['Element 3'] / 1;
-                    currentPiece.elementFour = activePieceList[idNo]['Element 4'] / 1;
-                    currentPiece.elementFive = activePieceList[idNo]['Element 5'] / 1;
-                    currentPiece.elementSix = activePieceList[idNo]['Element 6'] / 1;
+                    currentPiece.elementOne = activePieceList[idNo]['Rapidity'] / 1;
+                    currentPiece.elementTwo = activePieceList[idNo]['Rhythm'] / 1;
+                    currentPiece.elementThree = activePieceList[idNo]['Dynamics'] / 1;
+                    currentPiece.elementFour = activePieceList[idNo]['Texture'] / 1;
+                    currentPiece.elementFive = activePieceList[idNo]['Tonality'] / 1;
+                    currentPiece.elementSix = activePieceList[idNo]['Range'] / 1;
 
                     createGraph();
                 });
@@ -320,30 +320,30 @@
                     pieceInQuestion['Composer'] = pieceList[t]['Composer'];
                     pieceInQuestion['Publisher'] = pieceList[t]['Publisher'];
                     pieceInQuestion['Arranger'] = pieceList[t]['Arranger'];
-                    pieceInQuestion['Element 1'] = [];
-                    pieceInQuestion['Element 2'] = [];
-                    pieceInQuestion['Element 3'] = [];
-                    pieceInQuestion['Element 4'] = [];
-                    pieceInQuestion['Element 5'] = [];
-                    pieceInQuestion['Element 6'] = [];
+                    pieceInQuestion['Rapidity'] = [];
+                    pieceInQuestion['Rhythm'] = [];
+                    pieceInQuestion['Dynamics'] = [];
+                    pieceInQuestion['Texture'] = [];
+                    pieceInQuestion['Tonality'] = [];
+                    pieceInQuestion['Range'] = [];
 
                     for (var a = t; a < numberOfPieces; a++) {
                         if (pieceList[t]['Title'] == pieceList[a]['Title'] && pieceList[t]['Composer'] == pieceList[a]['Composer'] && pieceList[t]['Arranger'] == pieceList[a]['Arranger'] && pieceList[t]['Publisher'] == pieceList[a]['Publisher']) {
-                            pieceInQuestion['Element 1'].push(pieceList[a][' [Element 1]'] / 1);
-                            pieceInQuestion['Element 2'].push(pieceList[a][' [Element 2]'] / 1);
-                            pieceInQuestion['Element 3'].push(pieceList[a][' [Element 3]'] / 1);
-                            pieceInQuestion['Element 4'].push(pieceList[a][' [Element 4]'] / 1);
-                            pieceInQuestion['Element 5'].push(pieceList[a][' [Element 5]'] / 1);
-                            pieceInQuestion['Element 6'].push(pieceList[a][' [Element 6]'] / 1);
+                            pieceInQuestion['Rapidity'].push(pieceList[a][' [Rapidity]'] / 1);
+                            pieceInQuestion['Rhythm'].push(pieceList[a][' [Rhythm]'] / 1);
+                            pieceInQuestion['Dynamics'].push(pieceList[a][' [Dynamics]'] / 1);
+                            pieceInQuestion['Texture'].push(pieceList[a][' [Texture]'] / 1);
+                            pieceInQuestion['Tonality'].push(pieceList[a][' [Tonality]'] / 1);
+                            pieceInQuestion['Range'].push(pieceList[a][' [Range]'] / 1);
                         };
                     };
 
-                    pieceInQuestion['Element 1'] = findMean(pieceInQuestion['Element 1']);
-                    pieceInQuestion['Element 2'] = findMean(pieceInQuestion['Element 2']);
-                    pieceInQuestion['Element 3'] = findMean(pieceInQuestion['Element 3']);
-                    pieceInQuestion['Element 4'] = findMean(pieceInQuestion['Element 4']);
-                    pieceInQuestion['Element 5'] = findMean(pieceInQuestion['Element 5']);
-                    pieceInQuestion['Element 6'] = findMean(pieceInQuestion['Element 6']);
+                    pieceInQuestion['Rapidity'] = findMean(pieceInQuestion['Rapidity']);
+                    pieceInQuestion['Rhythm'] = findMean(pieceInQuestion['Rhythm']);
+                    pieceInQuestion['Dynamics'] = findMean(pieceInQuestion['Dynamics']);
+                    pieceInQuestion['Texture'] = findMean(pieceInQuestion['Texture']);
+                    pieceInQuestion['Tonality'] = findMean(pieceInQuestion['Tonality']);
+                    pieceInQuestion['Range'] = findMean(pieceInQuestion['Range']);
                 };
 
                 return pieceInQuestion;
@@ -356,7 +356,7 @@
                 var myChart = new Chart("myBand", {
                     type: 'radar',
                     data: {
-                        labels: ["Element 1", "Element 2", "Element 3", "Element 4", "Element 5", "Element 6"],
+                        labels: ["Rapidity", "Rhythm", "Dynamics", "Texture", "Tonality", "Range"],
                         datasets: [
                                                                      {
                                                                          label: currentUser.user,
@@ -426,7 +426,7 @@
                 var bandAttempt = document.getElementById('userBand').value.toString();
 
                 //Load Google Sheet "User List"
-                var userList = '13LqpJt4Zjg0Uix6dq1rY1X8b0lN-wwkDEYjoO3Kfimc';
+                var userList = '1Wo1RArWUmqVJ9KBjiT2W7B4Tx3KeUsy1sPYPjulcr5I';
 
                 //Verify User, Load User Information, and Draw Graph                
                 function init() {
@@ -457,12 +457,12 @@
 
                                 //Set Current User Info
                                 currentUser.user = (data[i]['Band Name'])
-                                currentUser.elementOne = (data[i]['Band Skill [Element 1]'] / 1)
-                                currentUser.elementTwo = (data[i]['Band Skill [Element 2]'] / 1)
-                                currentUser.elementThree = (data[i]['Band Skill [Element 3]'] / 1)
-                                currentUser.elementFour = (data[i]['Band Skill [Element 4]'] / 1)
-                                currentUser.elementFive = (data[i]['Band Skill [Element 5]'] / 1)
-                                currentUser.elementSix = (data[i]['Band Skill [Element 6]'] / 1)
+                                currentUser.elementOne = (data[i]['Band Skill [Rapidity]'] / 1)
+                                currentUser.elementTwo = (data[i]['Band Skill [Rhythm]'] / 1)
+                                currentUser.elementThree = (data[i]['Band Skill [Dynamics]'] / 1)
+                                currentUser.elementFour = (data[i]['Band Skill [Texture]'] / 1)
+                                currentUser.elementFive = (data[i]['Band Skill [Tonality]'] / 1)
+                                currentUser.elementSix = (data[i]['Band Skill [Range]'] / 1)
 
                                 //Draw the Graph
                                 unloadPiece();
@@ -479,7 +479,7 @@
                                                             '<a href="mailto:optimal.efficient@gmail.com?subject=Possible%20Duplicate%20Piece&body=I have discovered a possible duplicate piece in the optimal.efficient database. The two entries are..." target="_blank" style="text-decoration:none"><div class="dbOption" id="reportDuplicate">Report Possible Duplicate</div></a>'
                                                             );                                
 
-                                if (!cookiesExist) {
+                                if (!cookiesExist || !(emailAttempt == getCookie('email') && bandAttempt == getCookie('band'))) {
                                     var allow = confirm('Remember information using cookies?');
 
                                     if (allow) {
@@ -498,7 +498,7 @@
                                         $(this).html('Loading...');
                                         $(this).css('background-color', "gray");
 
-                                        var pieceListKey = "1Fp1CyDBe_1wQtzPuCkg0a7Hue_Ax1o85Dzz9L7AHFNw";
+                                        var pieceListKey = "1vptbIS_PexH6J8N8KRm1EfJ6nj5rAKmImzLk3_j2eew";
 
                                         function showInfo2(data, tabletop) {
                                             pieceList = data;
@@ -617,7 +617,7 @@
                                         $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
 
                                         for (var i = 0; i < numberOfPieces; i++) {
-                                            if (currentUser.elementOne == activePieceList[i]['Element 1'] && currentUser.elementTwo == activePieceList[i]['Element 2'] && currentUser.elementThree == activePieceList[i]['Element 3'] && currentUser.elementFour == activePieceList[i]['Element 4'] && currentUser.elementFive == activePieceList[i]['Element 5'] && currentUser.elementSix == activePieceList[i]['Element 6']) {
+                                            if (currentUser.elementOne == activePieceList[i]['Rapidity'] && currentUser.elementTwo == activePieceList[i]['Rhythm'] && currentUser.elementThree == activePieceList[i]['Dynamics'] && currentUser.elementFour == activePieceList[i]['Texture'] && currentUser.elementFive == activePieceList[i]['Tonality'] && currentUser.elementSix == activePieceList[i]['Range']) {
                                                 $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
                                             };
                                         };
@@ -636,7 +636,7 @@
                                         $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
 
                                         for (var i = 0; i < numberOfPieces; i++) {
-                                            if (currentUser.elementOne >= activePieceList[i]['Element 1'] && currentUser.elementTwo >= activePieceList[i]['Element 2'] && currentUser.elementThree >= activePieceList[i]['Element 3'] && currentUser.elementFour >= activePieceList[i]['Element 4'] && currentUser.elementFive >= activePieceList[i]['Element 5'] && currentUser.elementSix >= activePieceList[i]['Element 6']) {
+                                            if (currentUser.elementOne >= activePieceList[i]['Rapidity'] && currentUser.elementTwo >= activePieceList[i]['Rhythm'] && currentUser.elementThree >= activePieceList[i]['Dynamics'] && currentUser.elementFour >= activePieceList[i]['Texture'] && currentUser.elementFive >= activePieceList[i]['Tonality'] && currentUser.elementSix >= activePieceList[i]['Range']) {
                                                 $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
                                             };
                                         };
@@ -657,26 +657,26 @@
 
                                         //Iterate through list of pieces
                                         for (var i = 0; i < numberOfPieces; i++) {
-                                            if (!(currentUser.elementOne >= activePieceList[i]['Element 1'] && currentUser.elementTwo >= activePieceList[i]['Element 2'] && currentUser.elementThree >= activePieceList[i]['Element 3'] && currentUser.elementFour >= activePieceList[i]['Element 4'] && currentUser.elementFive >= activePieceList[i]['Element 5'] && currentUser.elementSix >= activePieceList[i]['Element 6']) && (currentUser.elementOne + 1) >= activePieceList[i]['Element 1'] && (currentUser.elementTwo + 1) >= activePieceList[i]['Element 2'] && (currentUser.elementThree + 1) >= activePieceList[i]['Element 3'] && (currentUser.elementFour + 1) >= activePieceList[i]['Element 4'] && (currentUser.elementFive + 1) >= activePieceList[i]['Element 5'] && (currentUser.elementSix + 1) >= activePieceList[i]['Element 6']) {
+                                            if (!(currentUser.elementOne >= activePieceList[i]['Rapidity'] && currentUser.elementTwo >= activePieceList[i]['Rhythm'] && currentUser.elementThree >= activePieceList[i]['Dynamics'] && currentUser.elementFour >= activePieceList[i]['Texture'] && currentUser.elementFive >= activePieceList[i]['Tonality'] && currentUser.elementSix >= activePieceList[i]['Range']) && (currentUser.elementOne + 1) >= activePieceList[i]['Rapidity'] && (currentUser.elementTwo + 1) >= activePieceList[i]['Rhythm'] && (currentUser.elementThree + 1) >= activePieceList[i]['Dynamics'] && (currentUser.elementFour + 1) >= activePieceList[i]['Texture'] && (currentUser.elementFive + 1) >= activePieceList[i]['Tonality'] && (currentUser.elementSix + 1) >= activePieceList[i]['Range']) {
                                                 //Add 1 to challengeLevel for each challenge element
                                                 challengeLevel = 0;
 
-                                                if (currentUser.elementOne < activePieceList[i]['Element 1']) {
+                                                if (currentUser.elementOne < activePieceList[i]['Rapidity']) {
                                                     challengeLevel++;
                                                 };
-                                                if (currentUser.elementTwo < activePieceList[i]['Element 2']) {
+                                                if (currentUser.elementTwo < activePieceList[i]['Rhythm']) {
                                                     challengeLevel++;
                                                 };
-                                                if (currentUser.elementThree < activePieceList[i]['Element 3']) {
+                                                if (currentUser.elementThree < activePieceList[i]['Dynamics']) {
                                                     challengeLevel++;
                                                 };
-                                                if (currentUser.elementFour < activePieceList[i]['Element 4']) {
+                                                if (currentUser.elementFour < activePieceList[i]['Texture']) {
                                                     challengeLevel++;
                                                 };
-                                                if (currentUser.elementFive < activePieceList[i]['Element 5']) {
+                                                if (currentUser.elementFive < activePieceList[i]['Tonality']) {
                                                     challengeLevel++;
                                                 };
-                                                if (currentUser.elementSix < activePieceList[i]['Element 6']) {
+                                                if (currentUser.elementSix < activePieceList[i]['Range']) {
                                                     challengeLevel++;
                                                 };
 
