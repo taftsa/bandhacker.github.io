@@ -20,8 +20,6 @@
             }
                      
             #topMenu {
-                position:  absolute;
-                top:  0;
                 width:  100%;
                 height: 70px;
                 background-color: #f10d7d;
@@ -58,35 +56,71 @@
             }
 
             #pageText {
-                position:  relative;
-                height:  400px;
-                border: 4px solid #6F4242;
-                border-radius: 2%;
-                padding: 20px;
-                margin: 20px;
-                margin-top: 90px;
+                height: 420px;
+                margin-top:  5px;
             }
             
+            #dataPane {
+                vertical-align:  top;
+                display:  inline-block;
+                border:  2px solid #6F4242;
+                border-radius:  2%;
+                height:  380px;
+                width:  28%;
+          }
+            
             #userPane {
-                position:  absolute;
-                top:  1%;
-                left:  1%;
-                padding: 1%;
-                border:  2px solid #6F4242;
-                border-radius:  2%;
-                width: 400px;
-                height: 400px;
+                height: 320px;
+                width:  320px;
+                margin: 0 auto;
             }
-                      
+            
+            #instrumentationPane {
+                vertical-align:  top;
+                height: 60px;
+                width:  250px;
+                margin:  0 auto;
+            }            
+           
+            .instrument {
+                border: 2px solid #6F4242;
+                height: 18px;
+                width: 23px;
+                font-size: 0.75em;
+                text-align:  center;
+            }
+            
+            #notesPane {
+                vertical-align:  top;
+                display:  inline-block;
+                border: 2px solid #6F4242;
+                border-radius: 2%;
+                width: 20%;
+                height: 380px;
+                overflow-y: scroll;
+                text-align: center;
+            }
+            
+            #notesPane::-webkit-scrollbar {
+                width: 6px;
+            }
+ 
+            #notesPane::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+                border-radius: 6px;
+            }
+ 
+            #notesPane::-webkit-scrollbar-thumb {
+                border-radius: 6px;
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+            }                        
+                       
             #databasePane {
-                position:  absolute;
-                top:  1%;
-                right:  1%;
-                padding: 1%;
+                display:  inline-block;
                 border:  2px solid #6F4242;
                 border-radius:  2%;
-                width: 700px;
-                height: 400px;
+                height: 380px;
+                width:  50%;
                 overflow-y: scroll;
                 text-align: center;
             }
@@ -103,7 +137,7 @@
             #databasePane::-webkit-scrollbar-thumb {
                 border-radius: 6px;
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
-            }
+            }   
             
             input {
                 display:  block;
@@ -131,14 +165,21 @@
             }
             
             .dbOption {
-                width:  40%;
-                height: 8%;
-                margin:  4px;
+                vertical-align:  top;
+                display:  inline-block;
+                width:  12.5%;
+                height: 25px;
                 text-align: center;
-                border-radius: 15px;
-                background: #6F4242;
                 color:  white;
                 cursor:  default;
+            }
+            
+            .a {
+                background:  #636363;
+            }
+            
+            .b {
+                background:  #7D7D7D;
             }
 
          .dbOption:hover {
@@ -151,6 +192,10 @@
             
             .selectedPiece {
                 background-color: yellow;
+            }
+            
+            .pieceSelect {
+                font-size:  0.7em;
             }
             
             #allPieces {
@@ -191,18 +236,79 @@
           </div>
         </div>
 
-        <div id="pageText">
-            <div id="userPane">
-                <canvas id="myBand" width="400" height="400"></canvas>
-            </div>
-            <div id="databasePane">
-                
-            </div>
+        <div id="optionsMenu">
+            <div class="dbOption" id="loadPieceList">Load Piece List
+            </div><div class="dbOption a" id="search">Search
+            </div><div class="dbOption b" id="listOptimal">List Optimal
+            </div><div class="dbOption a" id="listAllPlayable">List Playable
+            </div><div class="dbOption b" id="listChallenge">List Challenging
+            </div><div class="dbOption a" id="listAll">List All
+            </div><div class="dbOption b" id="submitAnalysis">Submit Analysis
+            </div><div class="dbOption a" id="reportDuplicate">Report Duplicate</div>            
         </div>
 
-        <p>&copy; 2016 Seth Taft</p>
+        <div id="pageText">
+            <div id="dataPane">
+                <div id="userPane">
+                    <canvas id="myBand" width="320" height="320"></canvas>
+                </div>
+                <div id="instrumentationPane">
+                    <table id="instrumentationTable">
+                        <tr>
+                            <td id="oneFlute" class="instrument">F</td>
+                            <td id="twoClarinets" class="instrument">C</td>
+                            <td id="threeSaxophones" class="instrument">X</td>
+                            <td id="oneHorn" class="instrument">H</td>
+                            <td id="twoTrumpets" class="instrument">T</td>
+                            <td id="oneTrombone" class="instrument">R</td>
+                            <td id="baritone" class="instrument">B</td>
+                            <td id="tuba" class="instrument">U</td>
+                            <td id="fourPercussion" class="instrument">P</td>
+                        </tr>
+                        <tr>
+                            <td id="moreFlutes" class="instrument">F+</td>
+                            <td id="moreClarinets" class="instrument">C+</td>
+                            <td id="moreSaxophones" class="instrument">X+</td>
+                            <td id="moreHorns" class="instrument">H+</td>
+                            <td id="twoTrumpets" class="instrument">T+</td>
+                            <td id="moreTrombones" class="instrument">R+</td>
+                            <td id="oboe" class="instrument">O</td>
+                            <td id="bassoon" class="instrument">OO</td>
+                            <td id="morePercussion" class="instrument">P+</td>
+                        </tr>
+                    </table>
+                </div>                
+            </div>
+            <div id="notesPane">
+
+            </div>
+            <div id="databasePane">
+
+            </div>
+        </div>        
+
+        <p>&copy; 2017 Seth Taft</p>
 
         <script>
+            //Link Buttons
+            function openWindow(url) {
+                var win = window.open(url, '_blank');
+                if (win) {
+                    win.focus();
+                } else {
+                    alert('Please allow popups for this website');
+                };
+            };
+
+            $('#submitAnalysis').click(function () {
+                openWindow('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform');
+            });
+
+            $('#reportDuplicate').click(function () {
+                openWindow('mailto:optimal.efficient@gmail.com?subject=Possible%20Duplicate%20Piece&body=I have discovered a possible duplicate piece in the optimal.efficient database. The two entries are...');
+            });
+
+
             function setCookie(cname, cvalue, exdays) {
                 var d = new Date();
                 d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -238,13 +344,26 @@
 
             var currentPiece = {
                 title: "None Selected",
-                elementOne: 0,
-                elementTwo: 0,
-                elementThree: 0,
-                elementFour: 0,
-                elementFive: 0,
-                elementSix: 0
-            }
+                //elementOne: 0,
+                //elementTwo: 0,
+                //elementThree: 0,
+                //elementFour: 0,
+                //elementFive: 0,
+                //elementSix: 0,
+                //flutes: null,
+                //clarinets: null,
+                //saxophones: null,
+                //oboe: null,
+                //bassoon: null,
+                //trumpets: null,
+                //horns: null,
+                //trombones: null,
+                //baritone: null,
+                //tuba: null,
+                percussion: null,
+                difficultyNotes: [],
+                instrumentationNotes: []
+            };
 
             var activePieceList = [];
             var currentSheet;
@@ -269,15 +388,42 @@
                 return mean;
             };
 
+            function findMode(array, ifNoMode) {
+                var largestValueCount = 0;
+                var largestValue;
+                var noLargestValue = false;
+
+                for (var z = 0; z < array.length; z++) {
+                    var currentValue = array[z];
+                    var currentValueCount = 1;
+
+                    for (var y = 0; y < array.length; y++) {
+                        if (z !== y && array[z] == array[y]) {
+                            currentValueCount++;
+                        };
+                    };
+
+                    if (currentValueCount > largestValueCount) {
+                        largestValueCount = currentValueCount;
+                        largestValue = array[z];
+                        noLargestValue = false;
+                    };
+                    if (currentValueCount == largestValueCount && currentValue !== largestValue) {
+                        noLargestValue = true;
+                    };
+                };
+
+                if (noLargestValue) {
+                    return ifNoMode;
+                }
+                else {
+                    return largestValue;
+                };
+            };
+
             function unloadPiece() {
                 currentPiece = {
-                    title: "None Selected",
-                    elementOne: 0,
-                    elementTwo: 0,
-                    elementThree: 0,
-                    elementFour: 0,
-                    elementFive: 0,
-                    elementSix: 0
+                    title: "None Selected"
                 };
             };
 
@@ -326,6 +472,19 @@
                     pieceInQuestion['Texture'] = [];
                     pieceInQuestion['Tonality'] = [];
                     pieceInQuestion['Range'] = [];
+                    pieceInQuestion['Flutes'] = [];
+                    pieceInQuestion['Clarinets'] = [];
+                    pieceInQuestion['Saxophones'] = [];
+                    pieceInQuestion['Oboe'] = [];
+                    pieceInQuestion['Bassoon'] = [];
+                    pieceInQuestion['Trumpets'] = [];
+                    pieceInQuestion['Horns'] = [];
+                    pieceInQuestion['Trombones'] = [];
+                    pieceInQuestion['Baritone'] = [];
+                    pieceInQuestion['Tuba'] = [];
+                    pieceInQuestion['Percussion'] = [];
+                    pieceInQuestion['Difficulty Notes'] = [];
+                    pieceInQuestion['Instrumentation Notes'] = [];
 
                     for (var a = t; a < numberOfPieces; a++) {
                         if (pieceList[t]['Title'] == pieceList[a]['Title'] && pieceList[t]['Composer'] == pieceList[a]['Composer'] && pieceList[t]['Arranger'] == pieceList[a]['Arranger'] && pieceList[t]['Publisher'] == pieceList[a]['Publisher']) {
@@ -335,6 +494,19 @@
                             pieceInQuestion['Texture'].push(pieceList[a][' [Texture]'] / 1);
                             pieceInQuestion['Tonality'].push(pieceList[a][' [Tonality]'] / 1);
                             pieceInQuestion['Range'].push(pieceList[a][' [Range]'] / 1);
+                            pieceInQuestion['Flutes'].push(pieceList[a]['Flutes']);
+                            pieceInQuestion['Clarinets'].push(pieceList[a]['Clarinets']);
+                            pieceInQuestion['Saxophones'].push(pieceList[a]['Saxophones']);
+                            pieceInQuestion['Oboe'].push(pieceList[a]['Oboe']);
+                            pieceInQuestion['Bassoon'].push(pieceList[a]['Bassoon']);
+                            pieceInQuestion['Trumpets'].push(pieceList[a]['Trumpets']);
+                            pieceInQuestion['Horns'].push(pieceList[a]['Horns']);
+                            pieceInQuestion['Trombones'].push(pieceList[a]['Trombones']);
+                            pieceInQuestion['Baritone'].push(pieceList[a]['Baritone']);
+                            pieceInQuestion['Tuba'].push(pieceList[a]['Tuba']);
+                            pieceInQuestion['Percussion'].push(pieceList[a]['Percussion']);
+                            pieceInQuestion['Difficulty Notes'].push(pieceList[a]['Difficulty Notes']);
+                            pieceInQuestion['Instrumentation Notes'].push(pieceList[a]['Instrumentation Notes']);
                         };
                     };
 
@@ -344,59 +516,70 @@
                     pieceInQuestion['Texture'] = findMean(pieceInQuestion['Texture']);
                     pieceInQuestion['Tonality'] = findMean(pieceInQuestion['Tonality']);
                     pieceInQuestion['Range'] = findMean(pieceInQuestion['Range']);
+                    pieceInQuestion['Flutes'] = findMode(pieceInQuestion['Flutes'], '1');
+                    pieceInQuestion['Clarinets'] = findMode(pieceInQuestion['Clarinets'], '1-2');
+                    pieceInQuestion['Saxophones'] = findMode(pieceInQuestion['Saxophones'], 'ATB');
+                    pieceInQuestion['Oboe'] = findMode(pieceInQuestion['Oboe'], 'No');
+                    pieceInQuestion['Bassoon'] = findMode(pieceInQuestion['Bassoon'], 'No');
+                    pieceInQuestion['Trumpets'] = findMode(pieceInQuestion['Trumpets'], '1-2');
+                    pieceInQuestion['Horns'] = findMode(pieceInQuestion['Horns'], '1');
+                    pieceInQuestion['Trombones'] = findMode(pieceInQuestion['Trombones'], '1');
+                    pieceInQuestion['Baritone'] = findMode(pieceInQuestion['Baritone'], 'Yes');
+                    pieceInQuestion['Tuba'] = findMode(pieceInQuestion['Tuba'], "Yes");
+                    pieceInQuestion['Percussion'] = findMode(pieceInQuestion['Percussion'], '1-4');
                 };
+
+                alert(JSON.stringify(pieceInQuestion));
 
                 return pieceInQuestion;
             };
 
             //Create Graph
             function createGraph() {
-                $("#userPane").html('<canvas id="myBand" width="400" height="400"></canvas>');
-
                 var myChart = new Chart("myBand", {
                     type: 'radar',
                     data: {
                         labels: ["Rapidity", "Rhythm", "Dynamics", "Texture", "Tonality", "Range"],
                         datasets: [
-                                                                     {
-                                                                         label: currentUser.user,
-                                                                         fillColor: "rgba(220,220,440,0.4)",
-                                                                         strokeColor: "rgba(220,220,440,1)",
-                                                                         pointColor: "rgba(220,220,440,1)",
-                                                                         pointStrokeColor: "#fff",
-                                                                         pointHighlightFill: "#fff",
-                                                                         pointHighlightStroke: "rgba(220,220,220,1)",
-                                                                         backgroundColor: "rgba(0, 0, 255, 0.2)",
-                                                                         borderColor: "rgba(0, 0, 255, 0.2)",
-                                                                         data: [
-                                                                                 currentUser.elementOne,
-                                                                                 currentUser.elementTwo,
-                                                                                 currentUser.elementThree,
-                                                                                 currentUser.elementFour,
-                                                                                 currentUser.elementFive,
-                                                                                 currentUser.elementSix
-                                                                               ]
-                                                                     },
-                                                                     {
-                                                                         label: currentPiece.title,
-                                                                         fillColor: "rgba(440,220,320,0.4)",
-                                                                         strokeColor: "rgba(440,220,220,1)",
-                                                                         pointColor: "rgba(440,220,220,1)",
-                                                                         pointStrokeColor: "#fff",
-                                                                         pointHighlightFill: "#fff",
-                                                                         pointHighlightStroke: "rgba(440,220,220,1)",
-                                                                         backgroundColor: "rgba(255, 0, 0, 0.2)",
-                                                                         borderColor: "red",
-                                                                         data: [
-                                                                                 currentPiece.elementOne,
-                                                                                 currentPiece.elementTwo,
-                                                                                 currentPiece.elementThree,
-                                                                                 currentPiece.elementFour,
-                                                                                 currentPiece.elementFive,
-                                                                                 currentPiece.elementSix
-                                                                               ]
-                                                                     }
-                                                                 ]
+                                                                                 {
+                                                                                     label: currentUser.user,
+                                                                                     fillColor: "rgba(220,220,440,0.4)",
+                                                                                     strokeColor: "rgba(220,220,440,1)",
+                                                                                     pointColor: "rgba(220,220,440,1)",
+                                                                                     pointStrokeColor: "#fff",
+                                                                                     pointHighlightFill: "#fff",
+                                                                                     pointHighlightStroke: "rgba(220,220,220,1)",
+                                                                                     backgroundColor: "rgba(0, 0, 255, 0.2)",
+                                                                                     borderColor: "rgba(0, 0, 255, 0.2)",
+                                                                                     data: [
+                                                                                             currentUser.elementOne,
+                                                                                             currentUser.elementTwo,
+                                                                                             currentUser.elementThree,
+                                                                                             currentUser.elementFour,
+                                                                                             currentUser.elementFive,
+                                                                                             currentUser.elementSix
+                                                                                           ]
+                                                                                 },
+                                                                                 {
+                                                                                     label: currentPiece.title,
+                                                                                     fillColor: "rgba(440,220,320,0.4)",
+                                                                                     strokeColor: "rgba(440,220,220,1)",
+                                                                                     pointColor: "rgba(440,220,220,1)",
+                                                                                     pointStrokeColor: "#fff",
+                                                                                     pointHighlightFill: "#fff",
+                                                                                     pointHighlightStroke: "rgba(440,220,220,1)",
+                                                                                     backgroundColor: "rgba(255, 0, 0, 0.2)",
+                                                                                     borderColor: "red",
+                                                                                     data: [
+                                                                                             currentPiece.elementOne,
+                                                                                             currentPiece.elementTwo,
+                                                                                             currentPiece.elementThree,
+                                                                                             currentPiece.elementFour,
+                                                                                             currentPiece.elementFive,
+                                                                                             currentPiece.elementSix
+                                                                                           ]
+                                                                                 }
+                                                                             ]
                     },
                     options: {
                         scale: {
@@ -469,16 +652,6 @@
                                 createGraph();
 
                                 //Prepare Database Pane
-                                $('#databasePane').html('<div class="dbOption" id="loadPieceList">Load Piece List</div>' +
-                                                            '<div class="dbOption" id="search">Search for a Piece</div>' +
-                                                            '<div class="dbOption" id="listOptimal">List Optimal Pieces</div>' +
-                                                            '<div class="dbOption" id="listAllPlayable">List Playable Pieces</div>' +
-                                                            '<div class="dbOption" id="listChallenge">List Challenging Pieces</div>' +
-                                                            '<div class="dbOption" id="listAll">List All Pieces</div>' +
-                                                            '<a href="https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform" target="_blank" style="text-decoration:none"><div class="dbOption" id="submitAnalysis">Submit an Analysis</div></a>' +
-                                                            '<a href="mailto:optimal.efficient@gmail.com?subject=Possible%20Duplicate%20Piece&body=I have discovered a possible duplicate piece in the optimal.efficient database. The two entries are..." target="_blank" style="text-decoration:none"><div class="dbOption" id="reportDuplicate">Report Possible Duplicate</div></a>'
-                                                            );                                
-
                                 if (!cookiesExist || !(emailAttempt == getCookie('email') && bandAttempt == getCookie('band'))) {
                                     var allow = confirm('Remember information using cookies?');
 
@@ -521,7 +694,7 @@
 
                                                 numberOfPieces = activePieceList.length;
 
-                                                $('#loadPieceList').html('Loaded! (Click to Re-load)');
+                                                $('#loadPieceList').html('Loaded!');
                                                 $('#loadPieceList').css('background-color', "Green");
 
                                                 pieceListLoadeding = false;
@@ -564,8 +737,8 @@
                                         //Generate Search Screen
                                         $('#databasePane').empty();
                                         $('#databasePane').append('Search Title<input id="searchTitle" type="checkbox" name="searchIn" value="Title">' +
-                                                    'Search Composer<input id="searchComposer" type="checkbox" name="searchIn" value="Composer">' +
-                                                    'Search Arranger<input id="searchArranger" type="checkbox" name="searchIn" value="Arranger"><br />');
+                                                                'Search Composer<input id="searchComposer" type="checkbox" name="searchIn" value="Composer">' +
+                                                                'Search Arranger<input id="searchArranger" type="checkbox" name="searchIn" value="Arranger"><br />');
                                         $('#databasePane').append('<input name="searchTerm" type="text" placeholder="search for a piece" id="searchTerm"><br />');
                                         $('#databasePane').append('<input type="button" name="executeSearch" value="Search" id="searchButton">');
 
@@ -600,7 +773,6 @@
                                                     trip = true;
                                                 };
                                             };
-
                                             createClickablePiecesANDdisplayGraph();
                                         });
                                     }
