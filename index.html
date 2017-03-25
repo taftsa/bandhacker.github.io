@@ -6,6 +6,8 @@
         <title>optimal.efficient</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         
+        <link rel="manifest" href="manifest.json">
+
         <script src="Chart.js"></script>
         <script src="tabletop.js"></script>
 
@@ -217,10 +219,18 @@
             
             .difficultyNote {
                 background-color:  lightblue;
+                font-size:  0.65em;
+                border-top:  2px solid black;
+                border-bottom:  2px solid black;
+                margin-top: 2px;
             }
             
             .instrumentationNote {
                 background-color: orange;
+                font-size:  0.65em;
+                border-top:  2px solid black;
+                border-bottom:  2px solid black;
+                margin-top: 2px;
             }
                 
         </style>
@@ -304,7 +314,7 @@
             </div>
         </div>        
 
-        <p>Version 0.17.3.24.21.43 <br />
+        <p>Version 0.17.3.25.13.50 <br />
         &copy; 2017 Seth Taft</p>
 
         <script>
@@ -326,6 +336,25 @@
                 openWindow('mailto:optimal.efficient@gmail.com?subject=Possible%20Duplicate%20Piece&body=I have discovered a possible duplicate piece in the optimal.efficient database. The two entries are...');
             });
 
+            function detectmob() {
+                if (navigator.userAgent.match(/Android/i)
+             || navigator.userAgent.match(/webOS/i)
+             || navigator.userAgent.match(/iPhone/i)
+             || navigator.userAgent.match(/iPad/i)
+             || navigator.userAgent.match(/iPod/i)
+             || navigator.userAgent.match(/BlackBerry/i)
+             || navigator.userAgent.match(/Windows Phone/i)
+             ) {
+                    return true;
+                }
+                else {
+                    return false;
+                };
+            };
+
+            if (detectmob()) {
+                alert('This site is not optimized for mobile. For best results, use your desktop or laptop.')
+            };
 
             function setCookie(cname, cvalue, exdays) {
                 var d = new Date();
@@ -432,13 +461,33 @@
                 $('.trueBasic').removeClass('trueBasic');
                 $('.trueAdvanced').removeClass('trueAdvanced');
 
-                $('#oneFlute').addClass('trueBasic');
-                $('#twoClarinets').addClass('trueBasic');
-                $('#threeSaxophones').addClass('trueBasic');
-                $('#oneHorn').addClass('trueBasic');
-                $('#twoTrumpets').addClass('trueBasic');
-                $('#oneTrombone').addClass('trueBasic');
-                $('#fourPercussion').addClass('trueBasic');
+                if (piece['Flutes'] !== '0') {
+                    $('#oneFlute').addClass('trueBasic');
+                };
+
+                if (piece['Clarinets'] !== '0') {
+                    $('#twoClarinets').addClass('trueBasic');
+                };
+
+                if (piece['Saxophones'] !== 'Less than ATB') {
+                    $('#threeSaxophones').addClass('trueBasic');
+                };
+
+                if (piece['Horns'] !== '0') {
+                    $('#oneHorn').addClass('trueBasic');
+                };
+
+                if (piece['Trumpets'] !== '0') {
+                    $('#twoTrumpets').addClass('trueBasic');
+                };
+
+                if (piece['Trombones'] !== '0') {
+                    $('#oneTrombone').addClass('trueBasic');
+                };
+
+                if (piece['Percussion'] !== '0') {
+                    $('#fourPercussion').addClass('trueBasic');
+                };
 
                 if (piece['Baritone'] == 'Yes') {
                     $('#baritone').addClass('trueBasic');
@@ -617,45 +666,45 @@
                     data: {
                         labels: ["Rapidity", "Rhythm", "Dynamics", "Texture", "Tonality", "Range"],
                         datasets: [
-                                                                                 {
-                                                                                     label: currentUser.user,
-                                                                                     fillColor: "rgba(220,220,440,0.4)",
-                                                                                     strokeColor: "rgba(220,220,440,1)",
-                                                                                     pointColor: "rgba(220,220,440,1)",
-                                                                                     pointStrokeColor: "#fff",
-                                                                                     pointHighlightFill: "#fff",
-                                                                                     pointHighlightStroke: "rgba(220,220,220,1)",
-                                                                                     backgroundColor: "rgba(0, 0, 255, 0.2)",
-                                                                                     borderColor: "rgba(0, 0, 255, 0.2)",
-                                                                                     data: [
-                                                                                             currentUser.elementOne,
-                                                                                             currentUser.elementTwo,
-                                                                                             currentUser.elementThree,
-                                                                                             currentUser.elementFour,
-                                                                                             currentUser.elementFive,
-                                                                                             currentUser.elementSix
-                                                                                           ]
-                                                                                 },
-                                                                                 {
-                                                                                     label: currentPiece.title,
-                                                                                     fillColor: "rgba(440,220,320,0.4)",
-                                                                                     strokeColor: "rgba(440,220,220,1)",
-                                                                                     pointColor: "rgba(440,220,220,1)",
-                                                                                     pointStrokeColor: "#fff",
-                                                                                     pointHighlightFill: "#fff",
-                                                                                     pointHighlightStroke: "rgba(440,220,220,1)",
-                                                                                     backgroundColor: "rgba(255, 0, 0, 0.2)",
-                                                                                     borderColor: "red",
-                                                                                     data: [
-                                                                                             currentPiece.elementOne,
-                                                                                             currentPiece.elementTwo,
-                                                                                             currentPiece.elementThree,
-                                                                                             currentPiece.elementFour,
-                                                                                             currentPiece.elementFive,
-                                                                                             currentPiece.elementSix
-                                                                                           ]
-                                                                                 }
-                                                                             ]
+                                                                                             {
+                                                                                                 label: currentUser.user,
+                                                                                                 fillColor: "rgba(220,220,440,0.4)",
+                                                                                                 strokeColor: "rgba(220,220,440,1)",
+                                                                                                 pointColor: "rgba(220,220,440,1)",
+                                                                                                 pointStrokeColor: "#fff",
+                                                                                                 pointHighlightFill: "#fff",
+                                                                                                 pointHighlightStroke: "rgba(220,220,220,1)",
+                                                                                                 backgroundColor: "rgba(0, 0, 255, 0.2)",
+                                                                                                 borderColor: "rgba(0, 0, 255, 0.2)",
+                                                                                                 data: [
+                                                                                                         currentUser.elementOne,
+                                                                                                         currentUser.elementTwo,
+                                                                                                         currentUser.elementThree,
+                                                                                                         currentUser.elementFour,
+                                                                                                         currentUser.elementFive,
+                                                                                                         currentUser.elementSix
+                                                                                                       ]
+                                                                                             },
+                                                                                             {
+                                                                                                 label: currentPiece.title,
+                                                                                                 fillColor: "rgba(440,220,320,0.4)",
+                                                                                                 strokeColor: "rgba(440,220,220,1)",
+                                                                                                 pointColor: "rgba(440,220,220,1)",
+                                                                                                 pointStrokeColor: "#fff",
+                                                                                                 pointHighlightFill: "#fff",
+                                                                                                 pointHighlightStroke: "rgba(440,220,220,1)",
+                                                                                                 backgroundColor: "rgba(255, 0, 0, 0.2)",
+                                                                                                 borderColor: "red",
+                                                                                                 data: [
+                                                                                                         currentPiece.elementOne,
+                                                                                                         currentPiece.elementTwo,
+                                                                                                         currentPiece.elementThree,
+                                                                                                         currentPiece.elementFour,
+                                                                                                         currentPiece.elementFive,
+                                                                                                         currentPiece.elementSix
+                                                                                                       ]
+                                                                                             }
+                                                                                         ]
                     },
                     options: {
                         scale: {
@@ -813,8 +862,8 @@
                                         //Generate Search Screen
                                         $('#databasePane').empty();
                                         $('#databasePane').append('Search Title<input id="searchTitle" type="checkbox" name="searchIn" value="Title">' +
-                                                                'Search Composer<input id="searchComposer" type="checkbox" name="searchIn" value="Composer">' +
-                                                                'Search Arranger<input id="searchArranger" type="checkbox" name="searchIn" value="Arranger"><br />');
+                                                                            'Search Composer<input id="searchComposer" type="checkbox" name="searchIn" value="Composer">' +
+                                                                            'Search Arranger<input id="searchArranger" type="checkbox" name="searchIn" value="Arranger"><br />');
                                         $('#databasePane').append('<input name="searchTerm" type="text" placeholder="search for a piece" id="searchTerm"><br />');
                                         $('#databasePane').append('<input type="button" name="executeSearch" value="Search" id="searchButton">');
 
