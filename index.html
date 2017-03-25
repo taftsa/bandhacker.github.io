@@ -56,7 +56,7 @@
             }
 
             #pageText {
-                height: 420px;
+                height: 400px;
                 margin-top:  5px;
             }
             
@@ -205,7 +205,24 @@
            th {
                 background-color: black;
                 color:  white;
-            }           
+            }
+            
+            .trueBasic {
+                background-color:  green;                
+            }
+            
+            .trueAdvanced {
+                background-color: orange;
+            }
+            
+            .difficultyNote {
+                background-color:  lightblue;
+            }
+            
+            .instrumentationNote {
+                background-color: orange;
+            }
+                
         </style>
     </head>
       
@@ -270,7 +287,7 @@
                             <td id="moreClarinets" class="instrument">C+</td>
                             <td id="moreSaxophones" class="instrument">X+</td>
                             <td id="moreHorns" class="instrument">H+</td>
-                            <td id="twoTrumpets" class="instrument">T+</td>
+                            <td id="moreTrumpets" class="instrument">T+</td>
                             <td id="moreTrombones" class="instrument">R+</td>
                             <td id="oboe" class="instrument">O</td>
                             <td id="bassoon" class="instrument">OO</td>
@@ -287,7 +304,8 @@
             </div>
         </div>        
 
-        <p>&copy; 2017 Seth Taft</p>
+        <p>Version 0.17.3.24.21.43 <br />
+        &copy; 2017 Seth Taft</p>
 
         <script>
             //Link Buttons
@@ -344,23 +362,6 @@
 
             var currentPiece = {
                 title: "None Selected",
-                //elementOne: 0,
-                //elementTwo: 0,
-                //elementThree: 0,
-                //elementFour: 0,
-                //elementFive: 0,
-                //elementSix: 0,
-                //flutes: null,
-                //clarinets: null,
-                //saxophones: null,
-                //oboe: null,
-                //bassoon: null,
-                //trumpets: null,
-                //horns: null,
-                //trombones: null,
-                //baritone: null,
-                //tuba: null,
-                percussion: null,
                 difficultyNotes: [],
                 instrumentationNotes: []
             };
@@ -427,6 +428,81 @@
                 };
             };
 
+            function changeInstrumentation(piece) {
+                $('.trueBasic').removeClass('trueBasic');
+                $('.trueAdvanced').removeClass('trueAdvanced');
+
+                $('#oneFlute').addClass('trueBasic');
+                $('#twoClarinets').addClass('trueBasic');
+                $('#threeSaxophones').addClass('trueBasic');
+                $('#oneHorn').addClass('trueBasic');
+                $('#twoTrumpets').addClass('trueBasic');
+                $('#oneTrombone').addClass('trueBasic');
+                $('#fourPercussion').addClass('trueBasic');
+
+                if (piece['Baritone'] == 'Yes') {
+                    $('#baritone').addClass('trueBasic');
+                };
+
+                if (piece['Tuba'] == 'Yes') {
+                    $('#tuba').addClass('trueBasic');
+                };
+
+                if (piece['Flutes'] == '2+') {
+                    $('#moreFlutes').addClass('trueAdvanced');
+                };
+
+                if (piece['Clarinets'] == '3+') {
+                    $('#moreClarinets').addClass('trueAdvanced');
+                };
+
+                if (piece['Saxophones'] == 'AATB') {
+                    $('#moreSaxophones').addClass('trueAdvanced');
+                };
+
+                if (piece['Oboe'] == 'Yes') {
+                    $('#oboe').addClass('trueAdvanced');
+                };
+
+                if (piece['Bassoon'] == 'Yes') {
+                    $('#bassoon').addClass('trueAdvanced');
+                };
+
+                if (piece['Trombones'] == '2+') {
+                    $('#moreTrombones').addClass('trueAdvanced');
+                };
+
+                if (piece['Trumpets'] == '3+') {
+                    $('#moreTrumpets').addClass('trueAdvanced');
+                };
+
+                if (piece['Horns'] == '2+') {
+                    $('#moreHorns').addClass('trueAdvanced');
+                };
+
+                if (piece['Percussion'] == '5+') {
+                    $('#morePercussion').addClass('trueAdvanced');
+                };
+            };
+
+            function addNotes(piece) {
+                $('#notesPane').empty();
+
+                if (piece['Difficulty Notes'].length == 0 && piece['Instrumentation Notes'].length == 0) {
+                    $('#notesPane').append('No Notes Yet');
+                };
+
+                //COMBINE FUNCTIONS SO NOTES ALTERNATE
+
+                for (var g = 0; g < piece['Difficulty Notes'].length; g++) {
+                    $('#notesPane').append('<div class="difficultyNote">' + piece['Difficulty Notes'][g] + '</div>');
+                };
+
+                for (var g = 0; g < piece['Instrumentation Notes'].length; g++) {
+                    $('#notesPane').append('<div class="instrumentationNote">' + piece['Instrumentation Notes'][g] + '</div>');
+                };
+            };
+
             function createClickablePiecesANDdisplayGraph() {
                 $('.pieceSelect').on('click', function () {
                     $('.selectedPiece').removeClass('selectedPiece');
@@ -444,6 +520,8 @@
                     currentPiece.elementFive = activePieceList[idNo]['Tonality'] / 1;
                     currentPiece.elementSix = activePieceList[idNo]['Range'] / 1;
 
+                    changeInstrumentation(activePieceList[idNo]);
+                    addNotes(activePieceList[idNo]);
                     createGraph();
                 });
             };
@@ -528,8 +606,6 @@
                     pieceInQuestion['Tuba'] = findMode(pieceInQuestion['Tuba'], "Yes");
                     pieceInQuestion['Percussion'] = findMode(pieceInQuestion['Percussion'], '1-4');
                 };
-
-                alert(JSON.stringify(pieceInQuestion));
 
                 return pieceInQuestion;
             };
