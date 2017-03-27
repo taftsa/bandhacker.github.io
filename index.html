@@ -239,6 +239,22 @@
                 margin-left:  1%;
                 width:  97%;
             }
+            
+            #trainingLink {
+                position:  fixed;
+                bottom:  0;
+                right:  2%;
+                width:  20%;
+                height:  5%;
+                background-color: orange;
+                text-align: center;
+                border-top:  1px solid black;
+                cursor:  default;
+            }
+            
+            #trainingLink:hover {
+                background-color: yellow;
+            }
                 
         </style>
     </head>
@@ -323,6 +339,10 @@
 
         <p>Version 0.2 (Beta) <br />
         &copy; 2017 Seth Taft</p>
+
+        <div id="trainingLink" onclick="openWindow('training.html')">
+            New? Take the Training!
+        </div>
 
         <script>
             //Link Buttons
@@ -536,13 +556,12 @@
                     $('#moreHorns').addClass('trueAdvanced');
                 };
 
-                if ((piece['Percussion'] / 1) > 5) {
-                    $('#sixPercussion').removeClassClass('trueBasic');
+                if ((piece['Percussion']) > 5) {
+                    $('#sixPercussion').removeClass('trueBasic');
                     $('#sixPercussion').addClass('trueAdvanced');
                 };
 
                 $('#numberOfPercussion').html(piece['Percussion']);
-                //$('#numberOfPercussion').append(piece['Percussion']);
             };
 
             function addNotes(piece) {
@@ -551,8 +570,6 @@
                 if (piece['Difficulty Notes'].length == 0 && piece['Instrumentation Notes'].length == 0) {
                     $('#notesPane').append('No Notes Yet');
                 };
-
-                //COMBINE FUNCTIONS SO NOTES ALTERNATE
 
                 for (var g = 0; g < piece['Difficulty Notes'].length; g++) {
                     $('#notesPane').append('<div class="difficultyNote">' + piece['Difficulty Notes'][g] + '</div>');
@@ -642,18 +659,24 @@
                             pieceInQuestion['Trombones'].push(pieceList[a]['Trombones']);
                             pieceInQuestion['Baritone'].push(pieceList[a]['Baritone']);
                             pieceInQuestion['Tuba'].push(pieceList[a]['Tuba']);
-                            pieceInQuestion['Percussion'].push(pieceList[a]['Percussion']);
-                            pieceInQuestion['Difficulty Notes'].push(pieceList[a]['Difficulty Notes']);
-                            pieceInQuestion['Instrumentation Notes'].push(pieceList[a]['Instrumentation Notes']);
+                            pieceInQuestion['Percussion'].push(pieceList[a]['Percussion'] / 1);
+
+                            if (pieceList[a]['Difficulty Notes'] !== "") {
+                                pieceInQuestion['Difficulty Notes'].push(pieceList[a]['Difficulty Notes']);
+                            };                            
+
+                            if (pieceList[a]['Instrumentation Notes'] !== "") {
+                                pieceInQuestion['Instrumentation Notes'].push(pieceList[a]['Instrumentation Notes']);
+                            };
                         };
                     };
 
-                    pieceInQuestion['Rapidity'] = findMean(pieceInQuestion['Rapidity']);
-                    pieceInQuestion['Rhythm'] = findMean(pieceInQuestion['Rhythm']);
-                    pieceInQuestion['Dynamics'] = findMean(pieceInQuestion['Dynamics']);
-                    pieceInQuestion['Texture'] = findMean(pieceInQuestion['Texture']);
-                    pieceInQuestion['Tonality'] = findMean(pieceInQuestion['Tonality']);
-                    pieceInQuestion['Range'] = findMean(pieceInQuestion['Range']);
+                    pieceInQuestion['Rapidity'] = Math.round(findMean(pieceInQuestion['Rapidity']));
+                    pieceInQuestion['Rhythm'] = Math.round(findMean(pieceInQuestion['Rhythm']));
+                    pieceInQuestion['Dynamics'] = Math.round(findMean(pieceInQuestion['Dynamics']));
+                    pieceInQuestion['Texture'] = Math.round(findMean(pieceInQuestion['Texture']));
+                    pieceInQuestion['Tonality'] = Math.round(findMean(pieceInQuestion['Tonality']));
+                    pieceInQuestion['Range'] = Math.round(findMean(pieceInQuestion['Range']));
                     pieceInQuestion['Flutes'] = findMode(pieceInQuestion['Flutes'], '1');
                     pieceInQuestion['Clarinets'] = findMode(pieceInQuestion['Clarinets'], '1-2');
                     pieceInQuestion['Saxophones'] = findMode(pieceInQuestion['Saxophones'], 'ATB');
@@ -664,7 +687,7 @@
                     pieceInQuestion['Trombones'] = findMode(pieceInQuestion['Trombones'], '1');
                     pieceInQuestion['Baritone'] = findMode(pieceInQuestion['Baritone'], 'Yes');
                     pieceInQuestion['Tuba'] = findMode(pieceInQuestion['Tuba'], "Yes");
-                    pieceInQuestion['Percussion'] = findMode(pieceInQuestion['Percussion'], '1-4');
+                    pieceInQuestion['Percussion'] = Math.ceil(findMean(pieceInQuestion['Percussion']));
                 };
 
                 return pieceInQuestion;
