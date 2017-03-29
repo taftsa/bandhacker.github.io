@@ -255,6 +255,43 @@
             #trainingLink:hover {
                 background-color: yellow;
             }
+            
+            #pageCover {
+                position:  fixed;
+                top:  0;
+                bottom:  0;
+                left:  0;
+                right:  0;
+                background-color: black;
+                opacity:  0.5;
+            }
+            
+            #tutorialPane {
+                background-color: white;
+                border:  1px solid black;
+                position:  fixed;
+                top: 5%;
+                bottom:  6%;
+                right:  20%;
+                left:  20%;
+                opacity:  1.0;
+            }
+            
+            #closeTutorial {
+                position:  fixed;
+                bottom:  0;
+                right:  2%;
+                width:  20%;
+                height:  5%;
+                background-color: red;
+                text-align: center;
+                border-top:  1px solid black;
+                cursor:  default;
+            }
+            
+            #closeTutorial:hover {
+                background-color: #ee5757;
+            }
                 
         </style>
     </head>
@@ -337,14 +374,35 @@
             </div>
         </div>        
 
-        <p>Version 0.2 (Beta) <br />
+        <p>Version 0.2.1 (Beta) <br />
         &copy; 2017 Seth Taft</p>
 
-        <div id="trainingLink" onclick="openWindow('training.html')">
-            New? Take the Training!
+        <div id="trainingLink" onclick="openTutorial()">
+            New? Read the Tutorial!
         </div>
 
         <script>
+            function openTutorial() {
+                $('body').append('<div id="pageCover"></div>');
+                $('body').append('<div id="tutorialPane"></div>');
+                $('#tutorialPane').html('<object type="text/html" data="training.html" width="100%" height="100%"></object>');
+                $('body').append('<div id="closeTutorial" onclick="closeTutorial()">Close</div>');
+            };
+
+            function closeTutorial() {
+                $('#pageCover').remove();
+                $('#tutorialPane').remove();
+                $('#closeTutorial').remove();
+            };
+
+            function clearCommentsAndInstrumentation() {
+                $('#notesPane').empty();
+                $('#numberOfPercussion').empty();
+                $('#databasePane').empty();
+                $('.trueBasic').removeClass('trueBasic');
+                $('.trueAdvanced').removeClass('trueAdvanced');
+            };
+
             //Link Buttons
             function openWindow(url) {
                 var win = window.open(url, '_blank');
@@ -663,7 +721,7 @@
 
                             if (pieceList[a]['Difficulty Notes'] !== "") {
                                 pieceInQuestion['Difficulty Notes'].push(pieceList[a]['Difficulty Notes']);
-                            };                            
+                            };
 
                             if (pieceList[a]['Instrumentation Notes'] !== "") {
                                 pieceInQuestion['Instrumentation Notes'].push(pieceList[a]['Instrumentation Notes']);
@@ -763,6 +821,8 @@
 
             //Login Button
             $('#loginButton').on('click', function () {
+                clearCommentsAndInstrumentation();
+
                 //Check login and load data
                 var emailAttempt = document.getElementById('userEmail').value.toString();
                 var bandAttempt = document.getElementById('userBand').value.toString();
