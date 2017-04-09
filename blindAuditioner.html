@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script src="jquery-1.12.3.js"></script>
+        <script src="jquery-ui.js"></script>
+
+        <style>
+            .fileDiv {
+                border:  1px solid green;
+                width:  40%;
+                margin:  1px;
+            }
+            
+            * {
+                vertical-align: top;
+            }
+            
+            body::-webkit-scrollbar {
+                width: 6px;
+            }
+ 
+            body::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+                border-radius: 6px;
+            }
+ 
+            body::-webkit-scrollbar-thumb {
+                border-radius: 6px;
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+            }    
+        </style>
+    </head>
+    <body>
+        <h1>Blind Audition Tool</h1>
+        <input type="file" id="input" multiple /> 
+        <div id="audioList"></div>        
+    </body>    
+</html>
+
+<script>
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    };
+
+    var auditionIds = [];
+
+    function reveal(n) {
+        $("#" + n).html(auditionIds[n]);
+    };
+
+    input.onchange = function (e) {
+        var fileArray = [];
+
+        for (var g = 0; g < this.files.length; g++) {
+            fileArray.push(g);
+        };
+
+        fileArray = shuffle(fileArray);
+
+        for (var i = 0; i < fileArray.length; i++) {
+            var p = fileArray[i];
+            
+            $('#audioList').append('<div class ="fileDiv" id="' + p + '"><audio id="sound' + p + '" controls></audio><input type="button" value="Reveal" onclick="reveal(' + p + ')" /></div>');
+            var sound = document.getElementById('sound' + p);
+            sound.src = URL.createObjectURL(this.files[p]);
+            sound.onend = function (e) {
+                URL.revokeObjectURL(this.src);
+            };
+            auditionIds[p] = this.files[p].name;
+        };
+    };
+</script>
