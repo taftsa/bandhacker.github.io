@@ -18,14 +18,14 @@
         <style>
             body {
                 margin:  0;
-                background-color: #f0ecec;
+                background-color: #F5F5F5;
                 font-family:  'Arial Black';
             }
                      
             #topMenu {
                 width:  100%;
                 height: 70px;
-                background-color: #f10d7d;
+                background-color: black;
                 color:  white;
                 font-size: 3em;                               
             }
@@ -53,7 +53,7 @@
             }
             
             table, th, td {
-                border: solid 1px #bbbbbb;
+                border: solid 1px #7D7D7D;
                 border-collapse: collapse;
                 padding: 2px;
             }
@@ -66,7 +66,7 @@
             #dataPane {
                 vertical-align:  top;
                 display:  inline-block;
-                border:  2px solid #6F4242;
+                border:  2px solid #7D7D7D;
                 border-radius:  2%;
                 height:  380px;
                 width:  28%;
@@ -86,7 +86,7 @@
             }            
            
             .instrument {
-                border: 2px solid #6F4242;
+                border: 2px solid #7D7D7D;
                 height: 18px;
                 width: 23px;
                 font-size: 0.75em;
@@ -96,7 +96,7 @@
             #notesPane {
                 vertical-align:  top;
                 display:  inline-block;
-                border: 2px solid #6F4242;
+                border: 2px solid #7D7D7D;
                 border-radius: 2%;
                 width: 20%;
                 height: 380px;
@@ -120,7 +120,7 @@
                        
             #databasePane {
                 display:  inline-block;
-                border:  2px solid #6F4242;
+                border:  2px solid #7D7D7D;
                 border-radius:  2%;
                 height: 380px;
                 width:  50%;
@@ -266,9 +266,8 @@
                 right:  23%;
                 width:  20%;
                 height:  5%;
-                background-color: blue;
+                background-color: white;
                 text-align: center;
-                border-top:  1px solid black;
                 cursor:  default;
             }
             
@@ -282,14 +281,13 @@
                 right:  2%;
                 width:  20%;
                 height:  5%;
-                background-color: orange;
+                background-color: white;
                 text-align: center;
-                border-top:  1px solid black;
                 cursor:  default;
             }
             
             #trainingLink:hover {
-                background-color: yellow;
+                background-color: lightblue;
             }
             
             #pageCover {
@@ -319,9 +317,8 @@
                 right:  2%;
                 width:  20%;
                 height:  5%;
-                background-color: red;
+                background-color: white;
                 text-align: center;
-                border-top:  1px solid black;
                 cursor:  default;
             }
             
@@ -335,9 +332,8 @@
                 right:  23%;
                 width:  20%;
                 height:  5%;
-                background-color: red;
+                background-color: white;
                 text-align: center;
-                border-top:  1px solid black;
                 cursor:  default;
             }
             
@@ -424,7 +420,7 @@
             </div>
         </div>        
 
-        <p>Version 0.2.3 (Beta) <br />
+        <p>Version 0.2.4 (Beta) <br />
         &copy; 2017 Seth Taft</p>
 
         <div id="otherTools" onclick="openOther()">Other Tools</div>
@@ -792,11 +788,23 @@
                             pieceInQuestion['Number of Ratings']++;
 
                             if (pieceList[a]['Difficulty Notes'] !== "") {
-                                pieceInQuestion['Difficulty Notes'].push(pieceList[a]['Difficulty Notes']);
+                                var diff = pieceList[a]['Difficulty Notes'];
+                                var diff2 = diff.split('.');
+
+                                for (var h = 0; h < (diff2.length - 1); h++) {
+                                    var thisn = diff2[h] + '.';
+                                    pieceInQuestion['Difficulty Notes'].push(thisn);
+                                };
                             };
 
                             if (pieceList[a]['Instrumentation Notes'] !== "") {
-                                pieceInQuestion['Instrumentation Notes'].push(pieceList[a]['Instrumentation Notes']);
+                                var diff = pieceList[a]['Instrumentation Notes'];
+                                var diff2 = diff.split('.');
+
+                                for (var h = 0; h < (diff2.length - 1); h++) {
+                                    var thisn = diff2[h] + '.';
+                                    pieceInQuestion['Instrumentation Notes'].push(thisn);
+                                };
                             };
                         };
                     };
@@ -987,8 +995,8 @@
 
                                                 $('#loadPieceList').html('Loaded!');
                                                 $('#loadPieceList').css('background-color', "Green");
-                                                
-                                                activePieceList.sort(function(a,b) {return (a['Title'] > b['Title']) ? 1 : ((b['Title'] > a['Title']) ? -1 : 0);} );
+
+                                                activePieceList.sort(function (a, b) { return (a['Title'] > b['Title']) ? 1 : ((b['Title'] > a['Title']) ? -1 : 0); });
 
                                                 pieceListLoading = false;
 
