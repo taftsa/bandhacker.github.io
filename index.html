@@ -16,6 +16,10 @@
         <script src="jquery-ui.js"></script>
 
         <style>
+            #optionsMenu {
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+            
             body {
                 margin:  0;
                 background-color: #F5F5F5;
@@ -24,31 +28,18 @@
                      
             #topMenu {
                 width:  100%;
-                height: 70px;
+                height: 46px;
                 background-color: black;
                 color:  white;
-                font-size: 3em;                               
+                font-size: 2em;                               
             }
             
             #title {
-                height:  100%;
                 display:  inline-block;
-                text-align: center;
             }
-            
-            .break {
-                width:  2.5%;
-                height: 100%;
-                display:  inline-block;
-                font-size:  0.4em;
-                padding:  0;
-                vertical-align: top;
-            }
-            
+                       
             .logo {
-                height: 100%;
                 display:  inline-block;
-                padding:  0;
                 vertical-align: top;
             }
             
@@ -59,8 +50,7 @@
             }
 
             #pageText {
-                height: 400px;
-                margin-top:  5px;
+                margin-top:  10px;
             }
             
             #dataPane {
@@ -70,19 +60,21 @@
                 border-radius:  2%;
                 height:  380px;
                 width:  28%;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           }
             
-            #userPane {
+            #canvasContainer {
                 height: 320px;
                 width:  320px;
                 margin: 0 auto;
+                margin-bottom:  5px;
             }
             
             #instrumentationPane {
                 vertical-align:  top;
                 height: 60px;
                 width:  250px;
-                margin:  0 auto;
+                margin:  0 auto;                
             }            
            
             .instrument {
@@ -102,6 +94,7 @@
                 height: 380px;
                 overflow-y: scroll;
                 text-align: center;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
             }
             
             #notesPane::-webkit-scrollbar {
@@ -126,6 +119,7 @@
                 width:  50%;
                 overflow-y: scroll;
                 text-align: center;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);    
             }
             
             #databasePane::-webkit-scrollbar {
@@ -145,54 +139,33 @@
             input {
                 display:  block;
                 margin:  auto;
-            }
-            
-            .topForm {
-                width:  12%;
-                height: 100%;
-                display:  inline-block;
-                font-size:  0.4em;
-                padding:  0;
-                vertical-align: top;
-            }
-            
-            .topButton {
-                width:  8%;
-                height: 100%;
-                display:  inline-block;
-                font-size:  0.4em;
-                color:  white;
-                text-align:  center;
-                padding:  0;
-                vertical-align: top;              
-            }
-            
+            }     
+      
             .dbOption {
                 vertical-align:  top;
                 display:  inline-block;
-                width:  12.5%;
-                height: 25px;
+                width:  14.2857%;
+                height: 22px;
                 text-align: center;
                 color:  white;
                 cursor:  default;
+                border-top:  1px solid white;
+                font-size:  0.9em;
             }
             
-            .a {
+            .dbOption.a {
                 background:  #636363;
             }
             
-            .b {
+            .dbOption.b {
                 background:  #7D7D7D;
             }
 
-         .dbOption:hover {
-                background: tan;
-            }
-            
-            #loadPieceList {
-                background-color: red;
-            }
-            
+            .dbOption:hover {
+                color: lightblue;
+                border-top:  1px solid lightblue;
+            }            
+                     
             .selectedPiece {
                 background-color: yellow;
             }
@@ -205,7 +178,7 @@
                 width: 95%;
             }
             
-           th {
+            th {
                 background-color: black;
                 color:  white;
             }
@@ -263,12 +236,13 @@
             #otherTools {
                 position:  fixed;
                 bottom:  0;
-                right:  23%;
-                width:  20%;
+                right:  18%;
+                width:  15%;
                 height:  5%;
                 background-color: white;
                 text-align: center;
                 cursor:  default;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
             
             #otherTools:hover {
@@ -279,11 +253,12 @@
                 position:  fixed;
                 bottom:  0;
                 right:  2%;
-                width:  20%;
+                width:  15%;
                 height:  5%;
                 background-color: white;
                 text-align: center;
                 cursor:  default;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
             
             #trainingLink:hover {
@@ -302,155 +277,217 @@
             
             #overlayPane {
                 background-color: white;
-                border:  1px solid black;
                 position:  fixed;
                 top: 5%;
                 bottom:  6%;
                 right:  20%;
                 left:  20%;
                 opacity:  1.0;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+
+            #buffer{
+                height: 20%;
             }
             
-            #closeTutorial {
-                position:  fixed;
-                bottom:  0;
-                right:  2%;
-                width:  20%;
-                height:  5%;
-                background-color: white;
-                text-align: center;
-                cursor:  default;
+            #userEmail, #userBand {
+                width: 80%;
+                display: block;
+                outline: none;
+                border: none;
+                border-left: 2px solid black;
+                height: 25px;
+                line-height: 25px;
+                font-size: 16px;
+                padding: 0;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                margin-top:  8px;
+            }
+
+            #loginButton, #newAccountButton {
+                background: black;
+                border: none;
+                padding: 10px 20px 10px 20px;
+                border-bottom: 3px solid white;
+                border-radius: 3px;
+                color: white;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                margin-top:  8px;
             }
             
-            #closeTutorial:hover {
-                background-color: #ee5757;
-            }
+            #loginButton:hover, #newAccountButton:hover {
+                border-bottom: 3px solid lightblue;
+                color: lightblue;
+            }          
             
-            #closeOther {
-                position:  fixed;
-                bottom:  0;
-                right:  23%;
-                width:  20%;
-                height:  5%;
-                background-color: white;
-                text-align: center;
-                cursor:  default;
+            #intro {
+                width:  80%;
+                margin:  auto;
+                background-color:  black;
+                color:  white;
+                margin-top:  10%;
+                font-size:  1.6em;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             }
-            
-            #closeOther:hover {
-                background-color: #ee5757;
-            }                
+
+            .loader {
+                left: 50%;
+                top: 50%;
+                z-index: 1;
+                width: 60px;
+                height: 60px;
+                margin: 40% auto;
+                border: 8px solid grey;
+                border-radius: 50%;
+                border-top: 8px solid lightblue;
+                animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }         
         </style>
     </head>
       
     <body>
         <div id="topMenu">
-            <div class="break"></div>
-            <div class="logo"><a href="http://optimal-efficient.github.io"><img src="oe.png" height="68px" alt="optimal.efficient"/></a></div>
-            <div class="break"></div>
-            <div id="title">optimal.efficient</div>
-            <div class="topForm">
-                
-            </div>
-            <div class="topForm">
-                <form autocomplete="on">
-                    <input name="userEmail" type="text" placeholder="email" id="userEmail">
-                    <input name="userBandName" type="text" placeholder="band name" id="userBand">
-                </form>
-            </div>
-            <div class="topButton">
-                    
-            </div>
-            <div class="topButton">
-                <input type="button" name="login" value="Load Band" id="loginButton">
-                <a href="https://docs.google.com/forms/d/e/1FAIpQLSf7CKt6BjXfYagKP9XWO74g6PdyYAiAoWhEcvCfUinXGbpcDA/viewform" style="text-decoration:none" target="_blank">
-                    <input type="button" name="newAccount" value="New Band" id="newAccountButton">
-                </a>                
-          </div>
+            <div class="logo"><a href="http://optimal-efficient.github.io"><img src="oe.png" height="42px" alt="optimal.efficient"/></a></div>
+            <div id="title">optimal.efficient</div>          
         </div>
 
-        <div id="optionsMenu">
-            <div class="dbOption" id="loadPieceList">Load Piece List
-            </div><div class="dbOption a" id="search">Search
-            </div><div class="dbOption b" id="listOptimal">List Optimal
-            </div><div class="dbOption a" id="listAllPlayable">List Playable
-            </div><div class="dbOption b" id="listChallenge">List Challenging
-            </div><div class="dbOption a" id="listAll">List All
-            </div><div class="dbOption b" id="submitAnalysis">Submit Analysis
+        <div id="optionsMenu">        
+            <div class="dbOption a" id="search" onclick="searchForPiece();">Search
+            </div><div class="dbOption b" id="listOptimal" onclick="listOptimalPieces();">List Optimal
+            </div><div class="dbOption a" id="listAllPlayable" onclick="listPlayablePieces();">List Playable
+            </div><div class="dbOption b" id="listChallenge" onclick="listChallengePieces();">List Challenging
+            </div><div class="dbOption a" id="listAll" onclick="listAllPieces();">List All
+            </div><div class="dbOption b" id="submitAnalysis" onclick="openWindow('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform')">Submit Analysis
             </div><div class="dbOption a" id="reportDuplicate">Report Duplicate</div>            
         </div>
 
         <div id="pageText">
             <div id="dataPane">
-                <div id="userPane">
-                    <canvas id="myBand" width="320" height="320"></canvas>
-                </div>
-                <div id="instrumentationPane">
-                    <table id="instrumentationTable">
-                        <tr>
-                            <td id="oneFlute" class="instrument">F</td>
-                            <td id="twoClarinets" class="instrument">C</td>
-                            <td id="threeSaxophones" class="instrument">X</td>
-                            <td id="oneHorn" class="instrument">H</td>
-                            <td id="twoTrumpets" class="instrument">T</td>
-                            <td id="oneTrombone" class="instrument">R</td>
-                            <td id="baritone" class="instrument">B</td>
-                            <td id="tuba" class="instrument">U</td>
-                            <td id="sixPercussion" class="instrument">P</td>
-                        </tr>
-                        <tr>
-                            <td id="moreFlutes" class="instrument">F+</td>
-                            <td id="moreClarinets" class="instrument">C+</td>
-                            <td id="moreSaxophones" class="instrument">X+</td>
-                            <td id="moreHorns" class="instrument">H+</td>
-                            <td id="moreTrumpets" class="instrument">T+</td>
-                            <td id="moreTrombones" class="instrument">R+</td>
-                            <td id="oboe" class="instrument">O</td>
-                            <td id="bassoon" class="instrument">OO</td>
-                            <td id="numberOfPercussion" class="instrument"></td>
-                        </tr>
-                    </table>
-                </div>                
+                <div id="buffer"></div>
+                    <form autocomplete="on">
+                        <input name="userEmail" type="text" placeholder="email" id="userEmail">
+                        <input name="userBandName" type="text" placeholder="band name" id="userBand">
+                        <input type="button" name="login" value="Load Band" id="loginButton">
+                        <input type="button" name="newAccount" value="New Band" id="newAccountButton" onclick="openWindow('https://docs.google.com/forms/d/e/1FAIpQLSf7CKt6BjXfYagKP9XWO74g6PdyYAiAoWhEcvCfUinXGbpcDA/viewform')">
+                    </form>                               
             </div>
-            <div id="notesPane">
-
-            </div>
+            <div id="notesPane"></div>
             <div id="databasePane">
-
+                <div id="intro">New? Check out the tutorial below!</div>
             </div>
         </div>        
 
-        <p>Version 0.2.4 (Beta) <br />
+        <p>Version 0.3.0 (Beta) <br />
         &copy; 2017 Seth Taft</p>
 
         <div id="otherTools" onclick="openOther()">Other Tools</div>
-        <div id="trainingLink" onclick="openTutorial()">New? Read the Tutorial!</div>
+        <div id="trainingLink" onclick="openTutorial()">Tutorial</div>
 
         <script>
+            //Variables
+            var currentUser = {
+                user: null,
+                elementOne: 0,
+                elementTwo: 0,
+                elementThree: 0,
+                elementFour: 0,
+                elementFive: 0,
+                elementSix: 0
+            };
+
+            var currentPiece = {
+                title: "None Selected",
+                difficultyNotes: [],
+                instrumentationNotes: []
+            };
+
+            var activePieceList = [];
+            var listOfUsers;
+            var pieceList;
+            var numberOfPieces;
+            var piecesLoaded = false;
+            var searchFor;
+            var searchTitle;
+            var searchComposer;
+            var searchArranger;
+            var cookiesExist;
+
+            //Startup
+            Tabletop.init({ key: '1Wo1RArWUmqVJ9KBjiT2W7B4Tx3KeUsy1sPYPjulcr5I',
+                callback: function (data, tabletop) {
+                    listOfUsers = data;
+                },
+                simpleSheet: true
+            });
+
+            if (getCookie("band") !== "" && getCookie("email") !== "") {
+                cookiesExist = true;
+                document.getElementById('userEmail').value = getCookie('email');
+                document.getElementById('userBand').value = getCookie('band');
+            };
+
+            //Functions
+            function addGraphCanvas() {
+                $('#dataPane').empty();
+                $('#dataPane').append(
+                '<div id="canvasContainer">' +
+                    '<canvas id="myBand" width="320" height="320"></canvas>' +
+                '</div>' +
+                '<div id="instrumentationPane">' +
+                    '<table id="instrumentationTable">' +
+                        '<tr>' +
+                            '<td id="oneFlute" class="instrument">F</td>' +
+                            '<td id="twoClarinets" class="instrument">C</td>' +
+                            '<td id="threeSaxophones" class="instrument">X</td>' +
+                            '<td id="oneHorn" class="instrument">H</td>' +
+                            '<td id="twoTrumpets" class="instrument">T</td>' +
+                            '<td id="oneTrombone" class="instrument">R</td>' +
+                            '<td id="baritone" class="instrument">B</td>' +
+                            '<td id="tuba" class="instrument">U</td>' +
+                            '<td id="sixPercussion" class="instrument">P</td>' +
+                        '</tr>' +
+                        '<tr>' +
+                            '<td id="moreFlutes" class="instrument">F+</td>' +
+                            '<td id="moreClarinets" class="instrument">C+</td>' +
+                            '<td id="moreSaxophones" class="instrument">X+</td>' +
+                            '<td id="moreHorns" class="instrument">H+</td>' +
+                            '<td id="moreTrumpets" class="instrument">T+</td>' +
+                            '<td id="moreTrombones" class="instrument">R+</td>' +
+                            '<td id="oboe" class="instrument">O</td>' +
+                            '<td id="bassoon" class="instrument">OO</td>' +
+                            '<td id="numberOfPercussion" class="instrument"></td>' +
+                       '</tr>' +
+                    '</table>' +
+                '</div>'
+                );
+            };
+
             function openOther() {
-                $('body').append('<div id="pageCover"></div>');
+                $('body').append('<div id="pageCover" onclick="closeOverlay()"></div>');
                 $('body').append('<div id="overlayPane"></div>');
                 $('#overlayPane').html('<object type="text/html" data="blindAuditioner.html" width="100%" height="100%"></object>');
-                $('body').append('<div id="closeOther" onclick="closeOther()">Close</div>');
             };
 
             function openTutorial() {
-                $('body').append('<div id="pageCover"></div>');
+                $('body').append('<div id="pageCover" onclick="closeOverlay()"></div>');
                 $('body').append('<div id="overlayPane"></div>');
                 $('#overlayPane').html('<object type="text/html" data="training.html" width="100%" height="100%"></object>');
-                $('body').append('<div id="closeTutorial" onclick="closeTutorial()">Close</div>');
             };
 
-            function closeTutorial() {
+            function closeOverlay() {
                 $('#pageCover').remove();
                 $('#overlayPane').remove();
                 $('#closeTutorial').remove();
-            };
-
-            function closeOther() {
-                $('#pageCover').remove();
-                $('#overlayPane').remove();
-                $('#closeOther').remove();
             };
 
             function clearCommentsAndInstrumentation() {
@@ -471,14 +508,11 @@
                 };
             };
 
-            $('#submitAnalysis').click(function () {
-                openWindow('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform');
-            });
-
             $('#reportDuplicate').click(function () {
                 openWindow('mailto:optimal.efficient@gmail.com?subject=Possible%20Duplicate%20Piece&body=I have discovered a possible duplicate piece in the optimal.efficient database. The two entries are...');
             });
 
+            //Mobile
             function detectmob() {
                 if (navigator.userAgent.match(/Android/i)
                          || navigator.userAgent.match(/webOS/i)
@@ -499,6 +533,7 @@
                 alert('This site is not optimized for mobile. For best results, use your desktop or laptop.')
             };
 
+            //Cookies
             function setCookie(cname, cvalue, exdays) {
                 var d = new Date();
                 d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -521,34 +556,7 @@
                 return "";
             };
 
-            //VARIABLE DEFINITIONS
-            var currentUser = {
-                user: null,
-                elementOne: 0,
-                elementTwo: 0,
-                elementThree: 0,
-                elementFour: 0,
-                elementFive: 0,
-                elementSix: 0
-            };
-
-            var currentPiece = {
-                title: "None Selected",
-                difficultyNotes: [],
-                instrumentationNotes: []
-            };
-
-            var activePieceList = [];
-            var currentSheet;
-            var pieceList;
-            var numberOfPieces;
-            var searchFor;
-            var searchTitle;
-            var searchComposer;
-            var searchArranger;
-            var pieceListLoaded = false;
-            var pieceListLoading = false;
-
+            //Math
             function findMean(array) {
                 var mean = 0;
 
@@ -591,12 +599,6 @@
                 }
                 else {
                     return largestValue;
-                };
-            };
-
-            function unloadPiece() {
-                currentPiece = {
-                    title: "None Selected"
                 };
             };
 
@@ -704,6 +706,34 @@
                 };
             };
 
+            function loadPieces(callback) {
+                Tabletop.init({ key: "1vptbIS_PexH6J8N8KRm1EfJ6nj5rAKmImzLk3_j2eew",
+                    callback: function (data, tabletop) {
+                        pieceList = data;
+                        numberOfPieces = pieceList.length;
+                        var g = 0;
+                        activePieceList = [];
+
+                        for (var i = 0; i < numberOfPieces; i++) {
+                            var testTwo = checkForDuplicates(i);
+
+                            if (testTwo !== false) {
+                                activePieceList.push(testTwo);
+                                g++;
+                            };
+                        };
+
+                        numberOfPieces = activePieceList.length;
+                        activePieceList.sort(function (a, b) { return (a['Title'] > b['Title']) ? 1 : ((b['Title'] > a['Title']) ? -1 : 0); });
+                        pieceListLoading = false;
+
+                        piecesLoaded = true;
+                        if (callback) { callback(); };
+                    },
+                    simpleSheet: true
+                });
+            };
+
             function createClickablePiecesANDdisplayGraph() {
                 $('.pieceSelect').on('click', function () {
                     $('.selectedPiece').removeClass('selectedPiece');
@@ -711,7 +741,9 @@
 
                     var idNo = $(this).attr("id") / 1;
 
-                    unloadPiece();
+                    currentPiece = {
+                        title: "None Selected"
+                    };
 
                     currentPiece.title = activePieceList[idNo]['Title'];
                     currentPiece.elementOne = activePieceList[idNo]['Rapidity'] / 1;
@@ -889,20 +921,141 @@
                 });
             };
 
+            function listAllPieces() {
+                if (piecesLoaded) {
+                    $('#databasePane').empty();
+                    $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
 
-            //Cookies
-            var cookiesExist;
+                    for (var i = 0; i < numberOfPieces; i++) {
+                        var loadInfo = activePieceList[i];
 
-            if (getCookie("band") !== "" && getCookie("email") !== "") {
-                cookiesExist = true;
-                document.getElementById('userEmail').value = getCookie('email');
-                document.getElementById('userBand').value = getCookie('band');
+                        $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + loadInfo['Title'] + '</td><td>' + loadInfo['Composer'] + '</td><td>' + loadInfo['Arranger'] + '</td><td>' + loadInfo['Publisher'] + '</td></tr>')
+
+                    };
+                    createClickablePiecesANDdisplayGraph();
+                };
+            };
+
+            function searchForPiece() {
+                if (piecesLoaded) {
+                    //Generate Search Screen
+                    $('#databasePane').empty();
+                    $('#databasePane').append(
+                                        'Search Title<input id="searchTitle" type="checkbox" name="searchIn" value="Title">' +
+                                        'Search Composer<input id="searchComposer" type="checkbox" name="searchIn" value="Composer">' +
+                                        'Search Arranger<input id="searchArranger" type="checkbox" name="searchIn" value="Arranger"><br />'
+                                    );
+                    $('#databasePane').append('<input name="searchTerm" type="text" placeholder="search for a piece" id="searchTerm"><br />');
+                    $('#databasePane').append('<input type="button" name="executeSearch" value="Search" id="searchButton">');
+
+                    //When "Search" is Clicked
+                    $('#searchButton').on('click', function () {
+                        searchTitle = document.getElementById("searchTitle").checked;
+                        searchComposer = document.getElementById("searchComposer").checked;
+                        searchArranger = document.getElementById("searchArranger").checked;
+                        searchFor = document.getElementById('searchTerm').value.toString().toUpperCase();
+
+                        $('#databasePane').empty();
+                        $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
+
+                        for (var i = 0; i < numberOfPieces; i++) {
+                            var trip = false;
+
+                            if (searchTitle && activePieceList[i]['Title'].toUpperCase().search(searchFor) >= 0) {
+                                $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
+
+                                trip = true;
+                            };
+
+                            if (searchComposer && activePieceList[i]['Composer'].toUpperCase().search(searchFor) >= 0 && !trip) {
+                                $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
+
+                                trip = true;
+                            };
+
+                            if (searchArranger && activePieceList[i]['Arranger'].toUpperCase().search(searchFor) >= 0 && !trip) {
+                                $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
+
+                                trip = true;
+                            };
+                        };
+                        createClickablePiecesANDdisplayGraph();
+                    });
+                };
+            };
+
+            function listOptimalPieces() {
+                if (piecesLoaded) {
+                    $('#databasePane').empty();
+                    $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
+
+                    for (var i = 0; i < numberOfPieces; i++) {
+                        if (currentUser.elementOne == activePieceList[i]['Rapidity'] && currentUser.elementTwo == activePieceList[i]['Rhythm'] && currentUser.elementThree == activePieceList[i]['Dynamics'] && currentUser.elementFour == activePieceList[i]['Texture'] && currentUser.elementFive == activePieceList[i]['Tonality'] && currentUser.elementSix == activePieceList[i]['Range']) {
+                            $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
+                        };
+                    };
+
+                    createClickablePiecesANDdisplayGraph();
+                };
+            };
+
+            function listPlayablePieces() {
+                if (piecesLoaded) {
+                    $('#databasePane').empty();
+                    $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
+
+                    for (var i = 0; i < numberOfPieces; i++) {
+                        if (currentUser.elementOne >= activePieceList[i]['Rapidity'] && currentUser.elementTwo >= activePieceList[i]['Rhythm'] && currentUser.elementThree >= activePieceList[i]['Dynamics'] && currentUser.elementFour >= activePieceList[i]['Texture'] && currentUser.elementFive >= activePieceList[i]['Tonality'] && currentUser.elementSix >= activePieceList[i]['Range']) {
+                            $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
+                        };
+                    };
+                    createClickablePiecesANDdisplayGraph();
+                };
+            };
+
+            function listChallengePieces() {
+                if (piecesLoaded) {
+                    $('#databasePane').empty();
+                    $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th><th>Challenge Level</th></tr></table>');
+
+                    var challengeLevel;
+
+                    //Iterate through list of pieces
+                    for (var i = 0; i < numberOfPieces; i++) {
+                        if (!(currentUser.elementOne >= activePieceList[i]['Rapidity'] && currentUser.elementTwo >= activePieceList[i]['Rhythm'] && currentUser.elementThree >= activePieceList[i]['Dynamics'] && currentUser.elementFour >= activePieceList[i]['Texture'] && currentUser.elementFive >= activePieceList[i]['Tonality'] && currentUser.elementSix >= activePieceList[i]['Range']) && (currentUser.elementOne + 1) >= activePieceList[i]['Rapidity'] && (currentUser.elementTwo + 1) >= activePieceList[i]['Rhythm'] && (currentUser.elementThree + 1) >= activePieceList[i]['Dynamics'] && (currentUser.elementFour + 1) >= activePieceList[i]['Texture'] && (currentUser.elementFive + 1) >= activePieceList[i]['Tonality'] && (currentUser.elementSix + 1) >= activePieceList[i]['Range']) {
+
+                            //Add 1 to challengeLevel for each challenge element
+                            challengeLevel = 0;
+
+                            if (currentUser.elementOne < activePieceList[i]['Rapidity']) {
+                                challengeLevel++;
+                            };
+                            if (currentUser.elementTwo < activePieceList[i]['Rhythm']) {
+                                challengeLevel++;
+                            };
+                            if (currentUser.elementThree < activePieceList[i]['Dynamics']) {
+                                challengeLevel++;
+                            };
+                            if (currentUser.elementFour < activePieceList[i]['Texture']) {
+                                challengeLevel++;
+                            };
+                            if (currentUser.elementFive < activePieceList[i]['Tonality']) {
+                                challengeLevel++;
+                            };
+                            if (currentUser.elementSix < activePieceList[i]['Range']) {
+                                challengeLevel++;
+                            };
+
+                            //Append Piece
+                            $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td><td>' + challengeLevel + '</td></tr>');
+                        };
+                    };
+                    createClickablePiecesANDdisplayGraph();
+                };
             };
 
             //Login Button
-            $('#loginButton').on('click', function () {
-                clearCommentsAndInstrumentation();
-
+            $(document).on('click', '#loginButton', function () {
                 //Check login and load data
                 var emailAttempt = document.getElementById('userEmail').value.toString();
                 var bandAttempt = document.getElementById('userBand').value.toString();
@@ -911,277 +1064,61 @@
                 var userList = '1Wo1RArWUmqVJ9KBjiT2W7B4Tx3KeUsy1sPYPjulcr5I';
 
                 //Verify User, Load User Information, and Draw Graph                
-                function init() {
-                    Tabletop.init({ key: userList,
-                        callback: showInfo,
-                        simpleSheet: true
-                    })
-                };
+                var numberOfItems = listOfUsers.length;
+                var userSuccess = false;
 
-                function showInfo(data, tabletop) {
-                    currentSheet = data;
-                    var dataString = JSON.stringify(currentSheet);
-                    var numberOfItems = currentSheet.length;
-                    var userSuccess = false;
+                for (var i = 0; i < numberOfItems; i++) {
 
-                    for (var i = 0; i < numberOfItems; i++) {
+                    //Check Username
+                    if (listOfUsers[i]['Email Address'] === emailAttempt) {
 
-                        //Check Username
-                        if (data[i]['Email Address'] === emailAttempt) {
+                        //Flag Username as Correct
+                        userSuccess = true;
 
-                            //Flag Username as Correct
-                            userSuccess = true;
+                        //Confirm Password
+                        if (listOfUsers[i]['Band Name'] === bandAttempt) {
 
-                            //Confirm Password
-                            if (data[i]['Band Name'] === bandAttempt) {
+                            //Set Current User Info
+                            currentUser.user = (listOfUsers[i]['Band Name']);
+                            currentUser.elementOne = (listOfUsers[i]['Band Skill [Rapidity]'] / 1);
+                            currentUser.elementTwo = (listOfUsers[i]['Band Skill [Rhythm]'] / 1);
+                            currentUser.elementThree = (listOfUsers[i]['Band Skill [Dynamics]'] / 1);
+                            currentUser.elementFour = (listOfUsers[i]['Band Skill [Texture]'] / 1);
+                            currentUser.elementFive = (listOfUsers[i]['Band Skill [Tonality]'] / 1);
+                            currentUser.elementSix = (listOfUsers[i]['Band Skill [Range]'] / 1);
 
-                                //SET UP ALL USABLE FUNCTIONS
+                            //Cookies
+                            if (!cookiesExist || !(emailAttempt == getCookie('email') && bandAttempt == getCookie('band'))) {
+                                var allow = confirm('Remember information using cookies?');
 
-                                //Set Current User Info
-                                currentUser.user = (data[i]['Band Name'])
-                                currentUser.elementOne = (data[i]['Band Skill [Rapidity]'] / 1)
-                                currentUser.elementTwo = (data[i]['Band Skill [Rhythm]'] / 1)
-                                currentUser.elementThree = (data[i]['Band Skill [Dynamics]'] / 1)
-                                currentUser.elementFour = (data[i]['Band Skill [Texture]'] / 1)
-                                currentUser.elementFive = (data[i]['Band Skill [Tonality]'] / 1)
-                                currentUser.elementSix = (data[i]['Band Skill [Range]'] / 1)
-
-                                //Draw the Graph
-                                unloadPiece();
-                                createGraph();
-
-                                //Prepare Database Pane
-                                if (!cookiesExist || !(emailAttempt == getCookie('email') && bandAttempt == getCookie('band'))) {
-                                    var allow = confirm('Remember information using cookies?');
-
-                                    if (allow) {
-                                        setCookie('band', bandAttempt, 14);
-                                        setCookie('email', emailAttempt, 14);
-                                    };
+                                if (allow) {
+                                    setCookie('band', bandAttempt, 14);
+                                    setCookie('email', emailAttempt, 14);
                                 };
+                            };
 
+                            //Prepare Piece List and UI
+                            $('#notesPane').append('<div class="loader"></div>');
+                            $('#dataPane').empty();
+                            $('#databasePane').empty();
 
-                                //When "Load Piece List" is Clicked...
-                                $('#loadPieceList').click(function () {
-                                    if (!pieceListLoading) {
-                                        pieceListLoaded = true;
-                                        pieceListLoading = true;
-
-                                        $(this).html('Loading...');
-                                        $(this).css('background-color', "gray");
-
-                                        var pieceListKey = "1vptbIS_PexH6J8N8KRm1EfJ6nj5rAKmImzLk3_j2eew";
-
-                                        function showInfo2(data, tabletop) {
-                                            pieceList = data;
-                                            var pieceListString = JSON.stringify(pieceList);
-                                            numberOfPieces = pieceList.length;
-
-                                            setTimeout(function () {
-                                                var g = 0;
-
-                                                activePieceList = [];
-
-                                                for (var i = 0; i < numberOfPieces; i++) {
-                                                    var testTwo = checkForDuplicates(i);
-
-                                                    if (testTwo !== false) {
-                                                        activePieceList.push(testTwo);
-                                                        g++;
-                                                    };
-                                                };
-
-                                                numberOfPieces = activePieceList.length;
-
-                                                $('#loadPieceList').html('Loaded!');
-                                                $('#loadPieceList').css('background-color', "Green");
-
-                                                activePieceList.sort(function (a, b) { return (a['Title'] > b['Title']) ? 1 : ((b['Title'] > a['Title']) ? -1 : 0); });
-
-                                                pieceListLoading = false;
-
-                                            }, 1000);
-                                        };
-
-                                        Tabletop.init({ key: pieceListKey,
-                                            callback: showInfo2,
-                                            simpleSheet: true
-                                        });
-                                    };
-                                });
-
-
-                                //If "List All Pieces" is Clicked
-                                $('#listAll').click(function () {
-                                    if (pieceListLoaded) {
-                                        $('#databasePane').empty();
-                                        $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
-
-                                        for (var i = 0; i < numberOfPieces; i++) {
-                                            var loadInfo = activePieceList[i];
-
-                                            $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + loadInfo['Title'] + '</td><td>' + loadInfo['Composer'] + '</td><td>' + loadInfo['Arranger'] + '</td><td>' + loadInfo['Publisher'] + '</td></tr>')
-
-                                        };
-                                    }
-                                    else {
-                                        alert("Load the piece list first.");
-                                    };
-
-                                    createClickablePiecesANDdisplayGraph();
-                                });
-
-
-                                //If "Search for a Piece" is Clicked...                               
-                                $('#search').click(function () {
-                                    if (pieceListLoaded) {
-                                        //Generate Search Screen
-                                        $('#databasePane').empty();
-                                        $('#databasePane').append('Search Title<input id="searchTitle" type="checkbox" name="searchIn" value="Title">' +
-                                                                                        'Search Composer<input id="searchComposer" type="checkbox" name="searchIn" value="Composer">' +
-                                                                                        'Search Arranger<input id="searchArranger" type="checkbox" name="searchIn" value="Arranger"><br />');
-                                        $('#databasePane').append('<input name="searchTerm" type="text" placeholder="search for a piece" id="searchTerm"><br />');
-                                        $('#databasePane').append('<input type="button" name="executeSearch" value="Search" id="searchButton">');
-
-                                        //When "Search" is Clicked
-                                        $('#searchButton').on('click', function () {
-                                            searchTitle = document.getElementById("searchTitle").checked;
-                                            searchComposer = document.getElementById("searchComposer").checked;
-                                            searchArranger = document.getElementById("searchArranger").checked;
-                                            searchFor = document.getElementById('searchTerm').value.toString().toUpperCase();
-
-                                            $('#databasePane').empty();
-                                            $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
-
-                                            for (var i = 0; i < numberOfPieces; i++) {
-                                                var trip = false;
-
-                                                if (searchTitle && activePieceList[i]['Title'].toUpperCase().search(searchFor) >= 0) {
-                                                    $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
-
-                                                    trip = true;
-                                                };
-
-                                                if (searchComposer && activePieceList[i]['Composer'].toUpperCase().search(searchFor) >= 0 && !trip) {
-                                                    $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
-
-                                                    trip = true;
-                                                };
-
-                                                if (searchArranger && activePieceList[i]['Arranger'].toUpperCase().search(searchFor) >= 0 && !trip) {
-                                                    $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
-
-                                                    trip = true;
-                                                };
-                                            };
-                                            createClickablePiecesANDdisplayGraph();
-                                        });
-                                    }
-                                    else {
-                                        alert("Load the piece list first.");
-                                    };
-                                });
-
-
-                                //If "List Optimal Pieces" is Clicked...
-                                $("#listOptimal").click(function () {
-                                    if (pieceListLoaded) {
-                                        $('#databasePane').empty();
-                                        $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
-
-                                        for (var i = 0; i < numberOfPieces; i++) {
-                                            if (currentUser.elementOne == activePieceList[i]['Rapidity'] && currentUser.elementTwo == activePieceList[i]['Rhythm'] && currentUser.elementThree == activePieceList[i]['Dynamics'] && currentUser.elementFour == activePieceList[i]['Texture'] && currentUser.elementFive == activePieceList[i]['Tonality'] && currentUser.elementSix == activePieceList[i]['Range']) {
-                                                $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
-                                            };
-                                        };
-
-                                        createClickablePiecesANDdisplayGraph();
-                                    }
-                                    else {
-                                        alert("Load the piece list first.");
-                                    };
-                                });
-
-                                //If "List Playable Pieces" is Clicked...
-                                $('#listAllPlayable').click(function () {
-                                    if (pieceListLoaded) {
-                                        $('#databasePane').empty();
-                                        $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
-
-                                        for (var i = 0; i < numberOfPieces; i++) {
-                                            if (currentUser.elementOne >= activePieceList[i]['Rapidity'] && currentUser.elementTwo >= activePieceList[i]['Rhythm'] && currentUser.elementThree >= activePieceList[i]['Dynamics'] && currentUser.elementFour >= activePieceList[i]['Texture'] && currentUser.elementFive >= activePieceList[i]['Tonality'] && currentUser.elementSix >= activePieceList[i]['Range']) {
-                                                $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
-                                            };
-                                        };
-                                        createClickablePiecesANDdisplayGraph();
-                                    }
-                                    else {
-                                        alert("Load the piece list first.");
-                                    };
-                                });
-
-                                //If "List All Challenge Pieces" is Clicked...
-                                $("#listChallenge").click(function () {
-                                    if (pieceListLoaded) {
-                                        $('#databasePane').empty();
-                                        $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th><th>Challenge Level</th></tr></table>');
-
-                                        var challengeLevel;
-
-                                        //Iterate through list of pieces
-                                        for (var i = 0; i < numberOfPieces; i++) {
-                                            if (!(currentUser.elementOne >= activePieceList[i]['Rapidity'] && currentUser.elementTwo >= activePieceList[i]['Rhythm'] && currentUser.elementThree >= activePieceList[i]['Dynamics'] && currentUser.elementFour >= activePieceList[i]['Texture'] && currentUser.elementFive >= activePieceList[i]['Tonality'] && currentUser.elementSix >= activePieceList[i]['Range']) && (currentUser.elementOne + 1) >= activePieceList[i]['Rapidity'] && (currentUser.elementTwo + 1) >= activePieceList[i]['Rhythm'] && (currentUser.elementThree + 1) >= activePieceList[i]['Dynamics'] && (currentUser.elementFour + 1) >= activePieceList[i]['Texture'] && (currentUser.elementFive + 1) >= activePieceList[i]['Tonality'] && (currentUser.elementSix + 1) >= activePieceList[i]['Range']) {
-                                                //Add 1 to challengeLevel for each challenge element
-                                                challengeLevel = 0;
-
-                                                if (currentUser.elementOne < activePieceList[i]['Rapidity']) {
-                                                    challengeLevel++;
-                                                };
-                                                if (currentUser.elementTwo < activePieceList[i]['Rhythm']) {
-                                                    challengeLevel++;
-                                                };
-                                                if (currentUser.elementThree < activePieceList[i]['Dynamics']) {
-                                                    challengeLevel++;
-                                                };
-                                                if (currentUser.elementFour < activePieceList[i]['Texture']) {
-                                                    challengeLevel++;
-                                                };
-                                                if (currentUser.elementFive < activePieceList[i]['Tonality']) {
-                                                    challengeLevel++;
-                                                };
-                                                if (currentUser.elementSix < activePieceList[i]['Range']) {
-                                                    challengeLevel++;
-                                                };
-
-                                                //Append Piece
-                                                $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td><td>' + challengeLevel + '</td></tr>');
-                                            };
-
-                                        };
-
-                                        createClickablePiecesANDdisplayGraph();
-                                    }
-                                    else {
-                                        alert("Load the piece list first.");
-                                    };
-                                });
-
-                                //END ALL USABLE FUNCTIONS
-
-                            }
-                            else {
-                                alert("Band not Found");
-                            }
+                            loadPieces(function () {
+                                addGraphCanvas();
+                                createGraph();
+                                $('#notesPane').empty();
+                                listAllPieces();
+                            });
                         }
                         else {
-                            if (i == [numberOfItems - 1] && !userSuccess) {
-                                alert("Email not Found");
-                            };
+                            alert("Band not Found");
+                        }
+                    }
+                    else {
+                        if (i == [numberOfItems - 1] && !userSuccess) {
+                            alert("Email not Found");
                         };
                     };
                 };
-
-                init();
             });
         </script>          
     </body>
