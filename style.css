@@ -1,0 +1,350 @@
+#optionsMenu {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+body {
+    margin: 0;
+    background-color: #F5F5F5;
+    font-family: 'Arial Black';
+}
+
+#topMenu {
+    width: 100%;
+    height: 46px;
+    background-color: black;
+    color: white;
+    font-size: 2em;
+}
+
+#title {
+    display: inline-block;
+}
+
+.logo {
+    display: inline-block;
+    vertical-align: top;
+}
+
+table, th, td {
+    border: solid 1px #7D7D7D;
+    border-collapse: collapse;
+    padding: 2px;
+}
+
+#pageText {
+    margin-top: 10px;
+}
+
+#dataPane {
+    vertical-align: top;
+    display: inline-block;
+    border: 2px solid #7D7D7D;
+    border-radius: 2%;
+    height: 380px;
+    width: 28%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#canvasContainer {
+    height: 320px;
+    width: 320px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+
+#instrumentationPane {
+    vertical-align: top;
+    height: 60px;
+    width: 250px;
+    margin: 0 auto;
+}
+
+.instrument {
+    border: 2px solid #7D7D7D;
+    height: 18px;
+    width: 23px;
+    font-size: 0.75em;
+    text-align: center;
+}
+
+#notesPane {
+    vertical-align: top;
+    display: inline-block;
+    border: 2px solid #7D7D7D;
+    border-radius: 2%;
+    width: 20%;
+    height: 380px;
+    overflow-y: scroll;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#notesPane::-webkit-scrollbar {
+    width: 6px;
+}
+
+#notesPane::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 6px;
+}
+
+#notesPane::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+#databasePane {
+    display: inline-block;
+    border: 2px solid #7D7D7D;
+    border-radius: 2%;
+    height: 380px;
+    width: 50%;
+    overflow-y: scroll;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#databasePane::-webkit-scrollbar {
+    width: 6px;
+}
+
+#databasePane::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 6px;
+}
+
+#databasePane::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
+input {
+    display: block;
+    margin: auto;
+}
+
+.dbOption {
+    vertical-align: top;
+    display: inline-block;
+    width: 14.2857%;
+    height: 22px;
+    text-align: center;
+    color: white;
+    cursor: default;
+    border-top: 1px solid white;
+    font-size: 0.9em;
+}
+
+.dbOption.a {
+    background: #636363;
+}
+
+.dbOption.b {
+    background: #7D7D7D;
+}
+
+.dbOption:hover {
+    color: lightblue;
+    border-top: 1px solid lightblue;
+}
+
+.selectedPiece {
+    background-color: yellow;
+}
+
+.pieceSelect {
+    font-size: 0.7em;
+}
+
+#allPieces {
+    width: 95%;
+}
+
+th {
+    background-color: black;
+    color: white;
+}
+
+.trueBasic {
+    background-color: green;
+}
+
+.trueAdvanced {
+    background-color: orange;
+}
+
+.ratingsCount {
+    background-color: #46eb57;
+    font-size: 1em;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-top: 2px;
+}
+
+.noNotes {
+    background-color: red;
+    color: white;
+    font-size: 0.65em;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-top: 2px;
+}
+
+.difficultyNote {
+    background-color: lightblue;
+    font-size: 0.65em;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-top: 2px;
+}
+
+.instrumentationNote {
+    background-color: orange;
+    font-size: 0.65em;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin-top: 2px;
+}
+
+#numberOfPercussion {
+    background-color: white;
+}
+
+#allPieces {
+    margin-left: 1%;
+    width: 97%;
+}
+
+#otherTools, #trainingLink, #changeLog {
+    position: fixed;
+    bottom: 0;
+    width: 15%;
+    height: 5%;
+    background-color: white;
+    text-align: center;
+    cursor: default;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#otherTools:hover, #trainingLink:hover, #changeLog:hover {
+    background-color: lightblue;
+}
+
+#changeLog {
+    right: 34%;
+}
+
+#otherTools {
+    right: 18%;
+}
+
+#trainingLink {
+    right: 2%;
+}
+
+#pageCover {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: black;
+    opacity: 0.5;
+}
+
+#overlayPane {
+    background-color: white;
+    position: fixed;
+    top: 5%;
+    bottom: 6%;
+    right: 20%;
+    left: 20%;
+    opacity: 1.0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#buffer {
+    height: 20%;
+}
+
+#userEmail, #userBand {
+    width: 80%;
+    display: block;
+    outline: none;
+    border: none;
+    border-left: 2px solid black;
+    height: 25px;
+    line-height: 25px;
+    font-size: 16px;
+    padding: 0;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 8px;
+}
+
+#loginButton, #newAccountButton {
+    background: black;
+    border: none;
+    padding: 10px 20px 10px 20px;
+    border-bottom: 3px solid white;
+    border-radius: 3px;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-top: 8px;
+}
+
+#loginButton:hover, #newAccountButton:hover {
+    border-bottom: 3px solid lightblue;
+    color: lightblue;
+}
+
+#loginButton:disabled {
+    background-color: grey;
+    color: lightgrey;
+    border-bottom: 3px solid lightgrey;
+}
+
+#intro {
+    width: 80%;
+    margin: auto;
+    background-color: black;
+    color: white;
+    margin-top: 10%;
+    font-size: 1.6em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.loader {
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    margin: 40% auto;
+    border: 8px solid grey;
+    border-radius: 50%;
+    border-top: 8px solid lightblue;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#emailLink:hover {
+    color: darkgrey;
+    cursor: pointer;
+}
+
+#info {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    padding: 10px;
+    font-size: 0.8em;
+}
