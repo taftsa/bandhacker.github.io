@@ -1,11 +1,11 @@
-#optionsMenu {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
 body {
     margin: 0;
     background-color: #F5F5F5;
     font-family: 'Arial Black';
+}
+
+#optionsMenu {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #topMenu {
@@ -25,58 +25,62 @@ body {
     vertical-align: top;
 }
 
-table, th, td {
-    border: solid 1px #7D7D7D;
-    border-collapse: collapse;
-    padding: 2px;
+#info {
+    display: inline-block;
+    float:  right;
+    text-align:  right; 
+    font-size: 0.3em;
+    color:  white;
 }
 
-#pageText {
-    margin-top: 10px;
+#leftPane {
+    margin-top:  4px;
+    margin-right:  4px;
+    margin-left:  0.5%;
+    vertical-align: top;
+    display: inline-block;
+    height: 500px;
+    width:  25%;
 }
 
 #dataPane {
     vertical-align: top;
     display: inline-block;
     border: 2px solid #7D7D7D;
-    border-radius: 2%;
-    height: 380px;
-    width: 28%;
+    height: 336px;
+    width: 100%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #canvasContainer {
-    height: 320px;
-    width: 320px;
+    height: 300px;
+    width: 300px;
     margin: 0 auto;
     margin-bottom: 5px;
 }
 
 #instrumentationPane {
     vertical-align: top;
-    height: 60px;
-    width: 250px;
     margin: 0 auto;
 }
 
 .instrument {
     border: 2px solid #7D7D7D;
-    height: 18px;
-    width: 23px;
+    height: 8px;
+    line-height: 8px;
+    width: 16px;
     font-size: 0.75em;
     text-align: center;
 }
 
-#notesPane {
-    vertical-align: top;
-    display: inline-block;
-    border: 2px solid #7D7D7D;
-    border-radius: 2%;
-    width: 20%;
-    height: 380px;
-    overflow-y: scroll;
+#notesPane {   
+    overflow-y: auto;
     text-align: center;
+    height:  156px;
+    width: 100%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 2px solid #7D7D7D;
+    margin-top:  4px;
 }
 
 #notesPane::-webkit-scrollbar {
@@ -94,12 +98,12 @@ table, th, td {
 }
 
 #databasePane {
+    margin-top:  4px;
     display: inline-block;
     border: 2px solid #7D7D7D;
-    border-radius: 2%;
-    height: 380px;
-    width: 50%;
-    overflow-y: scroll;
+    height: 500px;
+    width: 73%;
+    overflow-y: auto;
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -126,7 +130,7 @@ input {
 .dbOption {
     vertical-align: top;
     display: inline-block;
-    width: 14.2857%;
+    width: 12.5%;
     height: 22px;
     text-align: center;
     color: white;
@@ -143,21 +147,39 @@ input {
     background: #7D7D7D;
 }
 
-.dbOption:hover {
+.dbOption.m:hover {
     color: lightblue;
     border-top: 1px solid lightblue;
 }
 
+.dbOption.l:hover {
+    color:  lightgrey;
+    border-top: 1px solid lightgrey;
+}
+
+.piece {
+    vertical-align: top;
+    background-color: lightgrey;
+    width:  14.5%;
+    height:  175px;
+    display:  inline-block;
+    float:  left;
+    padding:  3px;
+    margin-left:  10px;
+    margin-top:  10px;
+    font-size: 0.5em;
+    cursor: pointer;
+    border:  1px solid black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius:  5px;
+}
+
+.piece:hover {
+    border: 1px solid grey;
+}
+
 .selectedPiece {
-    background-color: yellow;
-}
-
-.pieceSelect {
-    font-size: 0.7em;
-}
-
-#allPieces {
-    width: 95%;
+    background-color: lightblue;
 }
 
 th {
@@ -174,72 +196,36 @@ th {
 }
 
 .ratingsCount {
-    background-color: #46eb57;
+    background-color: lightblue;
     font-size: 1em;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    margin-top: 2px;
+    margin-top: 3px;
 }
 
 .noNotes {
     background-color: red;
     color: white;
     font-size: 0.65em;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
     margin-top: 2px;
+}
+
+.difficultyNote, .instrumentationNote {
+    width:  95%;
+    font-size: 0.65em;
+    margin: auto;
+    margin-top: 6px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .difficultyNote {
-    background-color: lightblue;
-    font-size: 0.65em;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    margin-top: 2px;
+    background-color: lightgrey;
 }
 
 .instrumentationNote {
-    background-color: orange;
-    font-size: 0.65em;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    margin-top: 2px;
+    background-color: darkgrey;
 }
 
 #numberOfPercussion {
     background-color: white;
-}
-
-#allPieces {
-    margin-left: 1%;
-    width: 97%;
-}
-
-#otherTools, #trainingLink, #changeLog {
-    position: fixed;
-    bottom: 0;
-    width: 15%;
-    height: 5%;
-    background-color: white;
-    text-align: center;
-    cursor: default;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-#otherTools:hover, #trainingLink:hover, #changeLog:hover {
-    background-color: lightblue;
-}
-
-#changeLog {
-    right: 34%;
-}
-
-#otherTools {
-    right: 18%;
-}
-
-#trainingLink {
-    right: 2%;
 }
 
 #pageCover {
@@ -339,12 +325,4 @@ th {
 #emailLink:hover {
     color: darkgrey;
     cursor: pointer;
-}
-
-#info {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    padding: 10px;
-    font-size: 0.8em;
 }

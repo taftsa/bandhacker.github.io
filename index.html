@@ -23,42 +23,38 @@
     <body>
         <div id="topMenu">
             <div class="logo"><a href="http://optimal-efficient.github.io"><img src="oe.png" height="42px" alt="optimal.efficient"/></a></div>
-            <div id="title">optimal.efficient</div>          
+            <div id="title">optimal.efficient</div>
+            <div id="info">Version 0.4 (Beta) <br />
+                &copy; 2017 Seth Taft <br />
+                <span id="emailLink">optimal.efficient@gmail.com</span>
+            </div>       
         </div>
 
         <div id="optionsMenu">        
-            <div class="dbOption a" id="search">Search
-            </div><div class="dbOption b" id="listOptimal">List Optimal
-            </div><div class="dbOption a" id="listAllPlayable">List Playable
-            </div><div class="dbOption b" id="listChallenge">List Challenging
-            </div><div class="dbOption a" id="listAll">List All
-            </div><div class="dbOption b" id="submitAnalysis">Submit Analysis
-            </div><div class="dbOption a" id="reportDuplicate">Report Duplicate</div>            
+            <div class="dbOption a m" id="search">Search
+            </div><div class="dbOption b m" id="listOptimal">List Optimal
+            </div><div class="dbOption a m" id="listAllPlayable">List Playable
+            </div><div class="dbOption b m" id="listChallenge">List Challenging
+            </div><div class="dbOption a m" id="listAll">List All
+            </div><div class="dbOption b l" id="submitAnalysis">Submit Analysis
+            </div><div class="dbOption a l" id="trainingLink">Tutorial
+            </div><div class="dbOption b l" id="changeLog">Change Log
+            </div>
         </div>
-
-        <div id="pageText">
+        <div id="leftPane">
             <div id="dataPane">
                 <div id="buffer"></div>
-                    <form autocomplete="on">
-                        <input name="userEmail" type="text" placeholder="email" id="userEmail">
-                        <input name="userBandName" type="text" placeholder="band name" id="userBand">
-                        <input type="button" name="login" value="Load Band" id="loginButton" disabled>
-                        <input type="button" name="newAccount" value="New Band" id="newAccountButton">
-                    </form>                               
+                <form autocomplete="on">
+                    <input name="userEmail" type="text" placeholder="email" id="userEmail">
+                    <input name="userBandName" type="text" placeholder="band name" id="userBand">
+                    <input type="button" name="login" value="Load Band" id="loginButton" disabled>
+                    <input type="button" name="newAccount" value="New Band" id="newAccountButton">
+                </form>
             </div>
-            <div id="notesPane"></div>
-            <div id="databasePane">
-                <div id="intro">New? Check out the tutorial below!</div>
-            </div>
-        </div>        
-
-        <div id="info">Version 0.3.2 (Beta) <br />
-        &copy; 2017 Seth Taft <br />
-            <span id="emailLink">optimal.efficient@gmail.com</span>
+            <div id="notesPane"></div>      
+        </div>            
+        <div id="databasePane">
+            <div id="intro">New? Check out the tutorial!</div>
         </div>
-
-        <div id="changeLog">Change Log</div>
-        <div id="otherTools">Other Tools</div>
-        <div id="trainingLink">Tutorial</div>    
     </body>
 </html>

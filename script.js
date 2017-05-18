@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     var pieceList;
     var activePieceList = [];
-    var listOfUsers;    
+    var listOfUsers;
     var numberOfPieces;
     var piecesLoaded = false;
     var searchFor;
@@ -48,10 +48,9 @@ $(document).ready(function () {
         $('#dataPane').empty();
         $('#dataPane').append(
                 '<div id="canvasContainer">' +
-                    '<canvas id="myBand" width="320" height="320"></canvas>' +
+                    '<canvas id="myBand" width="300" height="300"></canvas>' +
                 '</div>' +
-                '<div id="instrumentationPane">' +
-                    '<table id="instrumentationTable">' +
+                    '<table id="instrumentationPane">' +
                         '<tr>' +
                             '<td id="oneFlute" class="instrument">F</td>' +
                             '<td id="twoClarinets" class="instrument">C</td>' +
@@ -74,15 +73,8 @@ $(document).ready(function () {
                             '<td id="bassoon" class="instrument">OO</td>' +
                             '<td id="numberOfPercussion" class="instrument"></td>' +
                        '</tr>' +
-                    '</table>' +
-                '</div>'
+                    '</table>'
                 );
-    };
-
-    function openOther() {
-        $('body').append('<div id="pageCover"></div>');
-        $('body').append('<div id="overlayPane"></div>');
-        $('#overlayPane').html('<object type="text/html" data="blindAuditioner.html" width="100%" height="100%"></object>');
     };
 
     function openTutorial() {
@@ -347,31 +339,6 @@ $(document).ready(function () {
         });
     };
 
-    function createClickablePiecesANDdisplayGraph() {
-        $(document).on('click', '.pieceSelect', function () {
-            $('.selectedPiece').removeClass('selectedPiece');
-            $(this).addClass('selectedPiece');
-
-            var idNo = $(this).attr("id") / 1;
-
-            currentPiece = {
-                title: "None Selected"
-            };
-
-            currentPiece.title = activePieceList[idNo]['Title'];
-            currentPiece.elementOne = activePieceList[idNo]['Rapidity'] / 1;
-            currentPiece.elementTwo = activePieceList[idNo]['Rhythm'] / 1;
-            currentPiece.elementThree = activePieceList[idNo]['Dynamics'] / 1;
-            currentPiece.elementFour = activePieceList[idNo]['Texture'] / 1;
-            currentPiece.elementFive = activePieceList[idNo]['Tonality'] / 1;
-            currentPiece.elementSix = activePieceList[idNo]['Range'] / 1;
-
-            changeInstrumentation(activePieceList[idNo]);
-            addNotes(activePieceList[idNo]);
-            createGraph();
-        });
-    };
-
     //Check for Duplicates
     function checkForDuplicates(t) {
         var alreadyDone = false;
@@ -484,7 +451,7 @@ $(document).ready(function () {
                 labels: ["Rapidity", "Rhythm", "Dynamics", "Texture", "Tonality", "Range"],
                 datasets: [
                                                                                                          {
-                                                                                                             label: currentUser.user,
+                                                                                                             label: "Your Band",
                                                                                                              fillColor: "rgba(220,220,440,0.4)",
                                                                                                              strokeColor: "rgba(220,220,440,1)",
                                                                                                              pointColor: "rgba(220,220,440,1)",
@@ -503,7 +470,7 @@ $(document).ready(function () {
                                                                                                                    ]
                                                                                                          },
                                                                                                          {
-                                                                                                             label: currentPiece.title,
+                                                                                                             label: "Selected Piece",
                                                                                                              fillColor: "rgba(440,220,320,0.4)",
                                                                                                              strokeColor: "rgba(440,220,220,1)",
                                                                                                              pointColor: "rgba(440,220,220,1)",
@@ -527,25 +494,31 @@ $(document).ready(function () {
                 scale: {
                     ticks: {
                         beginAtZero: true,
-                        max: 6
+                        max: 6,
+                        stepSize: 1
                     }
                 }
             }
         });
     };
 
+    function addPiece(number, challengeLevel) {
+        var loadInfo = activePieceList[number];
+        $('#databasePane').append('<div id="' + number + '" class="piece"></div>');
+        $('#' + number).append('<h2>' + loadInfo['Title'] + '</h1>');
+        $('#' + number).append('<h3>' + loadInfo['Composer'] + '</h3>');
+        $('#' + number).append('<h3>Arranged by ' + loadInfo['Arranger'] + '</h3>');
+        $('#' + number).append('<h4>' + loadInfo['Publisher'] + '</h4>');
+
+        if (challengeLevel) {
+            $('#' + number).append('<h4>Challenge Level: ' + challengeLevel + '</h4>');
+        }
+    };
+
     function listAllPieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
-            $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
-
-            for (var i = 0; i < numberOfPieces; i++) {
-                var loadInfo = activePieceList[i];
-
-                $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + loadInfo['Title'] + '</td><td>' + loadInfo['Composer'] + '</td><td>' + loadInfo['Arranger'] + '</td><td>' + loadInfo['Publisher'] + '</td></tr>')
-
-            };
-            createClickablePiecesANDdisplayGraph();
+            for (var i = 0; i < numberOfPieces; i++) { addPiece(i); };
         };
     };
 
@@ -569,30 +542,12 @@ $(document).ready(function () {
                 searchFor = document.getElementById('searchTerm').value.toString().toUpperCase();
 
                 $('#databasePane').empty();
-                $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
 
                 for (var i = 0; i < numberOfPieces; i++) {
-                    var trip = false;
-
-                    if (searchTitle && activePieceList[i]['Title'].toUpperCase().search(searchFor) >= 0) {
-                        $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
-
-                        trip = true;
-                    };
-
-                    if (searchComposer && activePieceList[i]['Composer'].toUpperCase().search(searchFor) >= 0 && !trip) {
-                        $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
-
-                        trip = true;
-                    };
-
-                    if (searchArranger && activePieceList[i]['Arranger'].toUpperCase().search(searchFor) >= 0 && !trip) {
-                        $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
-
-                        trip = true;
+                    if ((searchTitle && activePieceList[i]['Title'].toUpperCase().search(searchFor) >= 0) || (searchComposer && activePieceList[i]['Composer'].toUpperCase().search(searchFor) >= 0) || (searchArranger && activePieceList[i]['Arranger'].toUpperCase().search(searchFor) >= 0)) {
+                        addPiece(i);
                     };
                 };
-                createClickablePiecesANDdisplayGraph();
             });
         };
     };
@@ -600,37 +555,30 @@ $(document).ready(function () {
     function listOptimalPieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
-            $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
 
             for (var i = 0; i < numberOfPieces; i++) {
                 if (currentUser.elementOne == activePieceList[i]['Rapidity'] && currentUser.elementTwo == activePieceList[i]['Rhythm'] && currentUser.elementThree == activePieceList[i]['Dynamics'] && currentUser.elementFour == activePieceList[i]['Texture'] && currentUser.elementFive == activePieceList[i]['Tonality'] && currentUser.elementSix == activePieceList[i]['Range']) {
-                    $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
+                    addPiece(i);
                 };
             };
-
-            createClickablePiecesANDdisplayGraph();
         };
     };
 
     function listPlayablePieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
-            $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th></tr></table>');
 
             for (var i = 0; i < numberOfPieces; i++) {
                 if (currentUser.elementOne >= activePieceList[i]['Rapidity'] && currentUser.elementTwo >= activePieceList[i]['Rhythm'] && currentUser.elementThree >= activePieceList[i]['Dynamics'] && currentUser.elementFour >= activePieceList[i]['Texture'] && currentUser.elementFive >= activePieceList[i]['Tonality'] && currentUser.elementSix >= activePieceList[i]['Range']) {
-                    $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td></tr>');
+                    addPiece(i);
                 };
             };
-            createClickablePiecesANDdisplayGraph();
         };
     };
 
     function listChallengePieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
-            $('#databasePane').append('<table id="allPieces"><tr><th>Title</th><th>Composer</th><th>Arranger</th><th>Publisher</th><th>Challenge Level</th></tr></table>');
-
             var challengeLevel;
 
             //Iterate through list of pieces
@@ -660,11 +608,33 @@ $(document).ready(function () {
                     };
 
                     //Append Piece
-                    $('#allPieces').append('<tr class="pieceSelect" id="' + i + '"><td>' + activePieceList[i]['Title'] + '</td><td>' + activePieceList[i]['Composer'] + '</td><td>' + activePieceList[i]['Arranger'] + '</td><td>' + activePieceList[i]['Publisher'] + '</td><td>' + challengeLevel + '</td></tr>');
+                    addPiece(i, challengeLevel);
                 };
             };
-            createClickablePiecesANDdisplayGraph();
         };
+    };
+
+    function selectPiece(piece) {
+        $('.selectedPiece').removeClass('selectedPiece');
+        $(piece).addClass('selectedPiece');
+
+        var idNo = $(piece).attr("id") / 1;
+
+        currentPiece = {
+            title: "None Selected"
+        };
+
+        currentPiece.title = activePieceList[idNo]['Title'];
+        currentPiece.elementOne = activePieceList[idNo]['Rapidity'] / 1;
+        currentPiece.elementTwo = activePieceList[idNo]['Rhythm'] / 1;
+        currentPiece.elementThree = activePieceList[idNo]['Dynamics'] / 1;
+        currentPiece.elementFour = activePieceList[idNo]['Texture'] / 1;
+        currentPiece.elementFive = activePieceList[idNo]['Tonality'] / 1;
+        currentPiece.elementSix = activePieceList[idNo]['Range'] / 1;
+
+        changeInstrumentation(activePieceList[idNo]);
+        addNotes(activePieceList[idNo]);
+        createGraph();
     };
 
     //Login Button
@@ -710,9 +680,9 @@ $(document).ready(function () {
                         };
                     };
 
-                    //Prepare Piece List and UI
-                    $('#notesPane').append('<div class="loader"></div>');
+                    //Prepare Piece List and UI                    
                     $('#dataPane').empty();
+                    $('#dataPane').append('<div class="loader"></div>');
                     $('#databasePane').empty();
 
                     loadPieces(function () {
@@ -751,12 +721,50 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#changeLog', function () { openChangeLog(); });
-    $(document).on('click', '#otherTools', function () { openOther(); });
     $(document).on('click', '#trainingLink', function () { openTutorial(); });
 
     $(document).on('click', '#pageCover', function () { closeOverlay(); });
 
     $(document).on('click', '#emailLink', function () { openWindow('mailto:optimal.efficient@gmail.com') });
+
+    //Clickable pieces that display the graph
+    $(document).on('click', '.piece', function () { selectPiece(this); });
+
+    //Navigation in Piece List
+    $(document).keydown(function (e) {
+        if ($(".selectedPiece")[0]) {
+            if (e.keyCode == 37) { // left
+                var newSelected = $(".selectedPiece").prev();
+
+                if (!$(".selectedPiece").is(':first-child')) {
+                    $(".selectedPiece").removeClass("selectedPiece");
+                    selectPiece(newSelected);
+                }
+            }
+            else if (e.keyCode == 39) { // right
+                var newSelected = $(".selectedPiece").next();
+
+                if (!$(".selectedPiece").is(':last-child')) {
+                    $(".selectedPiece").removeClass("selectedPiece");
+                    selectPiece(newSelected);                    
+                }
+            }
+            else if (e.keyCode == 38) { // down
+                var newSelected = $(".selectedPiece").prev().prev().prev().prev().prev().prev();
+                if (newSelected.length) {
+                    $(".selectedPiece").removeClass("selectedPiece");
+                    selectPiece(newSelected);
+                }
+            }
+            else if (e.keyCode == 40) { // up
+                var newSelected = $(".selectedPiece").next().next().next().next().next().next();
+                if (newSelected.length) {
+                    $(".selectedPiece").removeClass("selectedPiece");
+                    selectPiece(newSelected);
+                }
+            };
+        };
+    });
 });
  
  
