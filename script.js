@@ -71,16 +71,17 @@ $(document).ready(function () {
                             '<td id="moreTrombones" class="instrument">R+</td>' +
                             '<td id="oboe" class="instrument">O</td>' +
                             '<td id="bassoon" class="instrument">OO</td>' +
-                            '<td id="numberOfPercussion" class="instrument"></td>' +
+                            '<td id="numberOfPercussion" class="instrument">0</td>' +
                        '</tr>' +
-                    '</table>'
+                    '</table>' +
+                    '<div id="help" class="on">?</div> '
                 );
     };
 
     function openTutorial() {
         $('body').append('<div id="pageCover"></div>');
         $('body').append('<div id="overlayPane"></div>');
-        $('#overlayPane').html('<object type="text/html" data="training.html" width="100%" height="100%"></object>');
+        $('#overlayPane').html('<object type="text/html" data="tutorial.html" width="100%" height="100%"></object>');
     };
 
     function openChangeLog() {
@@ -291,10 +292,10 @@ $(document).ready(function () {
         $('#notesPane').empty();
 
         if (piece['Number of Ratings'] == 1) {
-            $('#notesPane').append('<div class="ratingsCount">' + piece['Number of Ratings'] + ' Rating' + '</div>');
+            $('#notesPane').append('<div class="ratingsCount">' + piece['Number of Ratings'] + ' Analysis' + '</div>');
         }
         else {
-            $('#notesPane').append('<div class="ratingsCount">' + piece['Number of Ratings'] + ' Ratings' + '</div>');
+            $('#notesPane').append('<div class="ratingsCount">' + piece['Number of Ratings'] + ' Analyses' + '</div>');
         };
 
 
@@ -555,11 +556,17 @@ $(document).ready(function () {
     function listOptimalPieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
+            var optimalTrip = false;
 
             for (var i = 0; i < numberOfPieces; i++) {
                 if (currentUser.elementOne == activePieceList[i]['Rapidity'] && currentUser.elementTwo == activePieceList[i]['Rhythm'] && currentUser.elementThree == activePieceList[i]['Dynamics'] && currentUser.elementFour == activePieceList[i]['Texture'] && currentUser.elementFive == activePieceList[i]['Tonality'] && currentUser.elementSix == activePieceList[i]['Range']) {
                     addPiece(i);
+                    optimalTrip = true;
                 };
+            };
+
+            if (!optimalTrip) {
+                $('#databasePane').append('No optimal pieces yet.');
             };
         };
     };
@@ -705,6 +712,101 @@ $(document).ready(function () {
     };
 
 
+    //Tool Tips
+    function createToolTip(hoverDiv, conditionClass, textTrue, textFalse) {
+        $(document).on({
+            mouseenter: function () {
+                if ($('#help').hasClass('on')) {
+                    if ($(hoverDiv).hasClass(conditionClass)) {
+                        $('#toolTip').html(textTrue);
+                        $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                    }
+                    else {
+                        $('#toolTip').html(textFalse);
+                        if ($('#toolTip').html() !== "") {
+                            $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                        };
+                    }
+                };
+            },
+            mouseleave: function () {
+                $('#toolTip').css('display', 'none');
+            }
+        }, hoverDiv);
+    };
+
+    createToolTip('#oneFlute', 'trueBasic', 'This piece requires at least 1 flute', 'This piece can be played without flutes');
+    createToolTip('#twoClarinets', 'trueBasic', 'This piece requires at least 1-2 clarinets', 'This piece can be played without clarinets');
+    createToolTip('#threeSaxophones', 'trueBasic', 'This piece requires at least ATB saxes', 'This piece can be played with less than ATB saxes');
+    createToolTip('#oneHorn', 'trueBasic', 'This piece requires at least 1 horn', 'This piece can be played without horns');
+    createToolTip('#twoTrumpets', 'trueBasic', 'This piece requires at least 1-2 trumpets', 'This piece can be played without trumpets');
+    createToolTip('#oneTrombone', 'trueBasic', 'This piece requires at least 1 trombone', 'This piece can be played without trombones');
+    createToolTip('#baritone', 'trueBasic', 'This piece requires baritone', 'This piece can be played without baritone');
+    createToolTip('#tuba', 'trueBasic', 'This piece requires tuba', 'This piece can be played without tuba');
+    createToolTip('#oneFlute', 'trueBasic', 'This piece requires at least 1 flute', 'This piece can be played without flutes');
+    createToolTip('#moreFlutes', 'trueAdvanced', 'This piece requires 2 or more flutes', 'This piece does not require 2 or more flutes');
+    createToolTip('#moreClarinets', 'trueAdvanced', 'This piece requires 3 or more clarinets', 'This piece does not require 3 or more clarinets');
+    createToolTip('#moreSaxophones', 'trueAdvanced', 'This piece requires more than ATB saxes', 'This piece does not require more than ATB saxes');
+    createToolTip('#moreHorns', 'trueAdvanced', 'This piece requires 2 or more horns', 'This piece does not require 2 or more horns');
+    createToolTip('#moreTrumpets', 'trueAdvanced', 'This piece requires 3 or more trumpets', 'This piece does not require 3 or more trumpets');
+    createToolTip('#moreTrombones', 'trueAdvanced', 'This piece requires 2 or more trombones', 'This piece does not require 2 or more trombones');
+    createToolTip('#oboe', 'trueAdvanced', 'This piece requires oboe', 'This piece can be played without oboe');
+    createToolTip('#bassoon', 'trueAdvanced', 'This piece requires bassoon', 'This piece can be played without bassoon');
+
+    //Percussion Category
+    $(document).on({
+        mouseenter: function () {
+            if ($('#help').hasClass('on')) {
+                if ($('#sixPercussion').hasClass('trueBasic')) {
+                    $('#toolTip').html('This piece requires 1-5 percussion');
+                    $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                }
+                else if ($('#sixPercussion').hasClass('trueAdvanced')) {
+                    $('#toolTip').html('This piece requires 6 or more percussion');
+                    $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                }
+                else {
+                    $('#toolTip').html('This piece can be played without percussion');
+                    $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                }
+            };
+        },
+        mouseleave: function () {
+            $('#toolTip').css('display', 'none');
+        }
+    }, '#sixPercussion');
+
+    //Percussion Number
+    $(document).on({
+        mouseenter: function () {
+            if ($('#help').hasClass('on')) {
+                $('#toolTip').html('This piece requires ' + $('#numberOfPercussion').html() + ' percussion');
+                $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+            };
+        },
+        mouseleave: function () {
+            $('#toolTip').css('display', 'none');
+        }
+    }, '#numberOfPercussion');
+
+
+    $(document).on('click', '#help', function () {
+        $(this).toggleClass('on');
+    });
+
+    //Help tooltip
+    $(document).on({
+        mouseenter: function () {
+            if ($('#help').hasClass('on')) {
+                $('#toolTip').html('Toggle help');
+                $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+            };
+        },
+        mouseleave: function () {
+            $('#toolTip').css('display', 'none');
+        }
+    }, '#help');
+
     //Button Assignments
     $(document).on('click', '#loginButton', function () { login(); });
     $(document).on('click', '#newAccountButton', function () {
@@ -721,7 +823,7 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#changeLog', function () { openChangeLog(); });
-    $(document).on('click', '#trainingLink', function () { openTutorial(); });
+    $(document).on('click', '#tutorialLink', function () { openTutorial(); });
 
     $(document).on('click', '#pageCover', function () { closeOverlay(); });
 
@@ -734,6 +836,7 @@ $(document).ready(function () {
     $(document).keydown(function (e) {
         if ($(".selectedPiece")[0]) {
             if (e.keyCode == 37) { // left
+                e.preventDefault();
                 var newSelected = $(".selectedPiece").prev();
 
                 if (!$(".selectedPiece").is(':first-child')) {
@@ -742,29 +845,32 @@ $(document).ready(function () {
                 }
             }
             else if (e.keyCode == 39) { // right
+                e.preventDefault();
                 var newSelected = $(".selectedPiece").next();
 
                 if (!$(".selectedPiece").is(':last-child')) {
                     $(".selectedPiece").removeClass("selectedPiece");
-                    selectPiece(newSelected);                    
+                    selectPiece(newSelected);
                 }
             }
             else if (e.keyCode == 38) { // down
+                e.preventDefault();
                 var newSelected = $(".selectedPiece").prev().prev().prev().prev().prev().prev();
                 if (newSelected.length) {
                     $(".selectedPiece").removeClass("selectedPiece");
                     selectPiece(newSelected);
+                    $('#databasePane').scrollTop($('#databasePane').scrollTop() - 186);
                 }
             }
             else if (e.keyCode == 40) { // up
+                e.preventDefault();
                 var newSelected = $(".selectedPiece").next().next().next().next().next().next();
                 if (newSelected.length) {
                     $(".selectedPiece").removeClass("selectedPiece");
                     selectPiece(newSelected);
+                    $('#databasePane').scrollTop($('#databasePane').scrollTop() + 186);
                 }
             };
         };
     });
 });
- 
- 

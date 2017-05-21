@@ -44,12 +44,44 @@ body {
 }
 
 #dataPane {
+    position: relative;
     vertical-align: top;
     display: inline-block;
     border: 2px solid #7D7D7D;
     height: 336px;
     width: 100%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#help {
+    position: absolute;
+    right: -40px;
+    bottom: 6px;
+    margin-right:  20%;
+    color:  black;
+    border:  1px solid black;   
+    font-size: 0.8em;
+    height:  20px;
+    line-height:  20px;
+    width:  20px;
+    border-radius: 50%;    
+    text-align: center;
+    cursor:  pointer;
+}
+
+#help.on {    
+    background-color:  black;
+    color:  white;
+}
+
+#toolTip {
+    position: fixed;
+    display: none;
+    background-color: black;
+    border: 1px solid white;
+    color:  white;
+    font-size: 0.6em;
+    padding: 3px;
 }
 
 #canvasContainer {
@@ -60,6 +92,9 @@ body {
 }
 
 #instrumentationPane {
+    border: solid 1px #7D7D7D;
+    border-collapse: collapse;
+    padding: 2px;
     vertical-align: top;
     margin: 0 auto;
 }
