@@ -97,6 +97,7 @@ body {
     padding: 2px;
     vertical-align: top;
     margin: 0 auto;
+    cursor: pointer;
 }
 
 .instrument {
@@ -215,11 +216,6 @@ input {
 
 .selectedPiece {
     background-color: lightblue;
-}
-
-th {
-    background-color: black;
-    color: white;
 }
 
 .trueBasic {
