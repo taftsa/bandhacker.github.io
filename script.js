@@ -139,6 +139,11 @@ $(document).ready(function () {
         alert('This site is not optimized for mobile. For best results, use your desktop or laptop.')
     };
 
+    //Firefox
+    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+        alert('It looks like you\'re using Firefox, which doesn\'t play nice with optimal.efficient. Try Chrome, Edge, or Internet Explorer to make sure all of the features work properly!')
+    };
+
     //Cookies
     function setCookie(cname, cvalue, exdays) {
         var d = new Date();
@@ -516,9 +521,19 @@ $(document).ready(function () {
         }
     };
 
+    function clearSelectedPiece() {
+        $('#notesPane').empty();
+        currentPiece = {};
+        createGraph();
+        $('.instrument').removeClass('trueBasic');
+        $('.instrument').removeClass('trueAdvanced');
+        $('#numberOfPercussion').empty();
+    };
+
     function listAllPieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
+            clearSelectedPiece();
             for (var i = 0; i < numberOfPieces; i++) { addPiece(i); };
         };
     };
@@ -527,6 +542,7 @@ $(document).ready(function () {
         if (piecesLoaded) {
             //Generate Search Screen
             $('#databasePane').empty();
+            clearSelectedPiece();
             $('#databasePane').append(
                                         'Search Title<input id="searchTitle" type="checkbox" name="searchIn" value="Title">' +
                                         'Search Composer<input id="searchComposer" type="checkbox" name="searchIn" value="Composer">' +
@@ -556,6 +572,7 @@ $(document).ready(function () {
     function listOptimalPieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
+            clearSelectedPiece();
             var optimalTrip = false;
 
             for (var i = 0; i < numberOfPieces; i++) {
@@ -574,7 +591,7 @@ $(document).ready(function () {
     function listPlayablePieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
-
+            clearSelectedPiece();
             for (var i = 0; i < numberOfPieces; i++) {
                 if (currentUser.elementOne >= activePieceList[i]['Rapidity'] && currentUser.elementTwo >= activePieceList[i]['Rhythm'] && currentUser.elementThree >= activePieceList[i]['Dynamics'] && currentUser.elementFour >= activePieceList[i]['Texture'] && currentUser.elementFive >= activePieceList[i]['Tonality'] && currentUser.elementSix >= activePieceList[i]['Range']) {
                     addPiece(i);
@@ -586,6 +603,7 @@ $(document).ready(function () {
     function listChallengePieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
+            clearSelectedPiece();
             var challengeLevel;
 
             //Iterate through list of pieces
@@ -711,7 +729,6 @@ $(document).ready(function () {
         };
     };
 
-
     //Tool Tips
     function createToolTip(hoverDiv, conditionClass, textTrue, textFalse) {
         $(document).on({
@@ -792,6 +809,12 @@ $(document).ready(function () {
 
     $(document).on('click', '#help', function () {
         $(this).toggleClass('on');
+        if ($(this).hasClass('on')) {
+            $('.instrument').css('border', '2px solid lightblue');
+            setTimeout(function () { $('.instrument').css('border', '2px solid #7D7D7D') }, 150);
+            setTimeout(function () { $('.instrument').css('border', '2px solid lightblue') }, 300);
+            setTimeout(function () { $('.instrument').css('border', '2px solid #7D7D7D') }, 450);
+        };
     });
 
     //Help tooltip
