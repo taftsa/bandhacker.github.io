@@ -272,10 +272,10 @@ input {
 #overlayPane {
     background-color: white;
     position: fixed;
-    top: 5%;
-    bottom: 6%;
-    right: 20%;
-    left: 20%;
+    top: 3%;
+    bottom: 4%;
+    right: 10%;
+    left: 10%;
     opacity: 1.0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
