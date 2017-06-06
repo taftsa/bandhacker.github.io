@@ -2,6 +2,7 @@ body {
     margin: 0;
     background-color: #F5F5F5;
     font-family: 'Arial Black';
+    user-select: none
 }
 
 #optionsMenu {
@@ -194,6 +195,7 @@ input {
 }
 
 .piece {
+    position: relative;
     vertical-align: top;
     background-color: lightgrey;
     width:  14.5%;
@@ -202,7 +204,8 @@ input {
     float:  left;
     padding:  3px;
     margin-left:  10px;
-    margin-top:  10px;
+    margin-top:  5px;
+    margin-bottom: 5px;
     font-size: 0.5em;
     cursor: pointer;
     border:  1px solid black;
@@ -216,6 +219,17 @@ input {
 
 .selectedPiece {
     background-color: lightblue;
+}
+
+.analyzeThis {
+    position: absolute;
+    bottom: 0;
+    right: 8px;
+    color: grey;
+}
+
+.analyzeThis:hover {
+    color: white;
 }
 
 .trueBasic {
@@ -269,11 +283,15 @@ input {
     opacity: 0.5;
 }
 
+#pageCover:hover {
+    background-color: darkred;
+}
+
 #overlayPane {
     background-color: white;
     position: fixed;
-    top: 3%;
-    bottom: 4%;
+    top: 0%;
+    bottom: 0%;
     right: 10%;
     left: 10%;
     opacity: 1.0;

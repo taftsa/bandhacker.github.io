@@ -54,7 +54,7 @@ $(document).ready(function () {
                         '<tr>' +
                             '<td id="oneFlute" class="instrument">F</td>' +
                             '<td id="twoClarinets" class="instrument">C</td>' +
-                            '<td id="threeSaxophones" class="instrument">X</td>' +
+                            '<td id="threeSaxophones" class="instrument">S</td>' +
                             '<td id="oneHorn" class="instrument">H</td>' +
                             '<td id="twoTrumpets" class="instrument">T</td>' +
                             '<td id="oneTrombone" class="instrument">R</td>' +
@@ -65,7 +65,7 @@ $(document).ready(function () {
                         '<tr>' +
                             '<td id="moreFlutes" class="instrument">F+</td>' +
                             '<td id="moreClarinets" class="instrument">C+</td>' +
-                            '<td id="moreSaxophones" class="instrument">X+</td>' +
+                            '<td id="moreSaxophones" class="instrument">S+</td>' +
                             '<td id="moreHorns" class="instrument">H+</td>' +
                             '<td id="moreTrumpets" class="instrument">T+</td>' +
                             '<td id="moreTrombones" class="instrument">R+</td>' +
@@ -78,22 +78,15 @@ $(document).ready(function () {
                 );
     };
 
-    function openTutorial() {
+    function openOverlay(url) {
         $('body').append('<div id="pageCover"></div>');
         $('body').append('<div id="overlayPane"></div>');
-        $('#overlayPane').html('<object type="text/html" data="tutorial.html" width="100%" height="100%"></object>');
-    };
-
-    function openChangeLog() {
-        $('body').append('<div id="pageCover"></div>');
-        $('body').append('<div id="overlayPane"></div>');
-        $('#overlayPane').html('<object type="text/html" data="changeLog.html" width="100%" height="100%"></object>');
+        $('#overlayPane').html('<object type="text/html" data="' + url + '" width="100%" height="100%"></object>');
     };
 
     function closeOverlay() {
         $('#pageCover').remove();
         $('#overlayPane').remove();
-        $('#closeTutorial').remove();
     };
 
     function clearCommentsAndInstrumentation() {
@@ -513,12 +506,17 @@ $(document).ready(function () {
         $('#databasePane').append('<div id="' + number + '" class="piece"></div>');
         $('#' + number).append('<h2>' + loadInfo['Title'] + '</h1>');
         $('#' + number).append('<h3>' + loadInfo['Composer'] + '</h3>');
-        $('#' + number).append('<h3>Arranged by ' + loadInfo['Arranger'] + '</h3>');
+
+        if (loadInfo['Arranger'] !== "") {
+            $('#' + number).append('<h3>Arranged by ' + loadInfo['Arranger'] + '</h3>');
+        };
         $('#' + number).append('<h4>' + loadInfo['Publisher'] + '</h4>');
 
         if (challengeLevel) {
             $('#' + number).append('<h4>Challenge Level: ' + challengeLevel + '</h4>');
         }
+
+        $('#' + number).append('<p class="analyzeThis">Add Analysis</p>');
     };
 
     function clearSelectedPiece() {
@@ -833,7 +831,7 @@ $(document).ready(function () {
     //Button Assignments
     $(document).on('click', '#loginButton', function () { login(); });
     $(document).on('click', '#newAccountButton', function () {
-        openWindow('https://docs.google.com/forms/d/e/1FAIpQLSf7CKt6BjXfYagKP9XWO74g6PdyYAiAoWhEcvCfUinXGbpcDA/viewform');
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSf7CKt6BjXfYagKP9XWO74g6PdyYAiAoWhEcvCfUinXGbpcDA/viewform');
     });
 
     $(document).on('click', '#search', function () { searchForPiece(); });
@@ -842,11 +840,11 @@ $(document).ready(function () {
     $(document).on('click', '#listChallenge', function () { listChallengePieces(); });
     $(document).on('click', '#listAll', function () { listAllPieces(); });
     $(document).on('click', '#submitAnalysis', function () {
-        openWindow('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform')
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform');
     });
 
-    $(document).on('click', '#changeLog', function () { openChangeLog(); });
-    $(document).on('click', '#tutorialLink', function () { openTutorial(); });
+    $(document).on('click', '#changeLog', function () { openOverlay('changeLog.html'); });
+    $(document).on('click', '#tutorialLink', function () { openOverlay('tutorial.html'); });
 
     $(document).on('click', '#pageCover', function () { closeOverlay(); });
 
@@ -854,6 +852,13 @@ $(document).ready(function () {
 
     //Clickable pieces that display the graph
     $(document).on('click', '.piece', function () { selectPiece(this); });
+
+    //Open Overlay to Analyze Existing Piece
+    $(document).on('click', '.analyzeThis', function () {
+        var thisPiece = activePieceList[$(this).parent().attr("id")];
+
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform?usp=pp_url&entry.290029157=' + thisPiece['Title'] + '&entry.1725435401=' + thisPiece['Composer'] + '&entry.1690364591=' + thisPiece['Arranger'] + '&entry.16958485=__other_option__&entry.16958485.other_option_response=' + thisPiece['Publisher']);
+    });
 
     //Navigation in Piece List
     $(document).keydown(function (e) {
