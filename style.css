@@ -1,3 +1,18 @@
+
+*::-webkit-scrollbar {
+    width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+}
+
 body {
     margin: 0;
     background-color: #F5F5F5;
@@ -120,20 +135,6 @@ body {
     margin-top:  4px;
 }
 
-#notesPane::-webkit-scrollbar {
-    width: 6px;
-}
-
-#notesPane::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 6px;
-}
-
-#notesPane::-webkit-scrollbar-thumb {
-    border-radius: 6px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
-
 #databasePane {
     margin-top:  4px;
     display: inline-block;
@@ -145,29 +146,15 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
-#databasePane::-webkit-scrollbar {
-    width: 6px;
-}
-
-#databasePane::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    border-radius: 6px;
-}
-
-#databasePane::-webkit-scrollbar-thumb {
-    border-radius: 6px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
-
 input {
     display: block;
     margin: auto;
 }
 
-.dbOption {
+.menuOption {
     vertical-align: top;
     display: inline-block;
-    width: 12.5%;
+    width: 14.28%;
     height: 22px;
     text-align: center;
     color: white;
@@ -176,20 +163,20 @@ input {
     font-size: 0.9em;
 }
 
-.dbOption.a {
+.menuOption.a {
     background: #636363;
 }
 
-.dbOption.b {
+.menuOption.b {
     background: #7D7D7D;
 }
 
-.dbOption.m:hover {
+.menuOption.m:hover {
     color: lightblue;
     border-top: 1px solid lightblue;
 }
 
-.dbOption.l:hover {
+.menuOption.l:hover {
     color:  lightgrey;
     border-top: 1px solid lightgrey;
 }
@@ -197,15 +184,13 @@ input {
 .piece {
     position: relative;
     vertical-align: top;
-    background-color: lightgrey;
-    width:  14.5%;
-    height:  175px;
-    display:  inline-block;
-    float:  left;
-    padding:  3px;
-    margin-left:  10px;
-    margin-top:  5px;
-    margin-bottom: 5px;
+    background-color:lightgrey            ;
+    width: 23%;
+    height: 150px;
+    display: inline-block;
+    float: left;
+    padding: 3px;
+    margin: 5px;
     font-size: 0.5em;
     cursor: pointer;
     border:  1px solid black;
@@ -226,6 +211,13 @@ input {
     bottom: 0;
     right: 8px;
     color: grey;
+}
+
+.cLevel {
+    position: absolute;
+    bottom: 0;
+    left: 8px;
+    color: maroon;
 }
 
 .analyzeThis:hover {
@@ -371,7 +363,7 @@ input {
     }
 }
 
-#emailLink:hover {
+#emailLink:hover, #versionNumber:hover {
     color: darkgrey;
     cursor: pointer;
 }

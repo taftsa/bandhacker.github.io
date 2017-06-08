@@ -107,10 +107,6 @@ $(document).ready(function () {
         };
     };
 
-    $(document).on('click', '#reportDuplicate', function () {
-        openWindow('mailto:optimal.efficient@gmail.com?subject=Possible%20Duplicate%20Piece&body=I have discovered a possible duplicate piece in the optimal.efficient database. The two entries are...');
-    });
-
     //Mobile
     function detectmob() {
         if (navigator.userAgent.match(/Android/i)
@@ -450,25 +446,6 @@ $(document).ready(function () {
                 labels: ["Rapidity", "Rhythm", "Dynamics", "Texture", "Tonality", "Range"],
                 datasets: [
                                                                                                          {
-                                                                                                             label: "Your Band",
-                                                                                                             fillColor: "rgba(220,220,440,0.4)",
-                                                                                                             strokeColor: "rgba(220,220,440,1)",
-                                                                                                             pointColor: "rgba(220,220,440,1)",
-                                                                                                             pointStrokeColor: "#fff",
-                                                                                                             pointHighlightFill: "#fff",
-                                                                                                             pointHighlightStroke: "rgba(220,220,220,1)",
-                                                                                                             backgroundColor: "rgba(0, 0, 255, 0.2)",
-                                                                                                             borderColor: "rgba(0, 0, 255, 0.2)",
-                                                                                                             data: [
-                                                                                                                     currentUser.elementOne,
-                                                                                                                     currentUser.elementTwo,
-                                                                                                                     currentUser.elementThree,
-                                                                                                                     currentUser.elementFour,
-                                                                                                                     currentUser.elementFive,
-                                                                                                                     currentUser.elementSix
-                                                                                                                   ]
-                                                                                                         },
-                                                                                                         {
                                                                                                              label: "Selected Piece",
                                                                                                              fillColor: "rgba(440,220,320,0.4)",
                                                                                                              strokeColor: "rgba(440,220,220,1)",
@@ -476,8 +453,8 @@ $(document).ready(function () {
                                                                                                              pointStrokeColor: "#fff",
                                                                                                              pointHighlightFill: "#fff",
                                                                                                              pointHighlightStroke: "rgba(440,220,220,1)",
-                                                                                                             backgroundColor: "rgba(255, 0, 0, 0.2)",
-                                                                                                             borderColor: "red",
+                                                                                                             backgroundColor: "rgba(173,216,230,0.6)",
+                                                                                                             borderColor: "lightblue",
                                                                                                              data: [
                                                                                                                      currentPiece.elementOne,
                                                                                                                      currentPiece.elementTwo,
@@ -486,7 +463,27 @@ $(document).ready(function () {
                                                                                                                      currentPiece.elementFive,
                                                                                                                      currentPiece.elementSix
                                                                                                                    ]
+                                                                                                         },
+                                                                                                         {
+                                                                                                             label: "Your Band",
+                                                                                                             fillColor: "rgba(220,220,440,0.4)",
+                                                                                                             strokeColor: "rgba(220,220,440,1)",
+                                                                                                             pointColor: "rgba(220,220,440,1)",
+                                                                                                             pointStrokeColor: "#fff",
+                                                                                                             pointHighlightFill: "#fff",
+                                                                                                             pointHighlightStroke: "rgba(220,220,220,1)",
+                                                                                                             backgroundColor: "rgba(152,251,152,0.8)",
+                                                                                                             borderColor: "palegreen",
+                                                                                                             data: [
+                                                                                                                     currentUser.elementOne,
+                                                                                                                     currentUser.elementTwo,
+                                                                                                                     currentUser.elementThree,
+                                                                                                                     currentUser.elementFour,
+                                                                                                                     currentUser.elementFive,
+                                                                                                                     currentUser.elementSix
+                                                                                                                   ]
                                                                                                          }
+
                                                                                                      ]
             },
             options: {
@@ -513,7 +510,7 @@ $(document).ready(function () {
         $('#' + number).append('<h4>' + loadInfo['Publisher'] + '</h4>');
 
         if (challengeLevel) {
-            $('#' + number).append('<h4>Challenge Level: ' + challengeLevel + '</h4>');
+            $('#' + number).append('<p class="cLevel" id="cl' + challengeLevel + '">Challenge Level: ' + challengeLevel + '</p>');
         }
 
         $('#' + number).append('<p class="analyzeThis">Add Analysis</p>');
@@ -728,7 +725,21 @@ $(document).ready(function () {
     };
 
     //Tool Tips
-    function createToolTip(hoverDiv, conditionClass, textTrue, textFalse) {
+    function createToolTip(element, text) {
+        $(document).on({
+            mouseenter: function () {
+                if ($('#help').hasClass('on')) {
+                    $('#toolTip').html(text);
+                    $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                };
+            },
+            mouseleave: function () {
+                $('#toolTip').css('display', 'none');
+            }
+        }, element);
+    };
+
+    function createAdvancedToolTip(hoverDiv, conditionClass, textTrue, textFalse) {
         $(document).on({
             mouseenter: function () {
                 if ($('#help').hasClass('on')) {
@@ -750,23 +761,41 @@ $(document).ready(function () {
         }, hoverDiv);
     };
 
-    createToolTip('#oneFlute', 'trueBasic', 'This piece requires at least 1 flute', 'This piece can be played without flutes');
-    createToolTip('#twoClarinets', 'trueBasic', 'This piece requires at least 1-2 clarinets', 'This piece can be played without clarinets');
-    createToolTip('#threeSaxophones', 'trueBasic', 'This piece requires at least ATB saxes', 'This piece can be played with less than ATB saxes');
-    createToolTip('#oneHorn', 'trueBasic', 'This piece requires at least 1 horn', 'This piece can be played without horns');
-    createToolTip('#twoTrumpets', 'trueBasic', 'This piece requires at least 1-2 trumpets', 'This piece can be played without trumpets');
-    createToolTip('#oneTrombone', 'trueBasic', 'This piece requires at least 1 trombone', 'This piece can be played without trombones');
-    createToolTip('#baritone', 'trueBasic', 'This piece requires baritone', 'This piece can be played without baritone');
-    createToolTip('#tuba', 'trueBasic', 'This piece requires tuba', 'This piece can be played without tuba');
-    createToolTip('#oneFlute', 'trueBasic', 'This piece requires at least 1 flute', 'This piece can be played without flutes');
-    createToolTip('#moreFlutes', 'trueAdvanced', 'This piece requires 2 or more flutes', 'This piece does not require 2 or more flutes');
-    createToolTip('#moreClarinets', 'trueAdvanced', 'This piece requires 3 or more clarinets', 'This piece does not require 3 or more clarinets');
-    createToolTip('#moreSaxophones', 'trueAdvanced', 'This piece requires more than ATB saxes', 'This piece does not require more than ATB saxes');
-    createToolTip('#moreHorns', 'trueAdvanced', 'This piece requires 2 or more horns', 'This piece does not require 2 or more horns');
-    createToolTip('#moreTrumpets', 'trueAdvanced', 'This piece requires 3 or more trumpets', 'This piece does not require 3 or more trumpets');
-    createToolTip('#moreTrombones', 'trueAdvanced', 'This piece requires 2 or more trombones', 'This piece does not require 2 or more trombones');
-    createToolTip('#oboe', 'trueAdvanced', 'This piece requires oboe', 'This piece can be played without oboe');
-    createToolTip('#bassoon', 'trueAdvanced', 'This piece requires bassoon', 'This piece can be played without bassoon');
+    //Help on and off
+    $(document).on('click', '#help', function () {
+        $(this).toggleClass('on');
+        if ($(this).hasClass('on')) {
+            $('.instrument').css('border', '2px solid lightblue');
+            setTimeout(function () { $('.instrument').css('border', '2px solid #7D7D7D') }, 150);
+            setTimeout(function () { $('.instrument').css('border', '2px solid lightblue') }, 300);
+            setTimeout(function () { $('.instrument').css('border', '2px solid #7D7D7D') }, 450);
+
+            $('.cLevel').css('color', 'lightblue');
+            setTimeout(function () { $('.cLevel').css('color', 'maroon') }, 150);
+            setTimeout(function () { $('.cLevel').css('color', 'lightblue') }, 300);
+            setTimeout(function () { $('.cLevel').css('color', 'maroon') }, 450);
+        };
+    });
+
+    createAdvancedToolTip('#oneFlute', 'trueBasic', 'This piece requires at least 1 flute', 'This piece can be played without flutes');
+    createAdvancedToolTip('#twoClarinets', 'trueBasic', 'This piece requires at least 1-2 clarinets', 'This piece can be played without clarinets');
+    createAdvancedToolTip('#threeSaxophones', 'trueBasic', 'This piece requires at least ATB saxes', 'This piece can be played with less than ATB saxes');
+    createAdvancedToolTip('#oneHorn', 'trueBasic', 'This piece requires at least 1 horn', 'This piece can be played without horns');
+    createAdvancedToolTip('#twoTrumpets', 'trueBasic', 'This piece requires at least 1-2 trumpets', 'This piece can be played without trumpets');
+    createAdvancedToolTip('#oneTrombone', 'trueBasic', 'This piece requires at least 1 trombone', 'This piece can be played without trombones');
+    createAdvancedToolTip('#baritone', 'trueBasic', 'This piece requires baritone', 'This piece can be played without baritone');
+    createAdvancedToolTip('#tuba', 'trueBasic', 'This piece requires tuba', 'This piece can be played without tuba');
+    createAdvancedToolTip('#oneFlute', 'trueBasic', 'This piece requires at least 1 flute', 'This piece can be played without flutes');
+    createAdvancedToolTip('#moreFlutes', 'trueAdvanced', 'This piece requires 2 or more flutes', 'This piece does not require 2 or more flutes');
+    createAdvancedToolTip('#moreClarinets', 'trueAdvanced', 'This piece requires 3 or more clarinets', 'This piece does not require 3 or more clarinets');
+    createAdvancedToolTip('#moreSaxophones', 'trueAdvanced', 'This piece requires more than ATB saxes', 'This piece does not require more than ATB saxes');
+    createAdvancedToolTip('#moreHorns', 'trueAdvanced', 'This piece requires 2 or more horns', 'This piece does not require 2 or more horns');
+    createAdvancedToolTip('#moreTrumpets', 'trueAdvanced', 'This piece requires 3 or more trumpets', 'This piece does not require 3 or more trumpets');
+    createAdvancedToolTip('#moreTrombones', 'trueAdvanced', 'This piece requires 2 or more trombones', 'This piece does not require 2 or more trombones');
+    createAdvancedToolTip('#oboe', 'trueAdvanced', 'This piece requires oboe', 'This piece can be played without oboe');
+    createAdvancedToolTip('#bassoon', 'trueAdvanced', 'This piece requires bassoon', 'This piece can be played without bassoon');
+
+    createToolTip('#help', 'Toggle help');
 
     //Percussion Category
     $(document).on({
@@ -804,29 +833,24 @@ $(document).ready(function () {
         }
     }, '#numberOfPercussion');
 
-
-    $(document).on('click', '#help', function () {
-        $(this).toggleClass('on');
-        if ($(this).hasClass('on')) {
-            $('.instrument').css('border', '2px solid lightblue');
-            setTimeout(function () { $('.instrument').css('border', '2px solid #7D7D7D') }, 150);
-            setTimeout(function () { $('.instrument').css('border', '2px solid lightblue') }, 300);
-            setTimeout(function () { $('.instrument').css('border', '2px solid #7D7D7D') }, 450);
-        };
-    });
-
-    //Help tooltip
+    //Challenge tooltip
     $(document).on({
         mouseenter: function () {
             if ($('#help').hasClass('on')) {
-                $('#toolTip').html('Toggle help');
+                if (this.id[2] == "1") {
+                    $('#toolTip').html('1 node is above your band\'s level');
+                }
+                else {
+                    $('#toolTip').html(this.id[2] + ' nodes are above your band\'s level');
+                };                
                 $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
             };
         },
         mouseleave: function () {
             $('#toolTip').css('display', 'none');
         }
-    }, '#help');
+    }, '.cLevel');
+
 
     //Button Assignments
     $(document).on('click', '#loginButton', function () { login(); });
@@ -843,7 +867,7 @@ $(document).ready(function () {
         openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform');
     });
 
-    $(document).on('click', '#changeLog', function () { openOverlay('changeLog.html'); });
+    $(document).on('click', '#versionNumber', function () { openOverlay('changeLog.html'); });
     $(document).on('click', '#tutorialLink', function () { openOverlay('tutorial.html'); });
 
     $(document).on('click', '#pageCover', function () { closeOverlay(); });
