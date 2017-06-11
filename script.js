@@ -27,12 +27,34 @@ $(document).ready(function () {
     var searchArranger;
     var cookiesExist;
 
+    //Animate Ellipsis on Disabled "Load Band" Button
+    var loadAnimCount = 1;
+    var loadAnimate = setInterval(function () {
+        switch (loadAnimCount) {
+            case 0:
+                document.getElementById('loginButton').value = 'Loading.';
+                loadAnimCount = 1;
+                break;
+
+            case 1:
+                document.getElementById('loginButton').value = 'Loading..';
+                loadAnimCount = 2;
+                break;
+
+            default:
+                document.getElementById('loginButton').value = 'Loading...';
+                loadAnimCount = 0;
+        };
+    }, 500);
+
 
     //Startup
     Tabletop.init({ key: '1Wo1RArWUmqVJ9KBjiT2W7B4Tx3KeUsy1sPYPjulcr5I',
         callback: function (data, tabletop) {
             listOfUsers = data;
             $('#loginButton').removeAttr('disabled');
+            document.getElementById('loginButton').value = 'Load Band';
+            clearInterval(loadAnimate);
         },
         simpleSheet: true
     });
@@ -539,9 +561,9 @@ $(document).ready(function () {
             $('#databasePane').empty();
             clearSelectedPiece();
             $('#databasePane').append(
-                                        'Search Title<input id="searchTitle" type="checkbox" name="searchIn" value="Title">' +
-                                        'Search Composer<input id="searchComposer" type="checkbox" name="searchIn" value="Composer">' +
-                                        'Search Arranger<input id="searchArranger" type="checkbox" name="searchIn" value="Arranger"><br />'
+                                        '<br /><div>Search Title <input id="searchTitle" class="searchItem" type="checkbox" name="searchIn" value="Title"></div>' +
+                                        '<br /><div>Search Composer <input id="searchComposer" class="searchItem" type="checkbox" name="searchIn" value="Composer"></div>' +
+                                        '<br /><div>Search Arranger <input id="searchArranger" class="searchItem" type="checkbox" name="searchIn" value="Arranger"><br /></div><br />'
                                     );
             $('#databasePane').append('<input name="searchTerm" type="text" placeholder="search for a piece" id="searchTerm"><br />');
             $('#databasePane').append('<input type="button" name="executeSearch" value="Search" id="searchButton">');
@@ -741,7 +763,7 @@ $(document).ready(function () {
 
     function createAdvancedToolTip(hoverDiv, conditionClass, textTrue, textFalse) {
         $(document).on({
-            mouseenter: function () {
+            mouseenter: function () {                
                 if ($('#help').hasClass('on')) {
                     if ($(hoverDiv).hasClass(conditionClass)) {
                         $('#toolTip').html(textTrue);
@@ -842,7 +864,7 @@ $(document).ready(function () {
                 }
                 else {
                     $('#toolTip').html(this.id[2] + ' nodes are above your band\'s level');
-                };                
+                };
                 $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
             };
         },

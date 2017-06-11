@@ -1,4 +1,3 @@
-
 *::-webkit-scrollbar {
     width: 6px;
 }
@@ -113,7 +112,6 @@ body {
     padding: 2px;
     vertical-align: top;
     margin: 0 auto;
-    cursor: pointer;
 }
 
 .instrument {
@@ -123,6 +121,15 @@ body {
     width: 16px;
     font-size: 0.75em;
     text-align: center;
+}
+
+.trueBasic {
+    background-color: lightblue;
+}
+
+.trueAdvanced {
+    background-color: maroon;
+    color: lightgrey;
 }
 
 #notesPane {   
@@ -152,13 +159,13 @@ input {
 }
 
 .menuOption {
+    cursor: pointer;
     vertical-align: top;
     display: inline-block;
     width: 14.28%;
     height: 22px;
     text-align: center;
     color: white;
-    cursor: default;
     border-top: 1px solid white;
     font-size: 0.9em;
 }
@@ -222,17 +229,8 @@ input {
 
 .analyzeThis:hover {
     color: white;
-}
-
-.trueBasic {
-    background-color: green;
-}
-
-.trueAdvanced {
-    background-color: orange;
-}
-
-.ratingsCount {
+    
+}ratingsCount {
     background-color: lightblue;
     font-size: 1em;
     margin-top: 3px;
@@ -308,26 +306,29 @@ input {
     margin-top: 8px;
 }
 
-#loginButton, #newAccountButton {
+#loginButton, #newAccountButton, #searchButton {
     background: black;
     border: none;
+    width:  100px;
     padding: 10px 20px 10px 20px;
     border-bottom: 3px solid white;
     border-radius: 3px;
     color: white;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-top: 8px;
+    cursor: pointer;
 }
 
-#loginButton:hover, #newAccountButton:hover {
+#loginButton:hover, #newAccountButton:hover, #searchButton:hover {
     border-bottom: 3px solid lightblue;
     color: lightblue;
 }
 
 #loginButton:disabled {
+    cursor:  default;
     background-color: grey;
     color: lightgrey;
-    border-bottom: 3px solid lightgrey;
+    border-bottom: 3px solid lightgrey;    
 }
 
 #intro {
@@ -344,12 +345,12 @@ input {
     left: 50%;
     top: 50%;
     z-index: 1;
-    width: 60px;
-    height: 60px;
+    width: 15px;
+    height: 15px;
     margin: 40% auto;
-    border: 8px solid grey;
+    border: 6px solid grey;
     border-radius: 50%;
-    border-top: 8px solid lightblue;
+    border-top: 6px solid lightblue;
     animation: spin 2s linear infinite;
 }
 
@@ -366,4 +367,25 @@ input {
 #emailLink:hover, #versionNumber:hover {
     color: darkgrey;
     cursor: pointer;
+}
+
+#searchTerm {
+    border:  2px solid black;
+}
+
+.searchItem {
+    display: inline-block;
+    -webkit-appearance: none;
+    border: 2px solid black;
+    width: 15px;
+    height:  15px;
+    border-radius: 5px;
+}
+
+.searchItem:hover {
+    cursor: pointer;
+}
+
+.searchItem:checked {
+    background-color: lightblue;
 }
