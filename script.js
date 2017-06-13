@@ -28,6 +28,8 @@ $(document).ready(function () {
     var cookiesExist;
 
     //Animate Ellipsis on Disabled "Load Band" Button
+    $('#loginButton').attr('disabled', 'disabled');
+
     var loadAnimCount = 1;
     var loadAnimate = setInterval(function () {
         switch (loadAnimCount) {
@@ -148,11 +150,6 @@ $(document).ready(function () {
 
     if (detectmob()) {
         alert('This site is not optimized for mobile. For best results, use your desktop or laptop.')
-    };
-
-    //Firefox
-    if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
-        alert('It looks like you\'re using Firefox, which doesn\'t play nice with optimal.efficient. Try Chrome, Edge, or Internet Explorer to make sure all of the features work properly!')
     };
 
     //Cookies
@@ -749,10 +746,10 @@ $(document).ready(function () {
     //Tool Tips
     function createToolTip(element, text) {
         $(document).on({
-            mouseenter: function () {
+            mouseenter: function (evt) {
                 if ($('#help').hasClass('on')) {
                     $('#toolTip').html(text);
-                    $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                    $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
                 };
             },
             mouseleave: function () {
@@ -763,16 +760,16 @@ $(document).ready(function () {
 
     function createAdvancedToolTip(hoverDiv, conditionClass, textTrue, textFalse) {
         $(document).on({
-            mouseenter: function () {                
+            mouseenter: function (evt) {
                 if ($('#help').hasClass('on')) {
                     if ($(hoverDiv).hasClass(conditionClass)) {
                         $('#toolTip').html(textTrue);
-                        $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                        $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
                     }
                     else {
                         $('#toolTip').html(textFalse);
                         if ($('#toolTip').html() !== "") {
-                            $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
                         };
                     }
                 };
@@ -821,19 +818,19 @@ $(document).ready(function () {
 
     //Percussion Category
     $(document).on({
-        mouseenter: function () {
+        mouseenter: function (evt) {
             if ($('#help').hasClass('on')) {
                 if ($('#sixPercussion').hasClass('trueBasic')) {
                     $('#toolTip').html('This piece requires 1-5 percussion');
-                    $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                    $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
                 }
                 else if ($('#sixPercussion').hasClass('trueAdvanced')) {
                     $('#toolTip').html('This piece requires 6 or more percussion');
-                    $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                    $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
                 }
                 else {
                     $('#toolTip').html('This piece can be played without percussion');
-                    $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                    $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
                 }
             };
         },
@@ -844,10 +841,10 @@ $(document).ready(function () {
 
     //Percussion Number
     $(document).on({
-        mouseenter: function () {
+        mouseenter: function (evt) {
             if ($('#help').hasClass('on')) {
                 $('#toolTip').html('This piece requires ' + $('#numberOfPercussion').html() + ' percussion');
-                $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
             };
         },
         mouseleave: function () {
@@ -857,7 +854,7 @@ $(document).ready(function () {
 
     //Challenge tooltip
     $(document).on({
-        mouseenter: function () {
+        mouseenter: function (evt) {
             if ($('#help').hasClass('on')) {
                 if (this.id[2] == "1") {
                     $('#toolTip').html('1 node is above your band\'s level');
@@ -865,7 +862,7 @@ $(document).ready(function () {
                 else {
                     $('#toolTip').html(this.id[2] + ' nodes are above your band\'s level');
                 };
-                $('#toolTip').css({ 'top': event.pageY, 'left': event.pageX + 20, 'display': 'block' }).fadeIn();
+                $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
             };
         },
         mouseleave: function () {
