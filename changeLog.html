@@ -4,7 +4,45 @@
     <head>
         <meta charset="utf-8" />
         <title></title>
+        <script src="jquery-1.12.3.js"></script>
+        <script src="jquery-ui.js"></script>
+
         <style>
+            * {
+                font-family: arial;
+                font-size:  0.96em;
+                cursor:  default;
+            }
+            
+            body {
+                background-color: #eee;
+            }
+            
+            /* Style the buttons that are used to open and close the accordion panel */
+            button.accordion {
+                background-color: lightgrey;
+                color: black;
+                cursor: pointer;
+                padding: 4px;
+                width: 100%;
+                text-align: center;
+                border: none;
+                outline: none;
+                transition: 0.4s;
+            }
+
+            /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+            button.accordion.active, button.accordion:hover {
+                background-color: lightblue;
+            }
+
+            /* Style the accordion panel. Note: hidden by default */
+            div.panel {
+                padding: 2px 18px;
+                background-color: white;
+                display: none;
+            }
+            
             ::-webkit-scrollbar {
                 width: 6px;
             }
@@ -18,99 +56,174 @@
                 border-radius: 6px;
                 -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
             }
+            
+            h1 {
+                text-align: center;
+            }
         </style>
 
     </head>
     <body>
         <h1>Change Log</h1>
 
-        <h3>Version 0.6.3 (Beta)</h3>
-        <ul>
-            <li>Added Firefox support for tool tips (Changed function() { event.pageX/event.pageY } to function(evt) { evt.pageX/evt.pageY })</li>
-            <li>Removed Firefox warning</li>
-        </ul>
+        <button class="accordion">Version 0.7 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Added analyzer information (hover over the "?"; will not work long-term if lots of people start using the platform)</li>
+                <li>Moved analysis count to new analyzer information panel</li>
+                <li>Tutorial additions/adjustments, mostly to reflect new features</li>
+                <li>Changed logo to match platform color scheme</li>
+                <li>Changed color scheme and padding for tutorial</li>
+                <li>Updated change log UI to match tutorial</li>
+                <li>Added loader before external pages load in overlay pane</li>                
+                <li>Changed overlay page cover hover color to maroon (from darkred) to match platform color scheme</li>
+                <li>Changed "ratings" in code to "analyses"</li>
+                <li>Added "Dedications" page to tutorial</li>
+            </ul>
+        </div>
+        
+        <button class="accordion">Version 0.6.3 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Added Firefox support for tool tips (Changed function() { event.pageX/event.pageY } to function(evt) { evt.pageX/evt.pageY })</li>
+                <li>Removed Firefox warning</li>
+            </ul>  
+        </div>    
 
-        <h3>Version 0.6.2 (Beta)</h3>
-        <ul>
-            <li>Changed colors on instrument graph</li>
-            <li>Changed "Load Band" text to "Loading..." with animated ellipsis before band list loads</li>
-            <li>Changed cursor to show pointer on (and only on) clickable items</li>
-            <li>Changed size of loader</li>
-            <li>Updated look of search page</li>
-            <li>Updated tutorial for clarity, brevity, and to reflect site changes</li>
-            <li>Fixed width of load band and band creation buttons</li>
-        </ul>
+        <button class="accordion">Version 0.6.2 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Changed colors on instrument graph</li>
+                <li>Changed "Load Band" text to "Loading..." with animated ellipsis before band list loads</li>
+                <li>Changed cursor to show pointer on (and only on) clickable items</li>
+                <li>Changed size of loader</li>
+                <li>Updated look of search page</li>
+                <li>Updated tutorial for clarity, brevity, and to reflect site changes</li>
+                <li>Fixed width of load band and band creation buttons</li>
+            </ul>  
+        </div>
 
-        <h3>Version 0.6.1 (Beta)</h3>
-        <ul>
-            <li>Moved change log access from top menu to clicking version number</li>
-            <li>Changed scrollbar on change log</li>
-            <li>Changed graph colors to better match platform color scheme</li>
-            <li>Changed size and margins of piece cards</li>
-            <li>Changed location and color of "challenge level"</li>
-            <li>Added tool tip for "challenge level"</li>
-            <li>"Challenge Level" now flashes when help is turned on</li>
-            <li>Coding optimizations</li>
-        </ul>
+        <button class="accordion">Version 0.6.1 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Moved change log access from top menu to clicking version number</li>
+                <li>Changed scrollbar on change log</li>
+                <li>Changed graph colors to better match platform color scheme</li>
+                <li>Changed size and margins of piece cards</li>
+                <li>Changed location and color of "challenge level"</li>
+                <li>Added tool tip for "challenge level"</li>
+                <li>"Challenge Level" now flashes when help is turned on</li>
+                <li>Coding optimizations</li>
+            </ul>  
+        </div>
 
-        <h3>Version 0.6 (Beta)</h3>
-        <ul>
-            <li>Removed "Arranged by" when there is no arranger</li>
-            <li>Small layout adjustment</li>
-            <li>Changed Saxophone code from X to S</li>
-            <li>Added link to analysis with pre-filled title, composer, arranger, and publisher for every piece</li>
-            <li>Miscellaneous JavaScript optimizations</li>
-            <li>Overlay page cover turns red on hover to indicate that the overlay will close when the cover is clicked</li>
-            <li>Overlay pane height maxed out</li>
-        </ul>
+        <button class="accordion">Version 0.6 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Removed "Arranged by" when there is no arranger</li>
+                <li>Small layout adjustment</li>
+                <li>Changed Saxophone code from X to S</li>
+                <li>Added link to analysis with pre-filled title, composer, arranger, and publisher for every piece</li>
+                <li>Miscellaneous JavaScript optimizations</li>
+                <li>Overlay page cover turns red on hover to indicate that the overlay will close when the cover is clicked</li>
+                <li>Overlay pane height maxed out</li>
+            </ul>  
+        </div>
 
-        <h3>Version 0.5.2 (Beta)</h3>
-        <ul>
-            <li>Increased size of overlay panel</li>
-            <li>Layout and text changes to tutorial</li>
-        </ul>
+        <button class="accordion">Version 0.5.2 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Increased size of overlay panel</li>
+                <li>Layout and text changes to tutorial</li>
+            </ul>  
+        </div>
 
-        <h3>Version 0.5.1 (Beta)</h3>
-        <ul>
-            <li>Added Firefox warning</li>
-            <li>Added instrument graph flash when turning on help</li>
-            <li>Clears out current piece when changing list parameter</li>
-        </ul>
+        <button class="accordion">Version 0.5.1 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Added Firefox warning</li>
+                <li>Added instrument graph flash when turning on help</li>
+                <li>Clears out current piece when changing list parameter</li>
+            </ul>  
+        </div>
 
-        <h3>Version 0.5 (Beta)</h3>
-        <ul>
-            <li>Added help button and tool tips</li>
-            <li>Adjusted scrolling for database pane</li>
-            <li>Replaced "training" references with "tutorial"</li>
-            <li>UI tweaks</li>
-        </ul>
+        <button class="accordion">Version 0.5 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Added help button and tool tips</li>
+                <li>Adjusted scrolling for database pane</li>
+                <li>Replaced "training" references with "tutorial"</li>
+                <li>UI tweaks</li>
+            </ul>  
+        </div>
 
-        <h3>Version 0.4 (Beta)</h3>
-        <ul>
-            <li>Major UI changes</li>
-            <li>Removed "Other Tools" (still accessible via <a href="http://optimal-efficient.github.io/blindAuditioner.html">optimal-efficient.github.io/blindAuditioner.html</a>)</li>
-        </ul>
+        <button class="accordion">Version 0.4 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Major UI changes</li>
+                <li>Removed "Other Tools" (still accessible <a href="http://optimal-efficient.github.io/blindAuditioner.html">here</a>)</li>
+            </ul>  
+        </div>
 
-        <h3>Version 0.3.2 (Beta)</h3>
-        <ul>
-            <li>Moved CSS styling to separate .css file</li>
-            <li>Moved JavaScript to separate .js file (with minor tweaks)</li>
-        </ul>
+        <button class="accordion">Version 0.3.2 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Moved CSS styling to separate .css file</li>
+                <li>Moved JavaScript to separate .js file (with minor tweaks)</li>
+            </ul>  
+        </div>
 
-        <h3>Version 0.3.1 (Beta)</h3>
-        <ul>
-            <li>Added change log</li>
-            <li>Disabled login button before user list loads</li>
-        </ul>
+        <button class="accordion">Version 0.3.1 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>Added change log</li>
+                <li>Disabled login button before user list loads</li>
+            </ul>  
+        </div>
 
-        <h3>Version 0.3.0 (Beta)</h3>
-        <ul>
-            <li>UI refreshed</li>
-            <li>Automatically loads piece list on login</li>
-            <li>Automatically loads user list on page load</li>
-            <li>Removed "close" buttons from overlay pages</li>
-            <li>Closes overlay pages by clicking outside the window</li>
-            <li>Miscellaneous performance tweaks</li>
-        </ul>        
+        <button class="accordion">Version 0.3.0 (Beta)</button>
+        <div class="panel">
+            <ul>
+                <li>UI refreshed</li>
+                <li>Automatically loads piece list on login</li>
+                <li>Automatically loads user list on page load</li>
+                <li>Removed "close" buttons from overlay pages</li>
+                <li>Closes overlay pages by clicking outside the window</li>
+                <li>Miscellaneous performance tweaks</li>
+            </ul>  
+        </div>    
     </body>
 </html>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    acc[0].classList.toggle("active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = acc[0].nextElementSibling;
+    if (panel.style.display === "block") {
+        panel.style.display = "none";
+    } else {
+        $('.panel').css('display', 'none');
+        panel.style.display = "block";
+    }
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function () {
+            /* Toggle between adding and removing the "active" class, to highlight the button that controls the panel */
+            $('.active').not(this).removeClass('active');
+            this.classList.toggle("active");
+
+            /* Toggle between hiding and showing the active panel */
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                $('.panel').css('display', 'none');
+                panel.style.display = "block";
+            }
+        }
+    };
+</script>

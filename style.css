@@ -38,6 +38,7 @@ body {
 .logo {
     display: inline-block;
     vertical-align: top;
+    margin: 2px;
 }
 
 #info {
@@ -213,11 +214,33 @@ input {
     background-color: lightblue;
 }
 
+.analyzerData {
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    color: grey;
+    z-index: 3;
+}
+
+#infoCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;;
+    background-color: black;
+    color: white;
+    opacity: 0.90;
+    margin: -4px;
+    border-radius: 5px;
+    border: 1px solid white;
+    z-index: 2;
+}
+
 .analyzeThis {
     position: absolute;
     bottom: 0;
     right: 8px;
     color: grey;
+    z-index: 1;
 }
 
 .cLevel {
@@ -227,13 +250,20 @@ input {
     color: maroon;
 }
 
-.analyzeThis:hover {
+.analyzeThis:hover, .analyzerData:hover {
     color: white;
-    
-}ratingsCount {
-    background-color: lightblue;
-    font-size: 1em;
-    margin-top: 3px;
+}
+
+.dataCat {
+    color: lightblue;
+}
+
+.analysisCount {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    color: lightblue;
+    z-index: 3;
 }
 
 .noNotes {
@@ -271,10 +301,11 @@ input {
     right: 0;
     background-color: black;
     opacity: 0.5;
+    z-index: 100;
 }
 
 #pageCover:hover {
-    background-color: darkred;
+    background-color: maroon;
 }
 
 #overlayPane {
@@ -286,6 +317,7 @@ input {
     left: 10%;
     opacity: 1.0;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    z-index: 101;
 }
 
 #buffer {
@@ -348,6 +380,17 @@ input {
     width: 15px;
     height: 15px;
     margin: 40% auto;
+    border: 6px solid grey;
+    border-radius: 50%;
+    border-top: 6px solid lightblue;
+    animation: spin 2s linear infinite;
+}
+
+.loaderExternal {
+    z-index: 1;
+    width: 15px;
+    height: 15px;
+    margin: 20% auto;
     border: 6px solid grey;
     border-radius: 50%;
     border-top: 6px solid lightblue;

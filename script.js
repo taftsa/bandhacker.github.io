@@ -102,10 +102,22 @@ $(document).ready(function () {
                 );
     };
 
-    function openOverlay(url) {
+    function openOverlay(url, external) {
         $('body').append('<div id="pageCover"></div>');
         $('body').append('<div id="overlayPane"></div>');
-        $('#overlayPane').html('<object type="text/html" data="' + url + '" width="100%" height="100%"></object>');
+        $('#overlayPane').html('<object id="pageContent" type="text/html" data="' + url + '" width="100%" height="100%"></object>');
+
+        if (external) {
+            $('#pageContent').css({ height: '0%', width: '0%' });
+            $('#pageContent').css('width', '0%');
+            $('#overlayPane').prepend('<div class="loaderExternal"></div>');
+
+            document.getElementById('pageContent').onload = (function () {
+                $('.loaderExternal').remove();
+                $('#pageContent').css({ height: '100%', width: '100%' });
+            });
+
+        }
     };
 
     function closeOverlay() {
@@ -221,6 +233,40 @@ $(document).ready(function () {
         };
     };
 
+    function unique(array) {
+        newArray = [];
+
+        for (var ar = 0; ar < array.length; ar++) {
+            if ($.inArray(array[ar], newArray) == -1) {
+                newArray.push(array[ar]);
+            };
+        };
+
+        return newArray;
+    };
+
+    function uniqueCount(array) {
+        newArray = [];
+        uniqueArray = [];
+        countArray = [];
+
+        for (var ar = 0; ar < array.length; ar++) {
+            if ($.inArray(array[ar], uniqueArray) == -1) {
+                uniqueArray.push(array[ar]);
+                countArray.push(1);
+            }
+            else {
+                countArray[$.inArray(array[ar], uniqueArray)]++;
+            }
+        };
+
+        for (var ar = 0; ar < uniqueArray.length; ar++) {
+            newArray[ar] = [uniqueArray[ar], countArray[ar]];
+        };
+
+        return newArray;
+    };
+
     function changeInstrumentation(piece) {
         $('.trueBasic').removeClass('trueBasic');
         $('.trueAdvanced').removeClass('trueAdvanced');
@@ -304,14 +350,6 @@ $(document).ready(function () {
     function addNotes(piece) {
         $('#notesPane').empty();
 
-        if (piece['Number of Ratings'] == 1) {
-            $('#notesPane').append('<div class="ratingsCount">' + piece['Number of Ratings'] + ' Analysis' + '</div>');
-        }
-        else {
-            $('#notesPane').append('<div class="ratingsCount">' + piece['Number of Ratings'] + ' Analyses' + '</div>');
-        };
-
-
         if (piece['Difficulty Notes'].length == 0 && piece['Instrumentation Notes'].length == 0) {
             $('#notesPane').append('<div class="noNotes">No Notes Yet</div>');
         };
@@ -358,6 +396,7 @@ $(document).ready(function () {
         var alreadyDone = false;
         var pieceInQuestion = false;
 
+        //Loop through every piece
         for (var a = 0; a < t; a++) {
             if (pieceList[t]['Title'].toUpperCase() == pieceList[a]['Title'].toUpperCase() && pieceList[t]['Composer'].toUpperCase() == pieceList[a]['Composer'].toUpperCase() && pieceList[t]['Arranger'].toUpperCase() == pieceList[a]['Arranger'].toUpperCase() && pieceList[t]['Publisher'].toUpperCase() == pieceList[a]['Publisher'].toUpperCase()) {
                 alreadyDone = true;
@@ -367,10 +406,13 @@ $(document).ready(function () {
         if (!alreadyDone) {
             pieceInQuestion = {}
 
+            //Direct Attributes
             pieceInQuestion['Title'] = pieceList[t]['Title'];
             pieceInQuestion['Composer'] = pieceList[t]['Composer'];
             pieceInQuestion['Publisher'] = pieceList[t]['Publisher'];
             pieceInQuestion['Arranger'] = pieceList[t]['Arranger'];
+
+            //Calculated Attribute Setup
             pieceInQuestion['Rapidity'] = [];
             pieceInQuestion['Rhythm'] = [];
             pieceInQuestion['Dynamics'] = [];
@@ -390,10 +432,16 @@ $(document).ready(function () {
             pieceInQuestion['Percussion'] = [];
             pieceInQuestion['Difficulty Notes'] = [];
             pieceInQuestion['Instrumentation Notes'] = [];
-            pieceInQuestion['Number of Ratings'] = 0;
+            pieceInQuestion['Number of Analyses'] = 0;
+            pieceInQuestion['Reference States'] = [];
+            pieceInQuestion['Names'] = [];
+            pieceInQuestion['Affiliations'] = [];
 
+            //For each piece, loop through each piece again
             for (var a = t; a < numberOfPieces; a++) {
                 if (pieceList[t]['Title'] == pieceList[a]['Title'] && pieceList[t]['Composer'] == pieceList[a]['Composer'] && pieceList[t]['Arranger'] == pieceList[a]['Arranger'] && pieceList[t]['Publisher'] == pieceList[a]['Publisher']) {
+
+                    //For all pieces that are the same...
                     pieceInQuestion['Rapidity'].push(pieceList[a][' [Rapidity]'] / 1);
                     pieceInQuestion['Rhythm'].push(pieceList[a][' [Rhythm]'] / 1);
                     pieceInQuestion['Dynamics'].push(pieceList[a][' [Dynamics]'] / 1);
@@ -411,7 +459,10 @@ $(document).ready(function () {
                     pieceInQuestion['Baritone'].push(pieceList[a]['Baritone']);
                     pieceInQuestion['Tuba'].push(pieceList[a]['Tuba']);
                     pieceInQuestion['Percussion'].push(pieceList[a]['Percussion'] / 1);
-                    pieceInQuestion['Number of Ratings']++;
+                    pieceInQuestion['Number of Analyses']++;
+                    pieceInQuestion['Reference States'].push(pieceList[a]['Reference State']);
+                    pieceInQuestion['Names'].push(pieceList[a]['Your Name']);
+                    pieceInQuestion['Affiliations'].push(pieceList[a]['Your Affiliation']);
 
                     if (pieceList[a]['Difficulty Notes'] !== "") {
                         var diff = pieceList[a]['Difficulty Notes'];
@@ -432,9 +483,12 @@ $(document).ready(function () {
                             pieceInQuestion['Instrumentation Notes'].push(thisn);
                         };
                     };
+
+
                 };
             };
 
+            //Calculated Attribute Calculations
             pieceInQuestion['Rapidity'] = Math.round(findMean(pieceInQuestion['Rapidity']));
             pieceInQuestion['Rhythm'] = Math.round(findMean(pieceInQuestion['Rhythm']));
             pieceInQuestion['Dynamics'] = Math.round(findMean(pieceInQuestion['Dynamics']));
@@ -452,6 +506,9 @@ $(document).ready(function () {
             pieceInQuestion['Baritone'] = findMode(pieceInQuestion['Baritone'], 'Yes');
             pieceInQuestion['Tuba'] = findMode(pieceInQuestion['Tuba'], "Yes");
             pieceInQuestion['Percussion'] = Math.ceil(findMean(pieceInQuestion['Percussion']));
+            pieceInQuestion['Reference States'] = uniqueCount(pieceInQuestion['Reference States']);
+            pieceInQuestion['Names'] = uniqueCount(pieceInQuestion['Names']);
+            pieceInQuestion['Affiliations'] = uniqueCount(pieceInQuestion['Affiliations']);
         };
 
         return pieceInQuestion;
@@ -532,6 +589,7 @@ $(document).ready(function () {
             $('#' + number).append('<p class="cLevel" id="cl' + challengeLevel + '">Challenge Level: ' + challengeLevel + '</p>');
         }
 
+        $('#' + number).append('<p class="analyzerData">?</p>');
         $('#' + number).append('<p class="analyzeThis">Add Analysis</p>');
     };
 
@@ -874,7 +932,7 @@ $(document).ready(function () {
     //Button Assignments
     $(document).on('click', '#loginButton', function () { login(); });
     $(document).on('click', '#newAccountButton', function () {
-        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSf7CKt6BjXfYagKP9XWO74g6PdyYAiAoWhEcvCfUinXGbpcDA/viewform');
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSf7CKt6BjXfYagKP9XWO74g6PdyYAiAoWhEcvCfUinXGbpcDA/viewform', true);
     });
 
     $(document).on('click', '#search', function () { searchForPiece(); });
@@ -883,11 +941,11 @@ $(document).ready(function () {
     $(document).on('click', '#listChallenge', function () { listChallengePieces(); });
     $(document).on('click', '#listAll', function () { listAllPieces(); });
     $(document).on('click', '#submitAnalysis', function () {
-        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform');
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform', true);
     });
 
-    $(document).on('click', '#versionNumber', function () { openOverlay('changeLog.html'); });
-    $(document).on('click', '#tutorialLink', function () { openOverlay('tutorial.html'); });
+    $(document).on('click', '#versionNumber', function () { openOverlay('changeLog.html', false); });
+    $(document).on('click', '#tutorialLink', function () { openOverlay('tutorial.html', false); });
 
     $(document).on('click', '#pageCover', function () { closeOverlay(); });
 
@@ -900,7 +958,7 @@ $(document).ready(function () {
     $(document).on('click', '.analyzeThis', function () {
         var thisPiece = activePieceList[$(this).parent().attr("id")];
 
-        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform?usp=pp_url&entry.290029157=' + thisPiece['Title'] + '&entry.1725435401=' + thisPiece['Composer'] + '&entry.1690364591=' + thisPiece['Arranger'] + '&entry.16958485=__other_option__&entry.16958485.other_option_response=' + thisPiece['Publisher']);
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform?usp=pp_url&entry.290029157=' + thisPiece['Title'] + '&entry.1725435401=' + thisPiece['Composer'] + '&entry.1690364591=' + thisPiece['Arranger'] + '&entry.16958485=__other_option__&entry.16958485.other_option_response=' + thisPiece['Publisher'], true);
     });
 
     //Navigation in Piece List
@@ -944,4 +1002,44 @@ $(document).ready(function () {
             };
         };
     });
+
+    $(document).on({
+        mouseenter: function () {
+            var parentPiece = activePieceList[$(this).parent().attr('id')];
+
+            $(this).parent().prepend('<div id="infoCover"></div>');
+
+            $('#infoCover').append('<h3 class="dataCat">States</h3>');
+
+            for (var r = 0; r < parentPiece['Reference States'].length; r++) {
+                if (parentPiece['Reference States'][r][1] > 1) {
+                    $('#infoCover').append(parentPiece['Reference States'][r][0] + ' (' + parentPiece['Reference States'][r][1] + ')<br />');
+                }
+                else {
+                    $('#infoCover').append(parentPiece['Reference States'][r][0] + '<br />');
+                };
+            };
+
+            $('#infoCover').append('<h3 class="dataCat">Affiliations</h3>');
+
+            for (var r = 0; r < parentPiece['Affiliations'].length; r++) {
+                if (parentPiece['Affiliations'][r][1] > 1) {
+                    $('#infoCover').append(parentPiece['Affiliations'][r][0] + ' (' + parentPiece['Affiliations'][r][1] + ')<br />');
+                }
+                else {
+                    $('#infoCover').append(parentPiece['Affiliations'][r][0] + '<br />');
+                };
+            };
+
+            if (parentPiece['Number of Analyses'] == 1) {
+                $('#infoCover').append('<div class="analysisCount">' + parentPiece['Number of Analyses'] + ' Analysis' + '</div>');
+            }
+            else {
+                $('#infoCover').append('<div class="analysisCount">' + parentPiece['Number of Analyses'] + ' Analyses' + '</div>');
+            };
+        },
+        mouseleave: function () {
+            $('#infoCover').remove();
+        }
+    }, '.analyzerData');
 });

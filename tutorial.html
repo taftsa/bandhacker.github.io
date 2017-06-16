@@ -13,11 +13,15 @@
                 font-size:  0.96em;
                 cursor:  default;
             }
+            
+            body {
+                background-color: #eee;
+            }
                       
             /* Style the buttons that are used to open and close the accordion panel */
             button.accordion {
-                background-color: #eee;
-                color: #444;
+                background-color: lightgrey;
+                color: black;
                 cursor: pointer;
                 padding: 10px;
                 width: 100%;
@@ -29,12 +33,12 @@
 
             /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
             button.accordion.active, button.accordion:hover {
-                background-color: #ddd;
+                background-color: lightblue;
             }
 
             /* Style the accordion panel. Note: hidden by default */
             div.panel {
-                padding: 0 18px;
+                padding: 2px 18px;
                 background-color: white;
                 display: none;
             }
@@ -78,7 +82,8 @@
             <p><b>List Challenging</b> shows you pieces that will stretch your students by one level in one to six of the nodes. The "Challenge Level" is the number of nodes that will stretch your band's abilites.</p>
             <p><b>List All</b> shows you every piece in the database.</p>
             <p><b>Submit Analysis</b> takes you to a Google Form that allows you to submit your analysis of a piece.</p>
-            <p>Click the <b>?</b> button to toggle in-platform help boxes</p>
+            <p>Click the <b>?</b> button near the instrumentation graph to toggle help boxes.</p>
+            <p>Hover over the <b>?</b> in the corner of a piece's card to see information about who has analyzed it.</p>
         </div>    
 
         <button class="accordion">The 6 Nodes</button>
@@ -130,7 +135,20 @@
             <p>Only analyze music you've taught; the value of optimal.efficient is in the opinions of those who have had practical experience with the music.</p>
           
             <p>Use standards of "This piece's ___________ has the difficulty of a grade ___________ piece" and "This band plays ___________ to the level of a grade ___________ piece." When grading marches, no comparison with "other marches" should be made. This will mean that the ratings of tonality, texture, and likely dynamics will typically be lower than the other nodes for marches.</p>
-        </div>             
+
+            <p>After you analyze a piece, you will have to refresh the page in order to see it.</p>
+        </div>
+
+        <button class="accordion">Dedications</button>
+        <div class="panel">
+            <p>This platform is dedicated to...</p>
+
+            <p>...Dr. Sandy Goldie, Dr. Terry Austin, and Dr. David Greennagel of Virginia Commonwealth University, and to all of my wonderful classmates; for their unexpectedly vehement support of this project.</p>
+          
+            <p>...the members of the 2016-2017 Prince Edward County High School Concert Band; for their near-flawless performance of Astor Piazzolla's <i>Street Tango</i>, the right piece at the right time.</p>
+
+            <p>...my beautiful, supportive, and loving wife Rebecca; for absolutely everything.</p>
+        </div>    
     </body>
 </html>
 
