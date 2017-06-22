@@ -267,8 +267,8 @@ input {
 }
 
 .noNotes {
-    background-color: red;
-    color: white;
+    background-color: maroon;
+    color: lightgrey;
     font-size: 0.65em;
     margin-top: 2px;
 }
@@ -276,8 +276,7 @@ input {
 .difficultyNote, .instrumentationNote {
     width:  95%;
     font-size: 0.65em;
-    margin: auto;
-    margin-top: 6px;
+    margin: 3px auto;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -302,6 +301,7 @@ input {
     background-color: black;
     opacity: 0.5;
     z-index: 100;
+    cursor: pointer;
 }
 
 #pageCover:hover {
@@ -374,8 +374,6 @@ input {
 }
 
 .loader {
-    left: 50%;
-    top: 50%;
     z-index: 1;
     width: 15px;
     height: 15px;

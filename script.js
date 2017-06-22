@@ -516,6 +516,9 @@ $(document).ready(function () {
 
     //Create Graph
     function createGraph() {
+        $('#canvasContainer').empty();
+        $('#canvasContainer').append('<canvas id="myBand" width="300" height="300"></canvas>');
+
         var myChart = new Chart("myBand", {
             type: 'radar',
             data: {
@@ -984,20 +987,20 @@ $(document).ready(function () {
             }
             else if (e.keyCode == 38) { // down
                 e.preventDefault();
-                var newSelected = $(".selectedPiece").prev().prev().prev().prev().prev().prev();
+                var newSelected = $(".selectedPiece").prev().prev().prev().prev();
                 if (newSelected.length) {
                     $(".selectedPiece").removeClass("selectedPiece");
                     selectPiece(newSelected);
-                    $('#databasePane').scrollTop($('#databasePane').scrollTop() - 186);
+                    $('#databasePane').scrollTop($('#databasePane').scrollTop() - 168);
                 }
             }
             else if (e.keyCode == 40) { // up
                 e.preventDefault();
-                var newSelected = $(".selectedPiece").next().next().next().next().next().next();
+                var newSelected = $(".selectedPiece").next().next().next().next();
                 if (newSelected.length) {
                     $(".selectedPiece").removeClass("selectedPiece");
                     selectPiece(newSelected);
-                    $('#databasePane').scrollTop($('#databasePane').scrollTop() + 186);
+                    $('#databasePane').scrollTop($('#databasePane').scrollTop() + 168);
                 }
             };
         };
