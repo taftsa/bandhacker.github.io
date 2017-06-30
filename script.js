@@ -26,6 +26,8 @@ $(document).ready(function () {
     var searchComposer;
     var searchArranger;
     var cookiesExist;
+    var newBandCreated = false;
+    var numberOfUsers;
 
     //Animate Ellipsis on Disabled "Load Band" Button
     $('#loginButton').attr('disabled', 'disabled');
@@ -51,15 +53,20 @@ $(document).ready(function () {
 
 
     //Startup
-    Tabletop.init({ key: '1Wo1RArWUmqVJ9KBjiT2W7B4Tx3KeUsy1sPYPjulcr5I',
-        callback: function (data, tabletop) {
-            listOfUsers = data;
-            $('#loginButton').removeAttr('disabled');
-            document.getElementById('loginButton').value = 'Load Band';
-            clearInterval(loadAnimate);
-        },
-        simpleSheet: true
-    });
+    function getUserList() {
+        Tabletop.init({ key: '1Wo1RArWUmqVJ9KBjiT2W7B4Tx3KeUsy1sPYPjulcr5I',
+            callback: function (data, tabletop) {
+                listOfUsers = data;
+                $('#loginButton').removeAttr('disabled');
+                document.getElementById('loginButton').value = 'Load Band';
+                clearInterval(loadAnimate);
+            },
+            simpleSheet: true
+        });
+    };
+
+    getUserList();
+
 
     if (getCookie("band") !== "" && getCookie("email") !== "") {
         cookiesExist = true;
@@ -102,22 +109,25 @@ $(document).ready(function () {
                 );
     };
 
-    function openOverlay(url, external) {
+    function openOverlay(url, external, callback) {
         $('body').append('<div id="pageCover"></div>');
         $('body').append('<div id="overlayPane"></div>');
-        $('#overlayPane').html('<object id="pageContent" type="text/html" data="' + url + '" width="100%" height="100%"></object>');
+        $('#overlayPane').html('<iframe id="pageContent" type="text/html" src="' + url + '" width="100%" height="100%"></iframe>');
 
         if (external) {
             $('#pageContent').css({ height: '0%', width: '0%' });
             $('#pageContent').css('width', '0%');
             $('#overlayPane').prepend('<div class="loaderExternal"></div>');
 
+            numberOfUsers = listOfUsers.length;
+
             document.getElementById('pageContent').onload = (function () {
                 $('.loaderExternal').remove();
                 $('#pageContent').css({ height: '100%', width: '100%' });
-            });
 
-        }
+                callback();
+            });
+        };
     };
 
     function closeOverlay() {
@@ -738,28 +748,26 @@ $(document).ready(function () {
     };
 
     //Login Button
-    function login() {
-        //Check login and load data
-        var emailAttempt = document.getElementById('userEmail').value.toString();
-        var bandAttempt = document.getElementById('userBand').value.toString();
-
+    function login(emailAttempt, bandAttempt) {
         //Load Google Sheet "User List"
         var userList = '1Wo1RArWUmqVJ9KBjiT2W7B4Tx3KeUsy1sPYPjulcr5I';
 
         //Verify User, Load User Information, and Draw Graph                
         var numberOfItems = listOfUsers.length;
         var userSuccess = false;
+        var bandSuccess = false;
 
         for (var i = 0; i < numberOfItems; i++) {
 
             //Check Username
-            if (listOfUsers[i]['Email Address'] === emailAttempt) {
+            if (listOfUsers[i]['Email Address'].toUpperCase() === emailAttempt.toUpperCase()) {
 
                 //Flag Username as Correct
                 userSuccess = true;
 
                 //Confirm Password
-                if (listOfUsers[i]['Band Name'] === bandAttempt) {
+                if (listOfUsers[i]['Band Name'].toUpperCase() === bandAttempt.toUpperCase()) {
+                    bandSuccess = true;
 
                     //Set Current User Info
                     currentUser.user = (listOfUsers[i]['Band Name']);
@@ -771,7 +779,7 @@ $(document).ready(function () {
                     currentUser.elementSix = (listOfUsers[i]['Band Skill [Range]'] / 1);
 
                     //Cookies
-                    if (!cookiesExist || !(emailAttempt == getCookie('email') && bandAttempt == getCookie('band'))) {
+                    if (!cookiesExist || !(emailAttempt.toUpperCase() == getCookie('email').toUpperCase() && bandAttempt.toUpperCase() == getCookie('band').toUpperCase())) {
                         var allow = confirm('Remember information using cookies?');
 
                         if (allow) {
@@ -791,9 +799,14 @@ $(document).ready(function () {
                         $('#notesPane').empty();
                         listAllPieces();
                     });
+
+                    //Stop if this is a valid band
+                    break;
                 }
                 else {
-                    alert("Band not Found");
+                    if (i == [numberOfItems - 1] && !bandSuccess) {
+                        alert("Band not Found");
+                    };
                 }
             }
             else {
@@ -933,9 +946,36 @@ $(document).ready(function () {
 
 
     //Button Assignments
-    $(document).on('click', '#loginButton', function () { login(); });
+    $(document).on('click', '#loginButton', function () { login(document.getElementById('userEmail').value.toString(), document.getElementById('userBand').value.toString()); });
     $(document).on('click', '#newAccountButton', function () {
-        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSf7CKt6BjXfYagKP9XWO74g6PdyYAiAoWhEcvCfUinXGbpcDA/viewform', true);
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSf7CKt6BjXfYagKP9XWO74g6PdyYAiAoWhEcvCfUinXGbpcDA/viewform', true, function () {
+            $('iframe#pageContent').load(function () {
+                $('#overlayPane').empty();
+                $('#overlayPane').prepend('<div class="loaderExternal"></div>');
+                $('#overlayPane').append('<p id="verifying">Verifying registration and preparing to load band...</p>')
+
+                function checkUntilLoaded() {
+                    getUserList();
+
+                    if (listOfUsers.length > numberOfUsers) {
+                        if (!newBandCreated) {
+                            newBandCreated = true;
+                            closeOverlay();
+                            login(listOfUsers[listOfUsers.length - 1]['Email Address'], listOfUsers[listOfUsers.length - 1]['Band Name']);
+                        };
+                    }
+                    else {
+                        setTimeout(function () {
+                            if (!newBandCreated) {
+                                checkUntilLoaded();
+                            };
+                        }, 2000);
+                    };
+                }
+
+                setTimeout(function () { checkUntilLoaded(); }, 2000);
+            });
+        });
     });
 
     $(document).on('click', '#search', function () { searchForPiece(); });

@@ -15,8 +15,9 @@
 body {
     margin: 0;
     background-color: #F5F5F5;
-    font-family: 'Arial Black';
-    user-select: none
+    user-select: none;
+    font-family: 'Arial Black', sans-serif;
+    font-weight: 900;
 }
 
 #optionsMenu {
@@ -47,6 +48,7 @@ body {
     text-align:  right; 
     font-size: 0.3em;
     color:  white;
+    padding-right: 2px;
 }
 
 #leftPane {
@@ -165,6 +167,7 @@ input {
     display: inline-block;
     width: 14.28%;
     height: 22px;
+    line-height: 22px;
     text-align: center;
     color: white;
     border-top: 1px solid white;
@@ -320,6 +323,10 @@ input {
     z-index: 101;
 }
 
+#verifying {
+    text-align: center;
+}
+
 #buffer {
     height: 20%;
 }
@@ -334,6 +341,7 @@ input {
     line-height: 25px;
     font-size: 16px;
     padding: 0;
+    padding-left: 3px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-top: 8px;
 }
@@ -349,6 +357,7 @@ input {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin-top: 8px;
     cursor: pointer;
+    text-align: center;
 }
 
 #loginButton:hover, #newAccountButton:hover, #searchButton:hover {
