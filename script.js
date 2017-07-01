@@ -474,13 +474,15 @@ $(document).ready(function () {
                     pieceInQuestion['Names'].push(pieceList[a]['Your Name']);
                     pieceInQuestion['Affiliations'].push(pieceList[a]['Your Affiliation']);
 
-                    if (pieceList[a]['Difficulty Notes'] !== "") {
+                    if (pieceList[a]['Difficulty Notes'] !== '') {
                         var diff = pieceList[a]['Difficulty Notes'];
                         var diff2 = diff.split('.');
 
-                        for (var h = 0; h < (diff2.length - 1); h++) {
-                            var thisn = diff2[h] + '.';
-                            pieceInQuestion['Difficulty Notes'].push(thisn);
+                        for (var h = 0; h < (diff2.length); h++) {
+                            if (diff2[h] !== '') {
+                                var thisn = diff2[h] + '.';
+                                pieceInQuestion['Difficulty Notes'].push(thisn);
+                            };
                         };
                     };
 
@@ -488,13 +490,13 @@ $(document).ready(function () {
                         var diff = pieceList[a]['Instrumentation Notes'];
                         var diff2 = diff.split('.');
 
-                        for (var h = 0; h < (diff2.length - 1); h++) {
-                            var thisn = diff2[h] + '.';
-                            pieceInQuestion['Instrumentation Notes'].push(thisn);
+                        for (var h = 0; h < (diff2.length); h++) {
+                            if (diff2[h] !== '') {
+                                var thisn = diff2[h] + '.';
+                                pieceInQuestion['Instrumentation Notes'].push(thisn);
+                            };
                         };
                     };
-
-
                 };
             };
 
