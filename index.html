@@ -3,59 +3,78 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <title>optimal</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-
-        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-        <link rel="icon" href="/favicon.ico" type="image/x-icon">
-
-        <script src="Chart.js"></script>
-        <script src="tabletop.js"></script>
+        <title>bandhacker</title>
 
         <script src="jquery-1.12.3.js"></script>
         <script src="jquery-ui.js"></script>
 
-        <script src="script.js"></script>
+        <style>
+            body {
+                margin: 0;
+                background-color: white;
+                font-family: 'Arial Black', sans-serif;
+                font-weight: 900;
+            }
+            
+            #topBar {
+                width: 100%;
+                height: 50px;
+                line-height: 50px;
+                background-color: black;
+                color: white;
+                font-size: 2em;
+                padding-left: 10px;
+            }
+            
+            .grey {
+                color: lightgrey;
+            }
+                
+            #optimal {
+                opacity: 0;
+                width: 200px;                
+                margin: auto;
+                margin-top: 100px;
+                text-align: center;
+                color: grey;                
+            }
+            
+            a {
+                text-decoration: none;
+            }
+            
+            #optimal:hover {
+                color: black;
+                cursor: pointer;
+            }
+            
+            #optimalImage {
+                width: 200px;
+            }
+            
+            .lightblue {
+                color: lightblue;
+            }
+        </style>
 
-        <link rel="stylesheet" type="text/css" href="style.css">        
+
     </head>
-      
     <body>
-        <div id="topMenu">
-            <div class="logo"><a href="http://optimal-efficient.github.io"><img src="oe.png" height="42px" alt="optimal.efficient"/></a></div>
-            <div id="title">optimal</div> <div id="byHacker">[by <span class="grey">band</span>hacker]</div>
-            <div id="info"><span id="versionNumber">Version 1.1.0</span><br />
-                &copy; 2017 Seth Taft<br />
-                <span id="emailLink">optimal.efficient@gmail.com</span>
-            </div>               
+        <div id="topBar">
+            <span class="grey">band</span>hacker
         </div>
+        
+        <a href="http://optimal.bandhacker.com">      
+            <div id="optimal">
+                <img id="optimalImage" alt="optimal" src="oe.png" />
 
-        <div id="optionsMenu">        
-            <div class="menuOption a m" id="search">Search
-            </div><div class="menuOption b m" id="listOptimal">List Optimal
-            </div><div class="menuOption a m" id="listAllPlayable">List Playable
-            </div><div class="menuOption b m" id="listChallenge">List Challenging
-            </div><div class="menuOption a m" id="listAll">List All
-            </div><div class="menuOption b l" id="tutorialLink">Tutorial
+                <p>proceed to <span class="lightblue">optimal</span></p>        
             </div>
-        </div>
+        </a>
 
-        <div id="leftPane">
-            <div id="dataPane">
-                <div id="buffer"></div>
-                <form autocomplete="on">
-                    <input name="userEmail" type="text" placeholder="email" id="userEmail">
-                    <input name="userBandName" type="text" placeholder="band name" id="userBand">
-                    <input type="button" name="login" value="Loading." id="loginButton">
-                    <input type="button" name="newAccount" value="New Band" id="newAccountButton">
-                </form>
-            </div>
-            <div id="notesPane"></div>      
-        </div>            
-        <div id="databasePane">
-            <div id="intro">New? Check out the tutorial!</div>
-        </div>
-
-        <div id="toolTip">Test</div>
     </body>
 </html>
+
+<script>
+    $('#optimal').animate({ opacity: 1.0 }, 3000);
+</script>
