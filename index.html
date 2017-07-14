@@ -64,17 +64,22 @@
             <span class="grey">band</span>hacker
         </div>
         
-        <a href="http://optimal.bandhacker.com">      
-            <div id="optimal">
-                <img id="optimalImage" alt="optimal" src="oe.png" />
+    
+        <div id="optimal" onclick="openOptimal();">
+            <img id="optimalImage" alt="optimal" src="oe.png" />
 
-                <p>proceed to <span class="lightblue">optimal</span></p>        
-            </div>
-        </a>
+            <p>proceed to <span class="lightblue">optimal</span></p>        
+        </div>
+
 
     </body>
 </html>
 
 <script>
     $('#optimal').animate({ opacity: 1.0 }, 3000);
+
+    function openOptimal (){
+        window.location.href = "http://optimal.bandhacker.com";
+    } 
+
 </script>
