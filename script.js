@@ -617,11 +617,17 @@ $(document).ready(function () {
         $('#numberOfPercussion').empty();
     };
 
+    function addNewPieceButtons() {
+        $('#databasePane').prepend('<div id="addPiece"><div>+</div><p>Add a new piece</p></div>');
+        $('#databasePane').append('<div id="addPiece"><div>+</div><p>Add a new piece</p></div>');
+    };
+
     function listAllPieces() {
         if (piecesLoaded) {
             $('#databasePane').empty();
             clearSelectedPiece();
             for (var i = 0; i < numberOfPieces; i++) { addPiece(i); };
+            addNewPieceButtons();
         };
     };
 
@@ -652,6 +658,7 @@ $(document).ready(function () {
                         addPiece(i);
                     };
                 };
+                addNewPieceButtons();
             });
         };
     };
@@ -670,7 +677,11 @@ $(document).ready(function () {
             };
 
             if (!optimalTrip) {
-                $('#databasePane').append('No optimal pieces yet.');
+                $('#databasePane').append('<p>No optimal pieces yet.</p>');
+                $('#databasePane').append('<div id="addPiece"><div>+</div><p>Add a new piece</p></div>');
+            }
+            else {
+                addNewPieceButtons();
             };
         };
     };
@@ -684,6 +695,7 @@ $(document).ready(function () {
                     addPiece(i);
                 };
             };
+            addNewPieceButtons();
         };
     };
 
@@ -723,6 +735,8 @@ $(document).ready(function () {
                     addPiece(i, challengeLevel);
                 };
             };
+
+            addNewPieceButtons();
         };
     };
 
@@ -985,7 +999,7 @@ $(document).ready(function () {
     $(document).on('click', '#listAllPlayable', function () { listPlayablePieces(); });
     $(document).on('click', '#listChallenge', function () { listChallengePieces(); });
     $(document).on('click', '#listAll', function () { listAllPieces(); });
-    $(document).on('click', '#submitAnalysis', function () {
+    $(document).on('click', '#addPiece', function () {
         openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform', true);
     });
 

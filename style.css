@@ -21,7 +21,7 @@ body {
 }
 
 #optionsMenu {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 #topMenu {
@@ -34,6 +34,15 @@ body {
 
 #title {
     display: inline-block;
+}
+
+#byHacker {
+    font-size: 0.3em;
+    display: inline-block;
+}
+
+.grey {
+    color: lightgrey;
 }
 
 .logo {
@@ -165,7 +174,7 @@ input {
     cursor: pointer;
     vertical-align: top;
     display: inline-block;
-    width: 14.28%;
+    width: 16.66%;
     height: 22px;
     line-height: 22px;
     text-align: center;
@@ -195,7 +204,7 @@ input {
 .piece {
     position: relative;
     vertical-align: top;
-    background-color:lightgrey            ;
+    background-color:lightgrey;
     width: 23%;
     height: 150px;
     display: inline-block;
@@ -211,6 +220,36 @@ input {
 
 .piece:hover {
     border: 1px solid grey;
+}
+
+#addPiece {
+    position: relative;
+    vertical-align: top;
+    opacity: 0.8;
+    width: 23%;
+    height: 150px;
+    display: inline-block;
+    float: left;
+    padding: 3px;
+    margin: 5px;
+    cursor: pointer;
+    border:  1px dashed black;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius:  5px;
+}
+
+#addPiece:hover {
+    background-color: lightblue;
+}
+
+#addPiece div {
+    line-height: 100px;
+    font-size: 5em;
+}
+
+#addPiece p {
+    line-height: 50px;
+    font-size: 0.6em;
 }
 
 .selectedPiece {
