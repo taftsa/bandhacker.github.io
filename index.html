@@ -29,16 +29,22 @@
             .grey {
                 color: lightgrey;
             }
-                
-            #optimal {
+            
+            #wrapper {
                 opacity: 0;
-                width: 200px;                
+                width: 800px;
                 margin: auto;
                 margin-top: 100px;
                 text-align: center;
-                color: grey;                
+                color: grey;    
             }
             
+            .link {
+                display: inline-block;
+                width: 200px;
+                margin: 50px;
+            }            
+
             a {
                 text-decoration: none;
             }
@@ -48,12 +54,20 @@
                 cursor: pointer;
             }
             
-            #optimalImage {
+            #oForChoir {
+                opacity: 0.5;
+            }
+            
+            .icon {
                 width: 200px;
             }
             
             .lightblue {
                 color: lightblue;
+            }
+            
+            .lightpink {
+                color: lightpink;
             }
         </style>
 
@@ -64,11 +78,17 @@
             <span class="grey">band</span>hacker
         </div>
         
-    
-        <div id="optimal" onclick="openOptimal();">
-            <img id="optimalImage" alt="optimal" src="oe.png" />
+        <div id="wrapper">
+            <div id="optimal" class="link" onclick="openOptimal();">
+                <img class="icon" alt="optimal" src="oe.png" />
 
-            <p>proceed to <span class="lightblue">optimal</span></p>        
+                <p>proceed to <span class="lightblue">optimal</span></p>        
+            </div>
+            <div id="oForChoir" class="link" onclick="openOptimal();">
+                <img class="icon" alt="optimal" src="oforchoir.png" />
+
+                <p>coming <span class="lightpink">soon</span></p>        
+            </div>
         </div>
 
 
@@ -76,7 +96,7 @@
 </html>
 
 <script>
-    $('#optimal').animate({ opacity: 1.0 }, 3000);
+    $('#wrapper').animate({ opacity: 1.0 }, 3000);
 
     function openOptimal (){
         window.open("http://optimal.bandhacker.com", "_top");
