@@ -54,7 +54,7 @@ $(document).ready(function () {
 
     //Startup
     function getUserList() {
-        Tabletop.init({ key: '1Wo1RArWUmqVJ9KBjiT2W7B4Tx3KeUsy1sPYPjulcr5I',
+        Tabletop.init({ key: '1XU227N5VXHO6vWvA5BU9hVz7wsEop0wQkCYOLiHeQj8',
             callback: function (data, tabletop) {
                 listOfUsers = data;
                 $('#loginButton').removeAttr('disabled');
@@ -83,29 +83,17 @@ $(document).ready(function () {
                 '</div>' +
                     '<table id="instrumentationPane">' +
                         '<tr>' +
-                            '<td id="oneFlute" class="instrument">F</td>' +
-                            '<td id="twoClarinets" class="instrument">C</td>' +
-                            '<td id="threeSaxophones" class="instrument">S</td>' +
-                            '<td id="oneHorn" class="instrument">H</td>' +
-                            '<td id="twoTrumpets" class="instrument">T</td>' +
-                            '<td id="oneTrombone" class="instrument">R</td>' +
-                            '<td id="baritone" class="instrument">B</td>' +
-                            '<td id="tuba" class="instrument">U</td>' +
-                            '<td id="sixPercussion" class="instrument">P</td>' +
+                            '<td id="sopranos" class="instrument">S</td>' +
+                            '<td id="altos" class="instrument">A</td>' +
+                            '<td id="tenors" class="instrument">T</td>' +
+                            '<td id="basses" class="instrument">B</td>' +
+                            '<td id="piano" class="instrument">P</td>' +
                         '</tr>' +
                         '<tr>' +
-                            '<td id="moreFlutes" class="instrument">F+</td>' +
-                            '<td id="moreClarinets" class="instrument">C+</td>' +
-                            '<td id="moreSaxophones" class="instrument">S+</td>' +
-                            '<td id="moreHorns" class="instrument">H+</td>' +
-                            '<td id="moreTrumpets" class="instrument">T+</td>' +
-                            '<td id="moreTrombones" class="instrument">R+</td>' +
-                            '<td id="oboe" class="instrument">O</td>' +
-                            '<td id="bassoon" class="instrument">OO</td>' +
-                            '<td id="numberOfPercussion" class="instrument">0</td>' +
-                       '</tr>' +
+                            '<td colspan="4" id="voicing" class="instrument"></td>' +
+                        '</tr>' +
                     '</table>' +
-                    '<div id="help" class="on">?</div> '
+                    '<div id="help" class="on">?</div>'
                 );
     };
 
@@ -278,83 +266,145 @@ $(document).ready(function () {
     };
 
     function changeInstrumentation(piece) {
-        $('.trueBasic').removeClass('trueBasic');
-        $('.trueAdvanced').removeClass('trueAdvanced');
+        $('#voicing').empty();
 
-        if (piece['Flutes'] !== '0') {
-            $('#oneFlute').addClass('trueBasic');
+        $('.instrument').removeClass('red');
+        $('.instrument').removeClass('orage');
+        $('.instrument').removeClass('yellow');
+        $('.instrument').removeClass('green');
+
+        var soprano;
+        var alto;
+        var tenor;
+        var bass;
+
+        if (piece['Soprano'] == '4+') {
+            soprano = 4;
+        }
+        else {
+            soprano = piece['Soprano'] / 1;
+        }
+
+        if (piece['Alto'] == '4+') {
+            alto = 4;
+        }
+        else {
+            alto = piece['Alto'] / 1;
+        }
+
+        if (piece['Tenor'] == '4+') {
+            tenor = 4;
+        }
+        else {
+            tenor = piece['Tenor'] / 1;
+        }
+
+        if (piece['Bass'] == '4+') {
+            bass = 4;
+        }
+        else {
+            bass = piece['Bass'] / 1;
+        }
+
+        for (var p = 0; p < soprano; p++) {
+            $('#voicing').append('S');
         };
 
-        if (piece['Clarinets'] !== '0') {
-            $('#twoClarinets').addClass('trueBasic');
+        for (var p = 0; p < alto; p++) {
+            $('#voicing').append('A');
         };
 
-        if (piece['Saxophones'] !== 'Less than ATB') {
-            $('#threeSaxophones').addClass('trueBasic');
+        for (var p = 0; p < tenor; p++) {
+            $('#voicing').append('T');
         };
 
-        if (piece['Horns'] !== '0') {
-            $('#oneHorn').addClass('trueBasic');
+        for (var p = 0; p < bass; p++) {
+            $('#voicing').append('B');
         };
 
-        if (piece['Trumpets'] !== '0') {
-            $('#twoTrumpets').addClass('trueBasic');
+        switch (soprano) {
+            case 0:
+                break;
+            case 1:
+                $('#sopranos').addClass('green');
+                break;
+            case 2:
+                $('#sopranos').addClass('yellow');
+                break;
+            case 3:
+                $('#sopranos').addClass('orange');
+                break;
+            case 4:
+                $('#sopranos').addClass('red');
+                break;
+            default:
         };
 
-        if (piece['Trombones'] !== '0') {
-            $('#oneTrombone').addClass('trueBasic');
+        switch (alto) {
+            case 0:
+                break;
+            case 1:
+                $('#altos').addClass('green');
+                break;
+            case 2:
+                $('#altos').addClass('yellow');
+                break;
+            case 3:
+                $('#altos').addClass('orange');
+                break;
+            case 4:
+                $('#altos').addClass('red');
+                break;
+            default:
         };
 
-        if (piece['Percussion'] !== '0') {
-            $('#sixPercussion').addClass('trueBasic');
+        switch (tenor) {
+            case 0:
+                break;
+            case 1:
+                $('#tenors').addClass('green');
+                break;
+            case 2:
+                $('#tenors').addClass('yellow');
+                break;
+            case 3:
+                $('#tenors').addClass('orange');
+                break;
+            case 4:
+                $('#tenors').addClass('red');
+                break;
+            default:
         };
 
-        if (piece['Baritone'] == 'Yes') {
-            $('#baritone').addClass('trueBasic');
+        switch (bass) {
+            case 0:
+                break;
+            case 1:
+                $('#basses').addClass('green');
+                break;
+            case 2:
+                $('#basses').addClass('yellow');
+                break;
+            case 3:
+                $('#basses').addClass('orange');
+                break;
+            case 4:
+                $('#basses').addClass('red');
+                break;
+            default:
         };
 
-        if (piece['Tuba'] == 'Yes') {
-            $('#tuba').addClass('trueBasic');
+        switch (piece['Piano']) {
+            case 'None':
+                break;
+            case 'Optional':
+                $('#piano').addClass('yellow');
+                break;
+            case 'Required':
+                $('#piano').addClass('red');
+                break;
+            default:
         };
-
-        if (piece['Flutes'] == '2+') {
-            $('#moreFlutes').addClass('trueAdvanced');
-        };
-
-        if (piece['Clarinets'] == '3+') {
-            $('#moreClarinets').addClass('trueAdvanced');
-        };
-
-        if (piece['Saxophones'] == 'AATB') {
-            $('#moreSaxophones').addClass('trueAdvanced');
-        };
-
-        if (piece['Oboe'] == 'Yes') {
-            $('#oboe').addClass('trueAdvanced');
-        };
-
-        if (piece['Bassoon'] == 'Yes') {
-            $('#bassoon').addClass('trueAdvanced');
-        };
-
-        if (piece['Trombones'] == '2+') {
-            $('#moreTrombones').addClass('trueAdvanced');
-        };
-
-        if (piece['Trumpets'] == '3+') {
-            $('#moreTrumpets').addClass('trueAdvanced');
-        };
-
-        if (piece['Horns'] == '2+') {
-            $('#moreHorns').addClass('trueAdvanced');
-        };
-
-        if ((piece['Percussion']) > 5) {
-            $('#sixPercussion').removeClass('trueBasic');
-            $('#sixPercussion').addClass('trueAdvanced');
-        };
-
-        $('#numberOfPercussion').html(piece['Percussion']);
     };
 
     function addNotes(piece) {
@@ -374,7 +424,7 @@ $(document).ready(function () {
     };
 
     function loadPieces(callback) {
-        Tabletop.init({ key: "1vptbIS_PexH6J8N8KRm1EfJ6nj5rAKmImzLk3_j2eew",
+        Tabletop.init({ key: "1TEqhErIfRaeyxF2pHF0AmaHO7qZvAiUpYrUPCRkV8SA",
             callback: function (data, tabletop) {
                 pieceList = data;
                 numberOfPieces = pieceList.length;
@@ -429,17 +479,11 @@ $(document).ready(function () {
             pieceInQuestion['Texture'] = [];
             pieceInQuestion['Tonality'] = [];
             pieceInQuestion['Range'] = [];
-            pieceInQuestion['Flutes'] = [];
-            pieceInQuestion['Clarinets'] = [];
-            pieceInQuestion['Saxophones'] = [];
-            pieceInQuestion['Oboe'] = [];
-            pieceInQuestion['Bassoon'] = [];
-            pieceInQuestion['Trumpets'] = [];
-            pieceInQuestion['Horns'] = [];
-            pieceInQuestion['Trombones'] = [];
-            pieceInQuestion['Baritone'] = [];
-            pieceInQuestion['Tuba'] = [];
-            pieceInQuestion['Percussion'] = [];
+            pieceInQuestion['Soprano'] = [];
+            pieceInQuestion['Alto'] = [];
+            pieceInQuestion['Tenor'] = [];
+            pieceInQuestion['Bass'] = [];
+            pieceInQuestion['Piano'] = [];
             pieceInQuestion['Difficulty Notes'] = [];
             pieceInQuestion['Instrumentation Notes'] = [];
             pieceInQuestion['Number of Analyses'] = 0;
@@ -458,17 +502,11 @@ $(document).ready(function () {
                     pieceInQuestion['Texture'].push(pieceList[a][' [Texture]'] / 1);
                     pieceInQuestion['Tonality'].push(pieceList[a][' [Tonality]'] / 1);
                     pieceInQuestion['Range'].push(pieceList[a][' [Range]'] / 1);
-                    pieceInQuestion['Flutes'].push(pieceList[a]['Flutes']);
-                    pieceInQuestion['Clarinets'].push(pieceList[a]['Clarinets']);
-                    pieceInQuestion['Saxophones'].push(pieceList[a]['Saxophones']);
-                    pieceInQuestion['Oboe'].push(pieceList[a]['Oboe']);
-                    pieceInQuestion['Bassoon'].push(pieceList[a]['Bassoon']);
-                    pieceInQuestion['Trumpets'].push(pieceList[a]['Trumpets']);
-                    pieceInQuestion['Horns'].push(pieceList[a]['Horns']);
-                    pieceInQuestion['Trombones'].push(pieceList[a]['Trombones']);
-                    pieceInQuestion['Baritone'].push(pieceList[a]['Baritone']);
-                    pieceInQuestion['Tuba'].push(pieceList[a]['Tuba']);
-                    pieceInQuestion['Percussion'].push(pieceList[a]['Percussion'] / 1);
+                    pieceInQuestion['Soprano'].push(pieceList[a][' [Soprano]']);
+                    pieceInQuestion['Alto'].push(pieceList[a][' [Alto]']);
+                    pieceInQuestion['Tenor'].push(pieceList[a][' [Tenor]']);
+                    pieceInQuestion['Bass'].push(pieceList[a][' [Bass]']);
+                    pieceInQuestion['Piano'].push(pieceList[a]['Piano']);
                     pieceInQuestion['Number of Analyses']++;
                     pieceInQuestion['Reference States'].push(pieceList[a]['Reference State']);
                     pieceInQuestion['Names'].push(pieceList[a]['Your Name']);
@@ -507,17 +545,11 @@ $(document).ready(function () {
             pieceInQuestion['Texture'] = Math.round(findMean(pieceInQuestion['Texture']));
             pieceInQuestion['Tonality'] = Math.round(findMean(pieceInQuestion['Tonality']));
             pieceInQuestion['Range'] = Math.round(findMean(pieceInQuestion['Range']));
-            pieceInQuestion['Flutes'] = findMode(pieceInQuestion['Flutes'], '1');
-            pieceInQuestion['Clarinets'] = findMode(pieceInQuestion['Clarinets'], '1-2');
-            pieceInQuestion['Saxophones'] = findMode(pieceInQuestion['Saxophones'], 'ATB');
-            pieceInQuestion['Oboe'] = findMode(pieceInQuestion['Oboe'], 'No');
-            pieceInQuestion['Bassoon'] = findMode(pieceInQuestion['Bassoon'], 'No');
-            pieceInQuestion['Trumpets'] = findMode(pieceInQuestion['Trumpets'], '1-2');
-            pieceInQuestion['Horns'] = findMode(pieceInQuestion['Horns'], '1');
-            pieceInQuestion['Trombones'] = findMode(pieceInQuestion['Trombones'], '1');
-            pieceInQuestion['Baritone'] = findMode(pieceInQuestion['Baritone'], 'Yes');
-            pieceInQuestion['Tuba'] = findMode(pieceInQuestion['Tuba'], "Yes");
-            pieceInQuestion['Percussion'] = Math.ceil(findMean(pieceInQuestion['Percussion']));
+            pieceInQuestion['Soprano'] = findMode(pieceInQuestion['Soprano'], 0);
+            pieceInQuestion['Alto'] = findMode(pieceInQuestion['Alto'], 0);
+            pieceInQuestion['Tenor'] = findMode(pieceInQuestion['Tenor'], 0);
+            pieceInQuestion['Bass'] = findMode(pieceInQuestion['Bass'], 0);
+            pieceInQuestion['Piano'] = findMode(pieceInQuestion['Piano'], 'No');
             pieceInQuestion['Reference States'] = uniqueCount(pieceInQuestion['Reference States']);
             pieceInQuestion['Names'] = uniqueCount(pieceInQuestion['Names']);
             pieceInQuestion['Affiliations'] = uniqueCount(pieceInQuestion['Affiliations']);
@@ -544,8 +576,8 @@ $(document).ready(function () {
                                                                                                              pointStrokeColor: "#fff",
                                                                                                              pointHighlightFill: "#fff",
                                                                                                              pointHighlightStroke: "rgba(440,220,220,1)",
-                                                                                                             backgroundColor: "rgba(173,216,230,0.6)",
-                                                                                                             borderColor: "lightblue",
+                                                                                                             backgroundColor: "rgba(255,182,193,0.6)",
+                                                                                                             borderColor: "lightpink",
                                                                                                              data: [
                                                                                                                      currentPiece.elementOne,
                                                                                                                      currentPiece.elementTwo,
@@ -556,7 +588,7 @@ $(document).ready(function () {
                                                                                                                    ]
                                                                                                          },
                                                                                                          {
-                                                                                                             label: "Your Band",
+                                                                                                             label: "Your Choir",
                                                                                                              fillColor: "rgba(220,220,440,0.4)",
                                                                                                              strokeColor: "rgba(220,220,440,1)",
                                                                                                              pointColor: "rgba(220,220,440,1)",
@@ -766,7 +798,7 @@ $(document).ready(function () {
     //Login Button
     function login(emailAttempt, bandAttempt) {
         //Load Google Sheet "User List"
-        var userList = '1Wo1RArWUmqVJ9KBjiT2W7B4Tx3KeUsy1sPYPjulcr5I';
+        var userList = '1XU227N5VXHO6vWvA5BU9hVz7wsEop0wQkCYOLiHeQj8';
 
         //Verify User, Load User Information, and Draw Graph                
         var numberOfItems = listOfUsers.length;
@@ -782,17 +814,17 @@ $(document).ready(function () {
                 userSuccess = true;
 
                 //Confirm Password
-                if (listOfUsers[i]['Band Name'].toUpperCase() === bandAttempt.toUpperCase()) {
+                if (listOfUsers[i]['Choir Name'].toUpperCase() === bandAttempt.toUpperCase()) {
                     bandSuccess = true;
 
                     //Set Current User Info
-                    currentUser.user = (listOfUsers[i]['Band Name']);
-                    currentUser.elementOne = (listOfUsers[i]['Band Skill [Rapidity]'] / 1);
-                    currentUser.elementTwo = (listOfUsers[i]['Band Skill [Rhythm]'] / 1);
-                    currentUser.elementThree = (listOfUsers[i]['Band Skill [Dynamics]'] / 1);
-                    currentUser.elementFour = (listOfUsers[i]['Band Skill [Texture]'] / 1);
-                    currentUser.elementFive = (listOfUsers[i]['Band Skill [Tonality]'] / 1);
-                    currentUser.elementSix = (listOfUsers[i]['Band Skill [Range]'] / 1);
+                    currentUser.user = (listOfUsers[i]['Choir Name']);
+                    currentUser.elementOne = (listOfUsers[i]['Choir Skill [Rapidity]'] / 1);
+                    currentUser.elementTwo = (listOfUsers[i]['Choir Skill [Rhythm]'] / 1);
+                    currentUser.elementThree = (listOfUsers[i]['Choir Skill [Dynamics]'] / 1);
+                    currentUser.elementFour = (listOfUsers[i]['Choir Skill [Texture]'] / 1);
+                    currentUser.elementFive = (listOfUsers[i]['Choir Skill [Tonality]'] / 1);
+                    currentUser.elementSix = (listOfUsers[i]['Choir Skill [Range]'] / 1);
 
                     //Cookies
                     if (!cookiesExist || !(emailAttempt.toUpperCase() == getCookie('email').toUpperCase() && bandAttempt.toUpperCase() == getCookie('band').toUpperCase())) {
@@ -848,20 +880,31 @@ $(document).ready(function () {
         }, element);
     };
 
-    function createAdvancedToolTip(hoverDiv, conditionClass, textTrue, textFalse) {
+    function createAdvancedChoirToolTip(hoverDiv, part) {
         $(document).on({
             mouseenter: function (evt) {
                 if ($('#help').hasClass('on')) {
-                    if ($(hoverDiv).hasClass(conditionClass)) {
-                        $('#toolTip').html(textTrue);
-                        $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
-                    }
-                    else {
-                        $('#toolTip').html(textFalse);
-                        if ($('#toolTip').html() !== "") {
+                    switch (true) {
+                        case $(hoverDiv).hasClass('green'):
+                            $('#toolTip').html('This piece has 1 ' + part + ' part.');
                             $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
-                        };
-                    }
+                            break;
+                        case $(hoverDiv).hasClass('yellow'):
+                            $('#toolTip').html('This piece has 2 ' + part + ' parts.');
+                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+                            break;
+                        case $(hoverDiv).hasClass('orange'):
+                            $('#toolTip').html('This piece has 3 ' + part + ' parts.');
+                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+                            break;
+                        case $(hoverDiv).hasClass('red'):
+                            $('#toolTip').html('This piece has 4 or more ' + part + ' parts.');
+                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+                            break;
+                        default:
+                            $('#toolTip').html('This piece has no ' + part + ' parts.');
+                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+                    };
                 };
             },
             mouseleave: function () {
@@ -874,73 +917,63 @@ $(document).ready(function () {
     $(document).on('click', '#help', function () {
         $(this).toggleClass('on');
         if ($(this).hasClass('on')) {
-            $('.instrument').css('border', '2px solid lightblue');
+            $('.instrument').css('border', '2px solid lightpink');
             setTimeout(function () { $('.instrument').css('border', '2px solid #7D7D7D') }, 150);
-            setTimeout(function () { $('.instrument').css('border', '2px solid lightblue') }, 300);
+            setTimeout(function () { $('.instrument').css('border', '2px solid lightpink') }, 300);
             setTimeout(function () { $('.instrument').css('border', '2px solid #7D7D7D') }, 450);
 
-            $('.cLevel').css('color', 'lightblue');
+            $('.cLevel').css('color', 'lightpink');
             setTimeout(function () { $('.cLevel').css('color', 'maroon') }, 150);
-            setTimeout(function () { $('.cLevel').css('color', 'lightblue') }, 300);
+            setTimeout(function () { $('.cLevel').css('color', 'lightpink') }, 300);
             setTimeout(function () { $('.cLevel').css('color', 'maroon') }, 450);
         };
     });
 
-    createAdvancedToolTip('#oneFlute', 'trueBasic', 'This piece requires at least 1 flute', 'This piece can be played without flutes');
-    createAdvancedToolTip('#twoClarinets', 'trueBasic', 'This piece requires at least 1-2 clarinets', 'This piece can be played without clarinets');
-    createAdvancedToolTip('#threeSaxophones', 'trueBasic', 'This piece requires at least ATB saxes', 'This piece can be played with less than ATB saxes');
-    createAdvancedToolTip('#oneHorn', 'trueBasic', 'This piece requires at least 1 horn', 'This piece can be played without horns');
-    createAdvancedToolTip('#twoTrumpets', 'trueBasic', 'This piece requires at least 1-2 trumpets', 'This piece can be played without trumpets');
-    createAdvancedToolTip('#oneTrombone', 'trueBasic', 'This piece requires at least 1 trombone', 'This piece can be played without trombones');
-    createAdvancedToolTip('#baritone', 'trueBasic', 'This piece requires baritone', 'This piece can be played without baritone');
-    createAdvancedToolTip('#tuba', 'trueBasic', 'This piece requires tuba', 'This piece can be played without tuba');
-    createAdvancedToolTip('#oneFlute', 'trueBasic', 'This piece requires at least 1 flute', 'This piece can be played without flutes');
-    createAdvancedToolTip('#moreFlutes', 'trueAdvanced', 'This piece requires 2 or more flutes', 'This piece does not require 2 or more flutes');
-    createAdvancedToolTip('#moreClarinets', 'trueAdvanced', 'This piece requires 3 or more clarinets', 'This piece does not require 3 or more clarinets');
-    createAdvancedToolTip('#moreSaxophones', 'trueAdvanced', 'This piece requires more than ATB saxes', 'This piece does not require more than ATB saxes');
-    createAdvancedToolTip('#moreHorns', 'trueAdvanced', 'This piece requires 2 or more horns', 'This piece does not require 2 or more horns');
-    createAdvancedToolTip('#moreTrumpets', 'trueAdvanced', 'This piece requires 3 or more trumpets', 'This piece does not require 3 or more trumpets');
-    createAdvancedToolTip('#moreTrombones', 'trueAdvanced', 'This piece requires 2 or more trombones', 'This piece does not require 2 or more trombones');
-    createAdvancedToolTip('#oboe', 'trueAdvanced', 'This piece requires oboe', 'This piece can be played without oboe');
-    createAdvancedToolTip('#bassoon', 'trueAdvanced', 'This piece requires bassoon', 'This piece can be played without bassoon');
+    createAdvancedChoirToolTip('#sopranos', 'soprano');
+    createAdvancedChoirToolTip('#altos', 'alto');
+    createAdvancedChoirToolTip('#tenors', 'tenor');
+    createAdvancedChoirToolTip('#basses', 'bass');
+
 
     createToolTip('#help', 'Toggle help');
 
-    //Percussion Category
+    //Voicing tooltip
+    $(document).on({
+        mouseenter: function (evt) {
+            if ($('#voicing').html() !== "") {
+                $('#toolTip').html('This piece has a voicing of ' + $('#voicing').html() + '.');
+                $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+            };            
+        },
+        mouseleave: function () {
+            $('#toolTip').css('display', 'none');
+        }
+    }, '#voicing');
+
+    //Piano tooltip
     $(document).on({
         mouseenter: function (evt) {
             if ($('#help').hasClass('on')) {
-                if ($('#sixPercussion').hasClass('trueBasic')) {
-                    $('#toolTip').html('This piece requires 1-5 percussion');
+                if ($('#piano').hasClass('yellow')) {
+                    $('#toolTip').html('This piece has an optional piano part.');
                     $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
                 }
-                else if ($('#sixPercussion').hasClass('trueAdvanced')) {
-                    $('#toolTip').html('This piece requires 6 or more percussion');
+                else if ($('#piano').hasClass('red')) {
+                    $('#toolTip').html('This piece has a required piano part.');
                     $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
                 }
                 else {
-                    $('#toolTip').html('This piece can be played without percussion');
-                    $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+                    $('#toolTip').html('This piece has no piano part.');
+                    if ($('#toolTip').html() !== "") {
+                        $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+                    };
                 }
             };
         },
         mouseleave: function () {
             $('#toolTip').css('display', 'none');
         }
-    }, '#sixPercussion');
-
-    //Percussion Number
-    $(document).on({
-        mouseenter: function (evt) {
-            if ($('#help').hasClass('on')) {
-                $('#toolTip').html('This piece requires ' + $('#numberOfPercussion').html() + ' percussion');
-                $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
-            };
-        },
-        mouseleave: function () {
-            $('#toolTip').css('display', 'none');
-        }
-    }, '#numberOfPercussion');
+    }, '#piano');
 
     //Challenge tooltip
     $(document).on({
@@ -964,11 +997,11 @@ $(document).ready(function () {
     //Button Assignments
     $(document).on('click', '#loginButton', function () { login(document.getElementById('userEmail').value.toString(), document.getElementById('userBand').value.toString()); });
     $(document).on('click', '#newAccountButton', function () {
-        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSf7CKt6BjXfYagKP9XWO74g6PdyYAiAoWhEcvCfUinXGbpcDA/viewform', true, function () {
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe0qUGcBPa0qSSddewnG2DTsjjnxlnldfe84x9eoLZTaz85ig/viewform', true, function () {
             $('iframe#pageContent').load(function () {
                 $('#overlayPane').empty();
                 $('#overlayPane').prepend('<div class="loaderExternal"></div>');
-                $('#overlayPane').append('<p id="verifying">Verifying registration and preparing to load band...</p>')
+                $('#overlayPane').append('<p id="verifying">Verifying registration and preparing to load choir...</p>')
 
                 function checkUntilLoaded() {
                     getUserList();
@@ -977,7 +1010,7 @@ $(document).ready(function () {
                         if (!newBandCreated) {
                             newBandCreated = true;
                             closeOverlay();
-                            login(listOfUsers[listOfUsers.length - 1]['Email Address'], listOfUsers[listOfUsers.length - 1]['Band Name']);
+                            login(listOfUsers[listOfUsers.length - 1]['Email Address'], listOfUsers[listOfUsers.length - 1]['Choir Name']);
                         };
                     }
                     else {
@@ -1000,7 +1033,7 @@ $(document).ready(function () {
     $(document).on('click', '#listChallenge', function () { listChallengePieces(); });
     $(document).on('click', '#listAll', function () { listAllPieces(); });
     $(document).on('click', '#addPiece', function () {
-        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform', true);
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSfD-XMPfGGhg4i9o9D0dpZ14phqsoxE2ByLzbZg1c1SklqRVQ/viewform', true);
     });
 
     $(document).on('click', '#versionNumber', function () { openOverlay('changeLog.html', false); });
@@ -1017,7 +1050,7 @@ $(document).ready(function () {
     $(document).on('click', '.analyzeThis', function () {
         var thisPiece = activePieceList[$(this).parent().attr("id")];
 
-        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSe5q7jbSlC4H0u8NPEeAaniK09N4vqj9ZoStJSBG3R4SQsgUQ/viewform?usp=pp_url&entry.290029157=' + thisPiece['Title'] + '&entry.1725435401=' + thisPiece['Composer'] + '&entry.1690364591=' + thisPiece['Arranger'] + '&entry.16958485=__other_option__&entry.16958485.other_option_response=' + thisPiece['Publisher'], true);
+        openOverlay('https://docs.google.com/forms/d/e/1FAIpQLSfD-XMPfGGhg4i9o9D0dpZ14phqsoxE2ByLzbZg1c1SklqRVQ/viewform?usp=pp_url&entry.290029157=' + thisPiece['Title'] + '&entry.1725435401=' + thisPiece['Composer'] + '&entry.1690364591=' + thisPiece['Arranger'] + '&entry.16958485=__other_option__&entry.16958485.other_option_response=' + thisPiece['Publisher'], true);
     });
 
     //Navigation in Piece List

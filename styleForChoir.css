@@ -145,13 +145,24 @@ body {
     text-align: center;
 }
 
-.trueBasic {
-    background-color: lightblue;
+.green {
+    background-color: green;
+    color: white;
 }
 
-.trueAdvanced {
-    background-color: maroon;
-    color: lightgrey;
+.yellow {
+    background-color: yellow;
+    color: black;
+}
+
+.orange {
+    background-color: orange;
+    color: black;
+}
+
+.red {
+    background-color: red;
+    color: white;
 }
 
 #notesPane {   
@@ -202,8 +213,8 @@ input {
 }
 
 .menuOption.m:hover {
-    color: lightblue;
-    border-top: 1px solid lightblue;
+    color: lightpink;
+    border-top: 1px solid lightpink;
 }
 
 .menuOption.l:hover {
@@ -249,7 +260,7 @@ input {
 }
 
 #addPiece:hover {
-    background-color: lightblue;
+    background-color: lightpink;
 }
 
 #addPiece div {
@@ -263,7 +274,7 @@ input {
 }
 
 .selectedPiece {
-    background-color: lightblue;
+    background-color: lightpink;
 }
 
 .analyzerData {
@@ -307,14 +318,14 @@ input {
 }
 
 .dataCat {
-    color: lightblue;
+    color: lightpink;
 }
 
 .analysisCount {
     position: absolute;
     bottom: 5px;
     left: 5px;
-    color: lightblue;
+    color: lightpink;
     z-index: 3;
 }
 
@@ -410,8 +421,8 @@ input {
 }
 
 #loginButton:hover, #newAccountButton:hover, #searchButton:hover {
-    border-bottom: 3px solid lightblue;
-    color: lightblue;
+    border-bottom: 3px solid lightpink;
+    color: lightpink;
 }
 
 #loginButton:disabled {
@@ -438,7 +449,7 @@ input {
     margin: 40% auto;
     border: 6px solid grey;
     border-radius: 50%;
-    border-top: 6px solid lightblue;
+    border-top: 6px solid lightpink;
     animation: spin 2s linear infinite;
 }
 
@@ -449,7 +460,7 @@ input {
     margin: 20% auto;
     border: 6px solid grey;
     border-radius: 50%;
-    border-top: 6px solid lightblue;
+    border-top: 6px solid lightpink;
     animation: spin 2s linear infinite;
 }
 
@@ -486,5 +497,5 @@ input {
 }
 
 .searchItem:checked {
-    background-color: lightblue;
+    background-color: lightpink;
 }
