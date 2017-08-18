@@ -5,8 +5,8 @@
         <meta charset="utf-8" />
         <title>bandhacker</title>
 
-        <script src="jquery-1.12.3.js"></script>
-        <script src="jquery-ui.js"></script>
+        <script src="js/libraries/jquery-1.12.3.js"></script>
+        <script src="js/libraries/jquery-ui.js"></script>
 
         <style>
             body {
@@ -69,6 +69,14 @@
             .lightpink {
                 color: lightpink;
             }
+            
+            #bottomBar {
+                position: fixed;
+                width: 100%;
+                height: 25px;
+                bottom: 0;
+                background-color: lightgrey;
+            }
         </style>
 
 
@@ -80,18 +88,20 @@
         
         <div id="wrapper">
             <div id="optimal" class="link" onclick="openOptimal();">
-                <img class="icon" alt="optimal" src="oe.png" />
+                <img class="icon" alt="optimal" src="optimal/img/bandLogo.png" />
 
-                <p>proceed to <span class="lightblue">optimal</span></p>        
+                <p>optimal for <span class="lightblue">band</span></p>        
             </div>
             <div id="oForChoir" class="link" onclick="">
-                <img class="icon" alt="optimal" src="oforchoir.png" />
+                <img class="icon" alt="optimal" src="optimal/img/choirLogo.png" />
 
                 <p>coming <span class="lightpink">soon</span></p>        
-            </div>
+            </div>            
         </div>
 
-
+        <div id="bottomBar">
+            
+        </div>
     </body>
 </html>
 
@@ -99,7 +109,7 @@
     $('#wrapper').animate({ opacity: 1.0 }, 3000);
 
     function openOptimal (){
-        window.open("http://bandhacker.com/optimal.html", "_top");
+        window.open("http://bandhacker.com/optimal/band.html", "_self");
     } 
 
 </script>

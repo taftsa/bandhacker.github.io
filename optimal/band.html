@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>optimal</title>
+		
+        <link rel="shortcut icon" href="/img/bandFavicon.ico" />
+
+        <script src="js/libraries/chart.js"></script>
+        <script src="js/libraries/tabletop.js"></script>
+
+        <script src="../js/libraries/jquery-1.12.3.js"></script>
+        <script src="../js/libraries/jquery-ui.js"></script>
+
+		<script src="js/shared.js"></script>
+        <script src="js/band.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/bandStyle.css">    
+    </head>
+      
+    <body>
+        <div id="topMenu">
+            <div class="logo"><a href="http://bandhacker.com/optimal/band.html"><img src="img/bandLogo.png" height="42px" alt="optimal.efficient"/></a></div>
+            <div id="title">optimal</div> <div id="byHacker"><a href="http://bandhacker.com">[by <span class="grey">band</span>hacker]</a></div>
+            <div id="info"><span id="versionNumber">Version 1.2.0</span><br />
+                &copy; 2017 Seth Taft<br />
+                <span id="emailLink">optimal.efficient@gmail.com</span>
+            </div>               
+        </div>
+
+        <div id="optionsMenu">        
+            <div class="menuOption a m" id="search">Search
+            </div><div class="menuOption b" id="listOptimal">List Optimal
+            </div><div class="menuOption a" id="listAllPlayable">List Performable
+            </div><div class="menuOption b" id="listChallenge">List Challenging
+            </div><div class="menuOption a" id="listAll">List All
+			</div><div class="menuOption b" id="filterBox">Filters
+            </div><div class="menuOption a" id="tutorialLink">Tutorial
+            </div>
+        </div>
+
+        <div id="leftPane">
+            <div id="dataPane">
+                <div id="buffer"></div>
+                <form autocomplete="on">
+                    <input name="userEmail" type="text" placeholder="email" id="userEmail">
+                    <input name="userBandName" type="text" placeholder="band name" id="userBand">					
+                    <input type="button" name="login" value="Loading." class="button" id="loginButton">
+					<input type="button" name="remember" value="Remember Me" class="button" id="rememberButton">
+                    <input type="button" name="newAccount" value="New Band" class="button" id="newAccountButton">
+                </form>
+            </div>
+            <div id="notesPane"></div>      
+        </div>            
+        <div id="databasePane">
+            <div id="intro">New?</div>
+			<div class="introButton" id="newTutorial">Click here to check out the tutorial<br />(it's also in the menu bar)</div>
+			<div class="introButton" id="browse">Click here to browse pieces without logging in<br />(you'll need to refresh to log in)</div>
+        </div>
+
+        <div id="toolTip">Test</div>
+    </body>
+</html>

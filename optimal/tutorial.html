@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <script src="../js/libraries/jquery-1.12.3.js"></script>
+        <script src="../js/libraries/jquery-ui.js"></script>
+
+        <style>
+            * {
+                font-family: arial;
+                font-size:  0.96em;
+                cursor:  default;
+            }
+            
+            body {
+                background-color: #eee;
+            }
+                      
+            /* Style the buttons that are used to open and close the accordion panel */
+            button.accordion {
+                background-color: lightgrey;
+                color: black;
+                cursor: pointer;
+                padding: 10px;
+                width: 100%;
+                text-align: center;
+                border: none;
+                outline: none;
+                transition: 0.4s;
+            }
+
+            /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+            button.accordion.active, button.accordion:hover {
+                background-color: lightblue;
+            }
+
+            /* Style the accordion panel. Note: hidden by default */
+            div.panel {
+                padding: 2px 18px;
+                background-color: white;
+                display: none;
+            }
+            
+            ::-webkit-scrollbar {
+                width: 6px;
+            }
+ 
+            ::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+                border-radius: 6px;
+            }
+ 
+            ::-webkit-scrollbar-thumb {
+                border-radius: 6px;
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+            }
+
+            h5 {
+                margin-bottom: 0px;
+            }
+        </style>
+
+    </head>
+    <body>
+        <button class="accordion">What is optimal?</button>
+        <div class="panel">
+            <p><b>optimal</b> is an attempt to use crowdsourced experience to make the act of selecting ensemble literature simpler. The goal is to help us all pick the <b>optimal</b> piece in an efficient way.</p>
+
+            <p>The platform seeks to go beyond traditional mono-dimensional grade designations in order to allow you to find the perfect piece for your ensemble. Rather than a single number to tell you how hard it is, each piece in the optimal database gets 6 numbers, each corresponding to a specific area of difficulty.</p>
+
+            <p>Anyone who teaches music can analyze music for <b>optimal</b>. When you look at a piece's rating, you're seeing the average rating from everyone who has rated it. This means you are seeing the professional consensus rather than the opinion of one person you've never met.</p>
+        </div>
+
+        <button class="accordion">Using the Site</button>
+        <div class="panel">
+            <p><b>Create</b> an ensemble once you're familiar with the rating system by clicking "New Band," "New Choir," or "New Orchestra" and following the Google Forms prompts.</p>
+            <p><b>Search</b> lets you search by title, composer, and/or arranger. Make sure to check the appropriate box(es).</p>
+            <p><b>List Optimal</b> shows you all pieces that match your ensemble's skill profile perfectly.</p>
+            <p><b>List Performable</b> shows you all pieces that have difficulty profiles within your ensemble's abilities.</p>
+            <p><b>List Challenging</b> shows you pieces that will stretch your students by one level in one to six of the nodes. The "Challenge Level" is the number of nodes that will stretch your ensemble's abilites.</p>
+            <p><b>List All</b> shows you every piece in the database.</p>
+            <p><b>Submit Analysis</b> takes you to a Google Form that allows you to submit your analysis of a piece.</p>
+            <p>Click the <b>?</b> button near the instrumentation/voicing graph to toggle help boxes.</p>
+            <p>Hover over the <b>?</b> in the corner of a piece's card to see information about who has analyzed it.</p>
+        </div>
+
+		<button class="accordion">Filters</button>
+			<div class="panel">
+				<p>As of version 1.2, you can now use <b>filters</b> to narrow your search! There are currently three filters:</p>
+				<ul>
+					<li>The <b>state</b> filter shows you only pieces that have been analyzed for <b>optimal</b> by someone in the state you selected.</li>
+					<li>The <b>grade</b> filter shows you only pieces that are reported to have been assigned a specific grade by a state organization.</li>
+					<li>The <b>classification</b> filter shows you only pieces that fit into certain categories like "march" and "overture" according to the analyzer(s).</li>
+				</ul>
+				
+				<p>Access these filters by clicking "Filters" in the top menu. Select your filters, then click "Apply." Filters use the equivalent of the AND boolean, so selecting a grade of "5" and a classification of "Latin" will show you only pieces that are <i>both</i> Latin in style <i>and</i> grade 5.</p>
+				
+				<p>Filters are a separate layer from Search, Optimal, Performable, Challenge, and All. For example, if you want to find filtered challenging pieces, first click "List Challenging," then apply filters.</p>
+				
+				<p>If you decide not to filter your results or want to remove filters, leave everything on "Any" and click "Apply." This will show you everything in the view you are currently in.</p>
+				
+				<p>Please note that the filters do not communicate with each other, so selecting a state of "Virginia" and grade of "5" will show you pieces that have been graded in Virginia and are a grade 5 <i>somewhere</i>, but that doesn't mean those pieces are all grade 5 <i>in Virginia</i></p>
+			</div>  		
+
+        <button class="accordion">The 6 Nodes</button>
+        <div class="panel">                        
+            <p><b>Rapidity</b> refers to the speed with which the muscles involved in music-making need to move in order to perform the music. It is related to, but not synonymous with, <i>tempo</i>. It principally refers to <i>motion of the fingers, hand, tongue, and vocal mechanism</i>. It does not refer to rapid dynamic changes.</p>
+
+            <p><b>Rhythm</b> refers to the complexity of the <i>rhythms,</i> <i>meters,</i> and <i>articulation patterns</i> present in the piece. This includes individual rhythms as well as the relationship between rhythms between groups. It can also include peculiarities in the way a rhythm is written, even if it is easier to perform than it looks. It does not refer to the quantity or variety of simultaneous rhythms.</p>
+
+            <p><b>Dynamics</b> refers to volumes and changes in volume initiated by the individual performers. Soft volumes are of particular concern. The <i>frequency</i> and <i>range</i> of dynamic changes are to be considered. It does not refer to changes in overall group volume caused by changes in texture.</p>
+
+            <p><b>Texture</b> refers to the number and nature of simultaneous, distinct musical lines. Texture difficulty typically arises from a large quantity of distinct lines or exposure from thin scoring. Related concepts include <i>transparency</i> and <i>uniformity</i>.</p>
+
+            <p><b>Tonality</b> refers to the key(s) (or lack thereof) and amount of chromaticism used in the work. The difficulty arises from the use of less-familiar keys, notes, and motion between notes. Care must be taken to distinguish difficulty related to <b>tonality</b> from difficulty related to <b>rapidity</b>. For band instruments, a fast run in the key of B&#9837 has mostly rapidity difficulty, while the same run in B&#9838 has both rapidity and tonality difficulty.
+
+            <p><b>Range</b> refers to the highness or lowness of pitches that must be played or sung relative to the typical ranges of the instruments or voices. For bands, primary concerns are <i>trumpet</i> and <i>clarinet</i>, with <i>flute</i> and <i>all other brass</i> as secondary concerns.</p>  
+
+            <p><i>Concepts such as "expression," "aesthetic," and "style" are not included. These are not elements of difficulty, but rather are the result of the mastery of the identified six elements and their interactions. They are important, but are not fundamental in determining whether a piece is performable.</i></p>
+        </div>
+
+        <button class="accordion">Band Instrumentation</button>
+        <div class="panel">
+            <p>The <b>optimal</b> platform utilizes a standard concert band consisting of <i>parts</i> rather than <i>players</i>, as not every player can cover a part alone.</p>
+
+            <ul>
+                <li>1 Flute (F)</li>
+                <li>No Oboe (O)</li>
+                <li>No Bassoon (OO)</li>
+                <li>2 Clarinets (C)</li>
+                <li>3 Saxophones: Alto, Tenor, and Baritone (S)</li>
+                <li>2 Trumpets (T)</li>
+                <li>1 F Horn (H)</li>
+                <li>1 Trombone (R)</li>
+                <li>1 Baritone (B)</li>
+                <li>1 Tuba (U)</li>
+                <li>1-5 Percussion (P)</li>
+            </ul>
+
+            <p>Instrumentation as compared to this standard is assessed as part of the analysis process and is reflected below the difficulty graph.</p>
+            <ul>
+                <li>If an instrument is not needed, its box is empty.</li>
+                <li>Standard instrumentation is highlighted in green and is listed on the top row.</li>
+                <li>Expanded instrumentation is highlighted in orange and is on the bottom row.</li>
+                <li>The average minimum number of percussionists is indicated below the "P," with the "P" highlighted in the appropriate color.</li>
+            </ul>
+        </div>
+
+        <button class="accordion">How to Analyze Music</button>
+        <div class="panel">
+            <p>Only analyze music you've taught; the value of optimal is in the opinions of those who have had practical experience with the music.</p>
+          
+            <p>Use standards of "This piece's ___________ has the difficulty of a grade ___________ piece" and "This ensemble performs ___________ to the level of a grade ___________ piece." When grading marches, no comparison with "other marches" should be made. This will mean that the ratings of tonality, texture, and likely dynamics will typically be lower than the other nodes for marches.</p>
+
+            <p>After you analyze a piece, you will have to refresh the page in order to see it.</p>
+			
+			<p>Pieces in the <b>optimal</b> are graded on a scale of 1-6, as are pieces on many state lists. While this is a highly subjective grading system, the following is a general guide for how to apply these grades:</p>
+        
+			<ul>
+				<li><b>Grade 1</b> pieces and elements are performable by the <b>average beginning ensemble in its second semester</b>.</li>
+				<li><b>Grade 2</b> pieces and elements are performable by the <b>average second-year ensemble in its second semester</b>.</li>
+				<li><b>Grade 3</b> pieces and elements are performable by the <b>average third-year ensemble in its second semester</b>.</li>
+				<li><b>Grade 4</b> pieces and elements are performable by the <b>finest middle school ensembles</b> and the <b>average high school ensemble</b>.</li>
+				<li><b>Grade 5</b> pieces and elements are performable by <b>better-than-average high school ensembles</b>.</li>
+				<li><b>Grade 6</b> pieces and elements are performable by the <b>finest high school ensembles</b> and <b>average college ensembles</b>.</li>
+			</ul>
+		</div>
+
+		<button class="accordion">Ideas for Improvement</button>
+        <div class="panel">
+            <p>If you have ideas on how I can improve this platform, please feel free to contact me!</p>
+			
+			<p>Keep in mind, though, that everyone fills in this blank differently: "It would be nice if you added _____ to the analysis form." Simplicity is a key element of this platform, and there's just not room to fit every little thing about every piece.</p>
+        </div> 
+		
+        <button class="accordion">Dedications</button>
+        <div class="panel">
+            <p>This platform is dedicated to...</p>
+
+            <p>...Dr. Sandy Goldie, Dr. Terry Austin, and Dr. David Greennagel of Virginia Commonwealth University, and to all of my wonderful classmates; for their unexpectedly vehement support of this project.</p>
+          
+            <p>...the members of the 2016-2017 Prince Edward County High School Concert Band; for their near-flawless performance of Astor Piazzolla's <i>Street Tango</i>, the right piece at the right time.</p>
+
+            <p>...my beautiful, supportive, and loving wife, Rebecca; for absolutely everything.</p>
+        </div>    
+    </body>
+</html>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function () {
+            /* Toggle between adding and removing the "active" class, to highlight the button that controls the panel */
+            $('.active').not(this).removeClass('active');
+            this.classList.toggle("active");
+
+            /* Toggle between hiding and showing the active panel */
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                $('.panel').css('display', 'none');
+                panel.style.display = "block";
+            }
+        }
+    };
+</script>

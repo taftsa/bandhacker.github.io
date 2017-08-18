@@ -4,8 +4,8 @@
     <head>
         <meta charset="utf-8" />
         <title></title>
-        <script src="jquery-1.12.3.js"></script>
-        <script src="jquery-ui.js"></script>
+        <script src="../js/libraries/jquery-1.12.3.js"></script>
+        <script src="../js/libraries/jquery-ui.js"></script>
 
         <style>
             * {
@@ -66,11 +66,37 @@
     <body>
         <h1>Change Log</h1>
 
+        <button class="accordion">Version 1.2.0</button>
+        <div class="panel">
+            <h3>Changes</h3>
+            <ul>
+                <li>File reorganization to prepare for optimal for Choir</li>
+				<li>Added new questions to Google Forms to prepare for filters</li>
+				<li>Added "remember me" button which uses localStorage</li>
+				<li>Removed use of cookies</li>
+				<li>Added rubric for grading 1-6 to tutorial</li>
+				<li>Adjusted tutorial to account for optimal for Choir</li>
+				<li>Made Band and Choir forms one page instead of multiple pages (necessary for auto-reload pieces feature)</li>
+				<li>Added auto-reload of piece list after adding a piece</li>
+				<li>Added timeout messages after ~30 seconds on new band and new piece loading screens</li>
+				<li>Added links from landing page to tutorial and to browse without logging in</li>
+				<li>Adjusted help toggle code with localStorage so help maintains its state from session to session</li>
+				<li>UI changes</li>
+				<li>Added filters</li>
+				<li>Added filter tab and explanation to tutorial</li>
+            </ul>
+
+            <h3>Known Issues</h3>
+            <ul>
+                <li>It is possible to create two identical logins</li>
+            </ul>
+        </div>
+
         <button class="accordion">Version 1.1.0b</button>
         <div class="panel">
             <h3>Changes</h3>
             <ul>
-                <li>Added a link back to bandhack.com</li>
+                <li>Added a link back to bandhacker.com</li>
                 <li>Removed access to blind auditioner</li>
                 <li>Changed main html file from "index" to "optimal"</li>
             </ul>

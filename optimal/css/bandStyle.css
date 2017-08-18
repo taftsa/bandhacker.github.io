@@ -12,6 +12,10 @@
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
+input:focus {
+	outline:0;
+}
+
 body {
     margin: 0;
     background-color: #F5F5F5;
@@ -20,16 +24,72 @@ body {
     font-weight: 900;
 }
 
-#optionsMenu {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-}
-
 #topMenu {
     width: 100%;
     height: 46px;
     background-color: black;
     color: white;
     font-size: 2em;
+}
+
+#optionsMenu {    
+	height: 23px;
+}
+
+.menuOption {
+    cursor: pointer;
+    vertical-align: top;
+    display: inline-block;
+    width: 14.2857%;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    color: white;
+    border-top: 1px solid white;
+    font-size: 0.9em;
+	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.menuOption.a {
+    background: #636363;
+}
+
+.menuOption.b {
+    background: #7D7D7D;
+}
+
+.menuOption:hover {
+    color: lightblue;
+    border-top: 1px solid lightblue;
+}
+
+#filterBox {
+	position: relative;
+	z-index: 4;
+}
+
+#applyFilters {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	background-color: black;
+	color: white;
+}
+
+#applyFilters:hover {
+	background-color: white;
+	color: black;
+}
+
+.filter {
+	display: block;
+	margin: auto;
+	margin-top: 3px;
+	width: 80%;
+	background-color: black;
+	color :white;
 }
 
 #title {
@@ -49,10 +109,6 @@ body {
 
 .grey {
     color: lightgrey;
-}
-
-.lightpink {
-    color: lightpink;
 }
 
 .logo {
@@ -84,7 +140,9 @@ body {
     position: relative;
     vertical-align: top;
     display: inline-block;
-    border: 2px solid #7D7D7D;
+    border: 1px solid #7D7D7D;
+	border-radius: 4px;
+	background-color: white;
     height: 336px;
     width: 100%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -145,24 +203,13 @@ body {
     text-align: center;
 }
 
-.green {
-    background-color: green;
-    color: white;
+.trueBasic {
+    background-color: lightblue;
 }
 
-.yellow {
-    background-color: yellow;
-    color: black;
-}
-
-.orange {
-    background-color: orange;
-    color: black;
-}
-
-.red {
-    background-color: red;
-    color: white;
+.trueAdvanced {
+    background-color: maroon;
+    color: lightgrey;
 }
 
 #notesPane {   
@@ -170,56 +217,21 @@ body {
     text-align: center;
     height:  156px;
     width: 100%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border: 2px solid #7D7D7D;
     margin-top:  4px;
 }
 
 #databasePane {
     margin-top:  4px;
     display: inline-block;
-    border: 2px solid #7D7D7D;
     height: 500px;
     width: 73%;
     overflow-y: auto;
     text-align: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 input {
     display: block;
     margin: auto;
-}
-
-.menuOption {
-    cursor: pointer;
-    vertical-align: top;
-    display: inline-block;
-    width: 16.66%;
-    height: 22px;
-    line-height: 22px;
-    text-align: center;
-    color: white;
-    border-top: 1px solid white;
-    font-size: 0.9em;
-}
-
-.menuOption.a {
-    background: #636363;
-}
-
-.menuOption.b {
-    background: #7D7D7D;
-}
-
-.menuOption.m:hover {
-    color: lightpink;
-    border-top: 1px solid lightpink;
-}
-
-.menuOption.l:hover {
-    color:  lightgrey;
-    border-top: 1px solid lightgrey;
 }
 
 .piece {
@@ -260,7 +272,7 @@ input {
 }
 
 #addPiece:hover {
-    background-color: lightpink;
+    background-color: lightblue;
 }
 
 #addPiece div {
@@ -274,7 +286,7 @@ input {
 }
 
 .selectedPiece {
-    background-color: lightpink;
+    background-color: lightblue;
 }
 
 .analyzerData {
@@ -318,14 +330,14 @@ input {
 }
 
 .dataCat {
-    color: lightpink;
+    color: lightblue;
 }
 
 .analysisCount {
     position: absolute;
     bottom: 5px;
     left: 5px;
-    color: lightpink;
+    color: lightblue;
     z-index: 3;
 }
 
@@ -406,11 +418,12 @@ input {
     margin-top: 8px;
 }
 
-#loginButton, #newAccountButton, #searchButton {
+.button {
     background: black;
     border: none;
-    width:  100px;
-    padding: 10px 20px 10px 20px;
+    width:  120px;
+	height: 40px;
+	line-height: 40px;
     border-bottom: 3px solid white;
     border-radius: 3px;
     color: white;
@@ -420,16 +433,21 @@ input {
     text-align: center;
 }
 
-#loginButton:hover, #newAccountButton:hover, #searchButton:hover {
-    border-bottom: 3px solid lightpink;
-    color: lightpink;
+.button:hover {
+    border-bottom: 3px solid lightblue;
+    color: lightblue;
 }
 
-#loginButton:disabled {
+.button:disabled {
     cursor:  default;
     background-color: grey;
     color: lightgrey;
     border-bottom: 3px solid lightgrey;    
+}
+
+#rememberButton.forgetMe {
+	border-bottom: 3px solid lightblue;
+    color: lightblue;
 }
 
 #intro {
@@ -442,6 +460,22 @@ input {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
+.introButton {
+    width: 60%;
+    margin: auto;
+    background-color: black;
+    color: white;
+    margin-top: 4%;
+    font-size: 1em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.introButton:hover {
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+
 .loader {
     z-index: 1;
     width: 15px;
@@ -449,7 +483,7 @@ input {
     margin: 40% auto;
     border: 6px solid grey;
     border-radius: 50%;
-    border-top: 6px solid lightpink;
+    border-top: 6px solid lightblue;
     animation: spin 2s linear infinite;
 }
 
@@ -460,7 +494,7 @@ input {
     margin: 20% auto;
     border: 6px solid grey;
     border-radius: 50%;
-    border-top: 6px solid lightpink;
+    border-top: 6px solid lightblue;
     animation: spin 2s linear infinite;
 }
 
@@ -483,7 +517,7 @@ input {
     border:  2px solid black;
 }
 
-.searchItem {
+.checkbox {
     display: inline-block;
     -webkit-appearance: none;
     border: 2px solid black;
@@ -492,10 +526,10 @@ input {
     border-radius: 5px;
 }
 
-.searchItem:hover {
+.checkbox:hover {
     cursor: pointer;
 }
 
-.searchItem:checked {
-    background-color: lightpink;
+.checkbox:checked {
+    background-color: lightblue;
 }
