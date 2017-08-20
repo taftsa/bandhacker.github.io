@@ -1,0 +1,46 @@
+.menuOption:hover {
+    color: lightpink;
+    border-top: 1px solid lightpink;
+}
+
+#addPiece:hover {
+    background-color: lightpink;
+}
+
+.selectedPiece {
+    background-color: lightpink;
+}
+
+.dataCat {
+    color: lightpink;
+}
+
+.analysisCount {
+    color: lightpink;
+}
+
+.button:hover {
+    border-bottom: 3px solid lightpink;
+    color: lightpink;
+}
+
+#rememberButton.forgetMe {
+	border-bottom: 3px solid lightpink;
+    color: lightpink;
+}
+
+.loader {
+    border-top: 6px solid lightpink;
+}
+
+.loaderExternal {
+    border-top: 6px solid lightpink;
+}
+
+.checkbox:checked {
+    background-color: lightpink;
+}
+
+.trueBasic {
+    background-color: lightpink;
+}

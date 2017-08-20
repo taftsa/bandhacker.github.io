@@ -33,7 +33,7 @@
 
             /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
             button.accordion.active, button.accordion:hover {
-                background-color: lightblue;
+                background-color: palegreen;
             }
 
             /* Style the accordion panel. Note: hidden by default */
@@ -65,6 +65,27 @@
     </head>
     <body>
         <h1>Change Log</h1>
+		
+		<button class="accordion">Version 1.3.0</button>
+        <div class="panel">
+            <h3>Changes</h3>
+            <ul>
+                <li>Piece selection is now cleared after filters are applied</li>
+				<li>Removed arrow key navigation because it looked bad and didn't work with filters</li>
+				<li>Finished file reorganization</li>
+				<li>Removed "No optimal pieces yet." from blank optimal pages</li>
+				<li>Removed second "Add a new piece" button for pages without any current pieces</li>
+				<li>Changed change log and tutorial accent color to palegreen to broaden to all ensemble platforms</li>
+				<li>Added optimal for choir</li>
+				<li>Updated tutorial with new choir filter</li>
+				<li>Began construction of feature to remind users of ensemble names associated with their email addresses</li>
+            </ul>
+
+            <h3>Known Issues</h3>
+            <ul>
+                <li>It is possible to create two identical logins</li>
+            </ul>
+        </div>
 
         <button class="accordion">Version 1.2.0</button>
         <div class="panel">
