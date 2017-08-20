@@ -49,13 +49,9 @@
                 text-decoration: none;
             }
             
-            #optimal:hover {
+            #optimal:hover, #oForChoir:hover {
                 color: black;
                 cursor: pointer;
-            }
-            
-            #oForChoir {
-                opacity: 0.5;
             }
             
             .icon {
@@ -92,10 +88,10 @@
 
                 <p>optimal for <span class="lightblue">band</span></p>        
             </div>
-            <div id="oForChoir" class="link" onclick="">
+            <div id="oForChoir" class="link" onclick="openChoirOptimal();">
                 <img class="icon" alt="optimal" src="optimal/img/choirLogo.png" />
 
-                <p>coming <span class="lightpink">soon</span></p>        
+                <p>optimal for <span class="lightpink">choir</span></p>        
             </div>            
         </div>
 
@@ -110,6 +106,9 @@
 
     function openOptimal (){
         window.open("http://bandhacker.com/optimal/band.html", "_self");
+    }
+	function openChoirOptimal (){
+        window.open("http://bandhacker.com/optimal/choir.html", "_self");
     } 
 
 </script>
