@@ -193,7 +193,8 @@ function addNewPieceButtons() {
 function openOverlay(url, external, callback) {
 	$('body').append('<div id="pageCover"></div>');
 	$('body').append('<div id="overlayPane"></div>');
-	$('#overlayPane').html('<iframe id="pageContent" type="text/html" src="' + url + '" width="100%" height="100%"></iframe>');
+	//$('#overlayPane').html('<iframe id="pageContent" type="text/html" src="' + url + '" width="100%" height="100%"></iframe>');
+	$('#overlayPane').load(url);
 
 	if (external) {
 		$('#pageContent').css({ height: '0%', width: '0%' });
