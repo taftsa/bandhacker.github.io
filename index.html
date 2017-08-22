@@ -32,7 +32,7 @@
             
             #wrapper {
                 opacity: 0;
-                width: 800px;
+                width: 100%;;
                 margin: auto;
                 margin-top: 100px;
                 text-align: center;
@@ -65,6 +65,18 @@
             .lightpink {
                 color: lightpink;
             }
+			
+			.gold {
+				color: gold;
+			}
+			
+			.icon {
+				border-radius: 50%;
+			}
+			
+			.icon:hover {
+				box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
+			}
             
             #bottomBar {
                 position: fixed;
@@ -73,6 +85,10 @@
                 bottom: 0;
                 background-color: lightgrey;
             }
+			
+			#oForStrings {
+				opacity: 0.5;
+			}
         </style>
 
 
@@ -88,11 +104,18 @@
 
                 <p>optimal for <span class="lightblue">band</span></p>        
             </div>
+			
+			<div id="oForStrings" class="link" onclick="openStringsOptimal();">
+                <img class="icon" alt="optimal" src="optimal/img/stringsLogo.png" />
+
+                <p>coming <span class="gold">soon</span></p>
+            </div>  
+			
             <div id="oForChoir" class="link" onclick="openChoirOptimal();">
                 <img class="icon" alt="optimal" src="optimal/img/choirLogo.png" />
 
                 <p>optimal for <span class="lightpink">choir</span></p>        
-            </div>            
+            </div> 
         </div>
 
         <div id="bottomBar">
@@ -107,8 +130,12 @@
     function openOptimal (){
         window.open("http://bandhacker.com/optimal/band.html", "_self");
     }
+	
 	function openChoirOptimal (){
         window.open("http://bandhacker.com/optimal/choir.html", "_self");
     } 
 
+	function openStringsOptimal (){
+        //window.open("http://bandhacker.com/optimal/strings.html", "_self");
+    } 
 </script>

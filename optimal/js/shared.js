@@ -193,8 +193,7 @@ function addNewPieceButtons() {
 function openOverlay(url, external, callback) {
 	$('body').append('<div id="pageCover"></div>');
 	$('body').append('<div id="overlayPane"></div>');
-	//$('#overlayPane').html('<iframe id="pageContent" type="text/html" src="' + url + '" width="100%" height="100%"></iframe>');
-	$('#overlayPane').load(url);
+	$('#overlayPane').html('<iframe id="pageContent" type="text/html" src="' + url + '" width="100%" height="100%"></iframe>');
 
 	if (external) {
 		$('#pageContent').css({ height: '0%', width: '0%' });
@@ -409,7 +408,7 @@ function login(emailAttempt, ensAttempt) {
 	var userSuccess = false;
 	var ensSuccess = false;
 
-	for (var i = 0; i < numberOfItems; i++) {
+	for (var i = (numberOfItems - 1); i >= 0; i--) {
 		//Check Username
 		if (listOfUsers[i]['Email Address'].toUpperCase() === emailAttempt.toUpperCase()) {
 
@@ -449,13 +448,13 @@ function login(emailAttempt, ensAttempt) {
 				break;
 			}
 			else {
-				if (i == [numberOfItems - 1] && !ensSuccess) {
+				if (i == 0 && !ensSuccess) {
 					alert(ensVars.ensembleName + ' not Found');
 				};
 			}
 		}
 		else {
-			if (i == [numberOfItems - 1] && !userSuccess) {
+			if (i == 0 && !userSuccess) {
 				alert('Email not Found');
 			};
 		};
@@ -880,7 +879,27 @@ $(document).on('click', '.analyzeThis', function () {
 });
 
 //Retrieve forgotten ensemble name
-$(document).on('click', '#forgotNameButton', function () { openOverlay('forgotName.html', false); });
+$(document).on('click', '#forgotNameButton', function () {
+	var email = $('#userEmail').val().toUpperCase();
+	var matched = false;
+	
+	if (email == '') {
+		alert('Please enter an email to find associated ' + ensVars.ensembleNameLower + 's');
+	} else {
+		for (var sul = 0; sul < listOfUsers.length; sul++) {
+			if (listOfUsers[sul]['Email Address'].toUpperCase() == email) {
+				var date = listOfUsers[sul]['Timestamp'].split(' ');
+				
+				alert(ensVars.ensembleNameLower + ' "' + listOfUsers[sul][ensVars.ensembleName + ' Name'] + '"  was created on ' + date[0]);
+				matched = true;
+			};					
+		};
+		
+		if (!matched) {
+			alert('No ' + ensVars.ensembleNameLower + 's found for entered email');
+		};
+	};
+});
 
 //----------------------------------------------------------------------------------------------------------------------------------Filters
 //Select Filters

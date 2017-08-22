@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('#topMenu').append('<div id="info"><span id="versionNumber">Version 1.3.1</span><br />&copy; 2017 Seth Taft<br /><span id="emailLink">optimal.efficient@gmail.com</span></div>');
+	$('#topMenu').append('<div id="info"><span id="versionNumber">Version 1.3.2</span><br />&copy; 2017 Seth Taft<br /><span id="emailLink">optimal.efficient@gmail.com</span></div>');
 	
 	$('body').append('<div id="optionsMenu"></div>');
 		$('#optionsMenu').append('<div class="menuOption a m" id="search">Search');
@@ -16,7 +16,7 @@ $(document).ready(function() {
 			$('#dataPane').append('<div id="buffer"></div>');
 			$('#dataPane').append('<form id="loginForm" autocomplete="on"></form>');
 				$('#loginForm').append('<input name="userEmail" type="text" placeholder="email" id="userEmail">');
-				$('#loginForm').append('<input name="userBandName" type="text" placeholder="band name" id="userEns">');
+				$('#loginForm').append('<input name="userEnsName" type="text" placeholder="' + ensVars.ensembleNameLower + ' name" id="userEns">');
 				$('#loginForm').append('<input type="button" name="login" value="Loading." class="button" id="loginButton">');
 				$('#loginForm').append('<input type="button" name="remember" value="Remember Me" class="button" id="rememberButton">');
 				$('#loginForm').append('<input type="button" name="newAccount" value="New ' + ensVars.ensembleName + '" class="button" id="newAccountButton">');
