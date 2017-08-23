@@ -49,7 +49,7 @@
                 text-decoration: none;
             }
             
-            #optimal:hover, #oForChoir:hover {
+            #optimal:hover, #oForChoir:hover, #oForStrings:hover {
                 color: black;
                 cursor: pointer;
             }
@@ -85,10 +85,6 @@
                 bottom: 0;
                 background-color: lightgrey;
             }
-			
-			#oForStrings {
-				opacity: 0.5;
-			}
         </style>
 
 
@@ -108,7 +104,7 @@
 			<div id="oForStrings" class="link" onclick="openStringsOptimal();">
                 <img class="icon" alt="optimal" src="optimal/img/stringsLogo.png" />
 
-                <p>coming <span class="gold">soon</span></p>
+                <p>optimal for <span class="gold">strings</span></p>
             </div>  
 			
             <div id="oForChoir" class="link" onclick="openChoirOptimal();">
@@ -125,7 +121,7 @@
 </html>
 
 <script>
-    $('#wrapper').animate({ opacity: 1.0 }, 3000);
+    $('#wrapper').animate({ opacity: 1.0 }, 1800);
 
     function openOptimal (){
         window.open("http://bandhacker.com/optimal/band.html", "_self");
@@ -136,6 +132,6 @@
     } 
 
 	function openStringsOptimal (){
-        //window.open("http://bandhacker.com/optimal/strings.html", "_self");
+        window.open("http://bandhacker.com/optimal/strings.html", "_self");
     } 
 </script>

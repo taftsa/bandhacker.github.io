@@ -44,3 +44,8 @@
 .trueBasic {
     background-color: lightblue;
 }
+
+.trueAdvanced {
+    background-color: maroon;
+    color: lightgrey;
+}

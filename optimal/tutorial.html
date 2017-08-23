@@ -60,6 +60,32 @@
             h5 {
                 margin-bottom: 0px;
             }
+			
+			.green {
+				background-color: palegreen;
+			}
+			
+			.pink {
+				background-color: lightpink;
+			}
+			
+			.gold {
+				background-color: gold;
+			}
+			
+			.black {
+				background-color: black;
+				color: lightgrey;
+			}
+
+			.lightblue {
+				background-color: lightblue;
+			}
+			
+			.maroon {
+				background-color: maroon;
+				color: lightgrey;
+			}
         </style>
 
     </head>
@@ -89,13 +115,15 @@
 
 		<button class="accordion">Filters</button>
 			<div class="panel">
-				<p>As of version 1.2, you can now use <b>filters</b> to narrow your search! There are currently three filters:</p>
+				<p><b>Filters</b> can be used to narrow your search.</p>
 				<ul>
 					<li>The <b>state</b> filter shows you only pieces that have been analyzed for <b>optimal</b> by someone in the state you selected.</li>
 					<li>The <b>grade</b> filter shows you only pieces that are reported to have been assigned a specific grade by a state organization.</li>
 					<li>The <b>classification</b> filter shows you only pieces that fit into certain categories like "march" and "overture" according to the analyzer(s).</li>
 					<li>The <b>language</b> filter (choir only) shows you only pieces that are in (in whole or in part) the selected language.</li>
 				</ul>
+				
+				<p>As long as you are using a modern browser, it will remember what filters you are using until you close it (whole browser, not just the tab).</li>
 				
 				<p>Access these filters by clicking "Filters" in the top menu. Select your filters, then click "Apply." Filters use the equivalent of the AND boolean, so selecting a grade of "5" and a classification of "Latin" will show you only pieces that are <i>both</i> Latin in style <i>and</i> grade 5.</p>
 				
@@ -144,9 +172,38 @@
             <p>Instrumentation as compared to this standard is assessed as part of the analysis process and is reflected below the difficulty graph.</p>
             <ul>
                 <li>If an instrument is not needed, its box is empty.</li>
-                <li>Standard instrumentation is highlighted in green and is listed on the top row.</li>
-                <li>Expanded instrumentation is highlighted in orange and is on the bottom row.</li>
+                <li>Standard instrumentation (using the abbreviations above) is highlighted in <span class="lightblue">light blue</span> and is listed on the top row.</li>
+                <li>Expanded instrumentation (abbreviations with a + except for O and OO) is highlighted in <span class="maroon">maroon</span> and is on the bottom row.</li>
                 <li>The average minimum number of percussionists is indicated below the "P," with the "P" highlighted in the appropriate color.</li>
+            </ul>
+        </div>
+		
+		<button class="accordion">String Orchestra Instrumentation</button>
+        <div class="panel">
+            <p>The <b>optimal</b> platform shows the relative difficulty of the five standard string orchestra parts. Any additional parts are noted below the graphs.</p>
+
+            <ul>
+				<li>If there is <b>no part</b> for a given instrument, the box will display with no background color.</li>
+                <li>If the part for a given instrument is <b>easier than</b> what would be expected given the difficulty graph, the box will display in <span class="green">green</span>.</li>
+				<li>If the part for a given instrument is <b>comparable to</b> what would be expected given the difficulty graph, the box will display in <span class="gold">gold</span>.</li>
+				<li>If the part for a given instrument is <b>harder than</b> what would be expected given the difficulty graph, the box will display in <span class="maroon">maroon</span>.</li>
+            </ul>
+        </div>
+		
+		<button class="accordion">Choir Voicing</button>
+        <div class="panel">
+            <p>The <b>optimal</b> platform shows the number of Soprano, Alto, Tenor, and Bass parts in a piece, as well as whether or not piano is needed. Any other instrumentation is noted separately below the graphs.</p>
+
+            <ul>
+				<li>If there are <b>no</b> parts needed for a given voice type, the box will display with no background color.</li>
+                <li>If there is <b>one</b> part needed for a given voice type, the box will display in <span class="green">green</span>.</li>
+				<li>If there are <b>two</b> parts needed for a given voice type, the box will display in <span class="pink">pink</span>.</li>
+				<li>If there are <b>three</b> parts needed for a given voice type, the box will display in <span class="maroon">maroon</span>.</li>
+				<li>If there are <b>four or more</b> parts needed for a given voice type, the box will display in <span class="black">black</span>.</li>
+				<br />
+				<li><b>Piano</b> (P) with show without background for no piano, <span class="pink">pink</span> for optional piano, and <span class="maroon">maroon</span> for required piano.</li>
+				<br />
+				<li>The aggregate voicing (SSA, SATB, TTB, etc.) is displayed in the box below the SATB boxes</li>
             </ul>
         </div>
 

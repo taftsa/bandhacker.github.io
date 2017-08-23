@@ -12,179 +12,79 @@ var ensVars = {
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------Load Data
-//Function to check if a piece has multiple entries; returns aggregated piece if the piece hasn't already been processed
-function checkForDuplicates(t) {
-	var alreadyDone = false;
-	var pieceInQuestion = false;
-
-	//Loop through every piece
-	for (var a = 0; a < t; a++) {
-		if (pieceList[t]['Title'].toUpperCase() == pieceList[a]['Title'].toUpperCase() && pieceList[t]['Composer'].toUpperCase() == pieceList[a]['Composer'].toUpperCase() && pieceList[t]['Arranger'].toUpperCase() == pieceList[a]['Arranger'].toUpperCase() && pieceList[t]['Publisher'].toUpperCase() == pieceList[a]['Publisher'].toUpperCase()) {
-			alreadyDone = true;
-		};
-	};
-
-	if (!alreadyDone) {
-		pieceInQuestion = {};
-
-		//Direct Attributes
-		pieceInQuestion['Title'] = pieceList[t]['Title'];
-		pieceInQuestion['Composer'] = pieceList[t]['Composer'];
-		pieceInQuestion['Publisher'] = pieceList[t]['Publisher'];
-		pieceInQuestion['Arranger'] = pieceList[t]['Arranger'];
-
-		//Calculated Attribute Setup
-		pieceInQuestion['Rapidity'] = [];
-		pieceInQuestion['Rhythm'] = [];
-		pieceInQuestion['Dynamics'] = [];
-		pieceInQuestion['Texture'] = [];
-		pieceInQuestion['Tonality'] = [];
-		pieceInQuestion['Range'] = [];
-		pieceInQuestion['Flutes'] = [];
-		pieceInQuestion['Clarinets'] = [];
-		pieceInQuestion['Saxophones'] = [];
-		pieceInQuestion['Oboe'] = [];
-		pieceInQuestion['Bassoon'] = [];
-		pieceInQuestion['Trumpets'] = [];
-		pieceInQuestion['Horns'] = [];
-		pieceInQuestion['Trombones'] = [];
-		pieceInQuestion['Baritone'] = [];
-		pieceInQuestion['Tuba'] = [];
-		pieceInQuestion['Percussion'] = [];
-		pieceInQuestion['Difficulty Notes'] = [];
-		pieceInQuestion['Instrumentation Notes'] = [];
-		pieceInQuestion['Number of Analyses'] = 0;
-		pieceInQuestion['Reference States'] = [];
-		pieceInQuestion['Names'] = [];
-		pieceInQuestion['Affiliations'] = [];
-		pieceInQuestion['Grades'] = [];
-		pieceInQuestion['Classifications'] = [];
-
-		//For each piece, loop through each piece again
-		for (var a = t; a < numberOfPieces; a++) {
-			
-			//If it is the same piece...
-			if (pieceList[t]['Title'] == pieceList[a]['Title'] && pieceList[t]['Composer'] == pieceList[a]['Composer'] && pieceList[t]['Arranger'] == pieceList[a]['Arranger'] && pieceList[t]['Publisher'] == pieceList[a]['Publisher']) {
-
-				pieceInQuestion['Rapidity'].push(pieceList[a][' [Rapidity]'] / 1);
-				pieceInQuestion['Rhythm'].push(pieceList[a][' [Rhythm]'] / 1);
-				pieceInQuestion['Dynamics'].push(pieceList[a][' [Dynamics]'] / 1);
-				pieceInQuestion['Texture'].push(pieceList[a][' [Texture]'] / 1);
-				pieceInQuestion['Tonality'].push(pieceList[a][' [Tonality]'] / 1);
-				pieceInQuestion['Range'].push(pieceList[a][' [Range]'] / 1);
-				pieceInQuestion['Flutes'].push(pieceList[a]['Flutes']);
-				pieceInQuestion['Clarinets'].push(pieceList[a]['Clarinets']);
-				pieceInQuestion['Saxophones'].push(pieceList[a]['Saxophones']);
-				pieceInQuestion['Oboe'].push(pieceList[a]['Oboe']);
-				pieceInQuestion['Bassoon'].push(pieceList[a]['Bassoon']);
-				pieceInQuestion['Trumpets'].push(pieceList[a]['Trumpets']);
-				pieceInQuestion['Horns'].push(pieceList[a]['Horns']);
-				pieceInQuestion['Trombones'].push(pieceList[a]['Trombones']);
-				pieceInQuestion['Baritone'].push(pieceList[a]['Baritone']);
-				pieceInQuestion['Tuba'].push(pieceList[a]['Tuba']);
-				pieceInQuestion['Percussion'].push(pieceList[a]['Percussion'] / 1);
-				pieceInQuestion['Number of Analyses']++;
-				pieceInQuestion['Reference States'].push(pieceList[a]['Reference State']);
-				pieceInQuestion['Names'].push(pieceList[a]['Your Name']);
-				pieceInQuestion['Affiliations'].push(pieceList[a]['Your Affiliation']);
-				pieceInQuestion['Grades'].push(pieceList[a]['Grade']);
-				
-				//Classifications
-				var classificationList = pieceList[a]['Classification'].split(', ');
-				
-				for (var cp = 0; cp < classificationList.length; cp++) {
-					pieceInQuestion['Classifications'].push(classificationList[cp]);
-				};	
-				
-				//Difficulty Notes
-				if (pieceList[a]['Difficulty Notes'] !== '') {
-					var diff = pieceList[a]['Difficulty Notes'];
-					var diff2 = diff.split('.');
-
-					for (var h = 0; h < (diff2.length); h++) {
-						if (diff2[h] !== '') {
-							var thisn = diff2[h] + '.';
-							pieceInQuestion['Difficulty Notes'].push(thisn);
-						};
-					};
-				};
-				
-				//Instrumentation Notes
-				if (pieceList[a]['Instrumentation Notes'] !== '') {
-					var diff = pieceList[a]['Instrumentation Notes'];
-					var diff2 = diff.split('.');
-
-					for (var h = 0; h < (diff2.length); h++) {
-						if (diff2[h] !== '') {
-							var thisn = diff2[h] + '.';
-							pieceInQuestion['Instrumentation Notes'].push(thisn);
-						};
-					};
-				};
-			};
-		};
-
-		//Calculated Attribute Calculations
-		pieceInQuestion['Rapidity'] = Math.round(findMean(pieceInQuestion['Rapidity']));
-		pieceInQuestion['Rhythm'] = Math.round(findMean(pieceInQuestion['Rhythm']));
-		pieceInQuestion['Dynamics'] = Math.round(findMean(pieceInQuestion['Dynamics']));
-		pieceInQuestion['Texture'] = Math.round(findMean(pieceInQuestion['Texture']));
-		pieceInQuestion['Tonality'] = Math.round(findMean(pieceInQuestion['Tonality']));
-		pieceInQuestion['Range'] = Math.round(findMean(pieceInQuestion['Range']));
-		pieceInQuestion['Flutes'] = findMode(pieceInQuestion['Flutes'], '1');
-		pieceInQuestion['Clarinets'] = findMode(pieceInQuestion['Clarinets'], '1-2');
-		pieceInQuestion['Saxophones'] = findMode(pieceInQuestion['Saxophones'], 'ATB');
-		pieceInQuestion['Oboe'] = findMode(pieceInQuestion['Oboe'], 'No');
-		pieceInQuestion['Bassoon'] = findMode(pieceInQuestion['Bassoon'], 'No');
-		pieceInQuestion['Trumpets'] = findMode(pieceInQuestion['Trumpets'], '1-2');
-		pieceInQuestion['Horns'] = findMode(pieceInQuestion['Horns'], '1');
-		pieceInQuestion['Trombones'] = findMode(pieceInQuestion['Trombones'], '1');
-		pieceInQuestion['Baritone'] = findMode(pieceInQuestion['Baritone'], 'Yes');
-		pieceInQuestion['Tuba'] = findMode(pieceInQuestion['Tuba'], 'Yes');
-		pieceInQuestion['Percussion'] = Math.ceil(findMean(pieceInQuestion['Percussion']));
-		pieceInQuestion['Reference States'] = uniqueCount(pieceInQuestion['Reference States']);
-		pieceInQuestion['Names'] = uniqueCount(pieceInQuestion['Names']);
-		pieceInQuestion['Affiliations'] = uniqueCount(pieceInQuestion['Affiliations']);
-		pieceInQuestion['Grades'] = uniqueCount(pieceInQuestion['Grades']);
-		pieceInQuestion['Classifications'] = uniqueCount(pieceInQuestion['Classifications']);
-	};
-
-	return pieceInQuestion;
+//Functions to process ensemble-specific attributes of a piece
+function setUpAttributes(onePiece) {
+	onePiece['Flutes'] = [];
+	onePiece['Clarinets'] = [];
+	onePiece['Saxophones'] = [];
+	onePiece['Oboe'] = [];
+	onePiece['Bassoon'] = [];
+	onePiece['Trumpets'] = [];
+	onePiece['Horns'] = [];
+	onePiece['Trombones'] = [];
+	onePiece['Baritone'] = [];
+	onePiece['Tuba'] = [];
+	onePiece['Percussion'] = [];
+	
+	return onePiece;
 };
 
-//Function to add canvas for graph and blank instrumentation pane
-function addGraphCanvas() {
-	$('#dataPane').empty();
-	$('#dataPane').append(
-			'<div id="canvasContainer">' +
-				'<canvas id="myEns" width="300" height="300"></canvas>' +
-			'</div>' +
-			'<table id="instrumentationPane">' +
-				'<tr>' +
-					'<td id="oneFlute" class="instrument">F</td>' +
-					'<td id="twoClarinets" class="instrument">C</td>' +
-					'<td id="threeSaxophones" class="instrument">S</td>' +
-					'<td id="oneHorn" class="instrument">H</td>' +
-					'<td id="twoTrumpets" class="instrument">T</td>' +
-					'<td id="oneTrombone" class="instrument">R</td>' +
-					'<td id="baritone" class="instrument">B</td>' +
-					'<td id="tuba" class="instrument">U</td>' +
-					'<td id="sixPercussion" class="instrument">P</td>' +
-				'</tr>' +
-				'<tr>' +
-					'<td id="moreFlutes" class="instrument">F+</td>' +
-					'<td id="moreClarinets" class="instrument">C+</td>' +
-					'<td id="moreSaxophones" class="instrument">S+</td>' +
-					'<td id="moreHorns" class="instrument">H+</td>' +
-					'<td id="moreTrumpets" class="instrument">T+</td>' +
-					'<td id="moreTrombones" class="instrument">R+</td>' +
-					'<td id="oboe" class="instrument">O</td>' +
-					'<td id="bassoon" class="instrument">OO</td>' +
-					'<td id="numberOfPercussion" class="instrument">0</td>' +
-			   '</tr>' +
-			'</table>' +
-			'<div id="help">?</div> '
-			);
+function aggregateAttributes(onePiece, currentPieceList, iteration) {
+	onePiece['Flutes'].push(currentPieceList[iteration]['Flutes']);
+	onePiece['Clarinets'].push(currentPieceList[iteration]['Clarinets']);
+	onePiece['Saxophones'].push(currentPieceList[iteration]['Saxophones']);
+	onePiece['Oboe'].push(currentPieceList[iteration]['Oboe']);
+	onePiece['Bassoon'].push(currentPieceList[iteration]['Bassoon']);
+	onePiece['Trumpets'].push(currentPieceList[iteration]['Trumpets']);
+	onePiece['Horns'].push(currentPieceList[iteration]['Horns']);
+	onePiece['Trombones'].push(currentPieceList[iteration]['Trombones']);
+	onePiece['Baritone'].push(currentPieceList[iteration]['Baritone']);
+	onePiece['Tuba'].push(currentPieceList[iteration]['Tuba']);
+	onePiece['Percussion'].push(currentPieceList[iteration]['Percussion'] / 1);
+	
+	return onePiece;
+};
+
+function calculateAttributes(onePiece) {
+	onePiece['Flutes'] = findMode(onePiece['Flutes'], '1');
+	onePiece['Clarinets'] = findMode(onePiece['Clarinets'], '1-2');
+	onePiece['Saxophones'] = findMode(onePiece['Saxophones'], 'ATB');
+	onePiece['Oboe'] = findMode(onePiece['Oboe'], 'No');
+	onePiece['Bassoon'] = findMode(onePiece['Bassoon'], 'No');
+	onePiece['Trumpets'] = findMode(onePiece['Trumpets'], '1-2');
+	onePiece['Horns'] = findMode(onePiece['Horns'], '1');
+	onePiece['Trombones'] = findMode(onePiece['Trombones'], '1');
+	onePiece['Baritone'] = findMode(onePiece['Baritone'], 'Yes');
+	onePiece['Tuba'] = findMode(onePiece['Tuba'], 'Yes');
+	onePiece['Percussion'] = Math.ceil(findMean(onePiece['Percussion']));
+	
+	return onePiece;
+};
+
+//Function to add blank instrumentation pane
+function addEnsInstrumentGraph() {
+	$('#instrumentationPane').append('<tr>' +
+			'<td id="oneFlute" class="instrument">F</td>' +
+			'<td id="twoClarinets" class="instrument">C</td>' +
+			'<td id="threeSaxophones" class="instrument">S</td>' +
+			'<td id="oneHorn" class="instrument">H</td>' +
+			'<td id="twoTrumpets" class="instrument">T</td>' +
+			'<td id="oneTrombone" class="instrument">R</td>' +
+			'<td id="baritone" class="instrument">B</td>' +
+			'<td id="tuba" class="instrument">U</td>' +
+			'<td id="sixPercussion" class="instrument">P</td>' +
+		'</tr>' +
+		'<tr>' +
+			'<td id="moreFlutes" class="instrument">F+</td>' +
+			'<td id="moreClarinets" class="instrument">C+</td>' +
+			'<td id="moreSaxophones" class="instrument">S+</td>' +
+			'<td id="moreHorns" class="instrument">H+</td>' +
+			'<td id="moreTrumpets" class="instrument">T+</td>' +
+			'<td id="moreTrombones" class="instrument">R+</td>' +
+			'<td id="oboe" class="instrument">O</td>' +
+			'<td id="bassoon" class="instrument">OO</td>' +
+			'<td id="numberOfPercussion" class="instrument">0</td>' +
+	   '</tr>');
 };
 
 //Function to load instrumentation when a piece is selected
@@ -327,12 +227,17 @@ $(document).on({
 }, '#numberOfPercussion');
 
 //----------------------------------------------------------------------------------------------------------------------------------Filters
-//Process ensemble-specific filters
-
+//Display ensemble-specific filters
 function showEnsFilters() {	
 	
 };
 
+//Apply ensemble-specific filters
 function ensFilters(iteration) {
 	return(true);
+};
+
+//Remember ensemble-specific filters
+function rememberEnsFilters() {
+	
 };

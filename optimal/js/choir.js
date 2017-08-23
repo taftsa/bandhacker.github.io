@@ -12,167 +12,67 @@ var ensVars = {
 };
 
 //----------------------------------------------------------------------------------------------------------------------------------Load Data
-//Function to check if a piece has multiple entries; returns aggregated piece if the piece hasn't already been processed
-function checkForDuplicates(t) {
-	var alreadyDone = false;
-	var pieceInQuestion = false;
-
-	//Loop through every piece
-	for (var a = 0; a < t; a++) {
-		if (pieceList[t]['Title'].toUpperCase() == pieceList[a]['Title'].toUpperCase() && pieceList[t]['Composer'].toUpperCase() == pieceList[a]['Composer'].toUpperCase() && pieceList[t]['Arranger'].toUpperCase() == pieceList[a]['Arranger'].toUpperCase() && pieceList[t]['Publisher'].toUpperCase() == pieceList[a]['Publisher'].toUpperCase()) {
-			alreadyDone = true;
-		};
-	};
-
-	if (!alreadyDone) {
-		pieceInQuestion = {}
-
-		//Direct Attributes
-		pieceInQuestion['Title'] = pieceList[t]['Title'];
-		pieceInQuestion['Composer'] = pieceList[t]['Composer'];
-		pieceInQuestion['Publisher'] = pieceList[t]['Publisher'];
-		pieceInQuestion['Arranger'] = pieceList[t]['Arranger'];
-
-		//Calculated Attribute Setup
-		pieceInQuestion['Rapidity'] = [];
-		pieceInQuestion['Rhythm'] = [];
-		pieceInQuestion['Dynamics'] = [];
-		pieceInQuestion['Texture'] = [];
-		pieceInQuestion['Tonality'] = [];
-		pieceInQuestion['Range'] = [];
-		pieceInQuestion['Soprano'] = [];
-		pieceInQuestion['Alto'] = [];
-		pieceInQuestion['Tenor'] = [];
-		pieceInQuestion['Bass'] = [];
-		pieceInQuestion['Piano'] = [];
-		pieceInQuestion['Difficulty Notes'] = [];
-		pieceInQuestion['Voicing Notes'] = [];
-		pieceInQuestion['Number of Analyses'] = 0;
-		pieceInQuestion['Reference States'] = [];
-		pieceInQuestion['Names'] = [];
-		pieceInQuestion['Affiliations'] = [];
-		pieceInQuestion['Grades'] = [];
-		pieceInQuestion['Classifications'] = [];
-		pieceInQuestion['Languages'] = [];
-
-		for (var a = t; a < numberOfPieces; a++) {		
-		
-			//If it is the same piece...
-			if (pieceList[t]['Title'] == pieceList[a]['Title'] && pieceList[t]['Composer'] == pieceList[a]['Composer'] && pieceList[t]['Arranger'] == pieceList[a]['Arranger'] && pieceList[t]['Publisher'] == pieceList[a]['Publisher']) {
-
-				//For all pieces that are the same...
-				pieceInQuestion['Rapidity'].push(pieceList[a][' [Rapidity]'] / 1);
-				pieceInQuestion['Rhythm'].push(pieceList[a][' [Rhythm]'] / 1);
-				pieceInQuestion['Dynamics'].push(pieceList[a][' [Dynamics]'] / 1);
-				pieceInQuestion['Texture'].push(pieceList[a][' [Texture]'] / 1);
-				pieceInQuestion['Tonality'].push(pieceList[a][' [Tonality]'] / 1);
-				pieceInQuestion['Range'].push(pieceList[a][' [Range]'] / 1);
-				pieceInQuestion['Soprano'].push(pieceList[a][' [Soprano]']);
-				pieceInQuestion['Alto'].push(pieceList[a][' [Alto]']);
-				pieceInQuestion['Tenor'].push(pieceList[a][' [Tenor]']);
-				pieceInQuestion['Bass'].push(pieceList[a][' [Bass]']);
-				pieceInQuestion['Piano'].push(pieceList[a]['Piano']);
-				pieceInQuestion['Number of Analyses']++;
-				pieceInQuestion['Reference States'].push(pieceList[a]['Reference State']);
-				pieceInQuestion['Names'].push(pieceList[a]['Your Name']);
-				pieceInQuestion['Affiliations'].push(pieceList[a]['Your Affiliation']);
-				pieceInQuestion['Grades'].push(pieceList[a]['Grade']);
-				
-				//Classifications
-				var classificationList = pieceList[a]['Classification'].split(', ');
-				
-				for (var cp = 0; cp < classificationList.length; cp++) {
-					pieceInQuestion['Classifications'].push(classificationList[cp]);
-				};	
-				
-				//Languages
-				var languageList = pieceList[a]['Language'].split(', ');
-				
-				for (var cp = 0; cp < languageList.length; cp++) {
-					pieceInQuestion['Languages'].push(languageList[cp]);
-				};
-
-				//Difficulty Notes
-				if (pieceList[a]['Difficulty Notes'] !== '') {
-					var diff = pieceList[a]['Difficulty Notes'];		
-					var diff2 = diff.split('.');
-
-					for (var h = 0; h < (diff2.length); h++) {
-						if (diff2[h] !== '') {
-							var thisn = diff2[h] + '.';
-							pieceInQuestion['Difficulty Notes'].push(thisn);
-						};
-					};
-				};
-				
-				//Voicing Notes
-				if (pieceList[a]['Voicing Notes'] !== '') {
-					var diff = pieceList[a]['Voicing Notes'];
-					var diff2 = diff.split('.');
-
-					for (var h = 0; h < (diff2.length); h++) {
-						if (diff2[h] !== '') {
-							var thisn = diff2[h] + '.';
-							pieceInQuestion['Voicing Notes'].push(thisn);
-						};
-					};
-				};
-			};
-		};
-
-		//Calculated Attribute Calculations
-		pieceInQuestion['Rapidity'] = Math.round(findMean(pieceInQuestion['Rapidity']));
-		pieceInQuestion['Rhythm'] = Math.round(findMean(pieceInQuestion['Rhythm']));
-		pieceInQuestion['Dynamics'] = Math.round(findMean(pieceInQuestion['Dynamics']));
-		pieceInQuestion['Texture'] = Math.round(findMean(pieceInQuestion['Texture']));
-		pieceInQuestion['Tonality'] = Math.round(findMean(pieceInQuestion['Tonality']));
-		pieceInQuestion['Range'] = Math.round(findMean(pieceInQuestion['Range']));
-		pieceInQuestion['Soprano'] = findMode(pieceInQuestion['Soprano'], 0);
-		pieceInQuestion['Alto'] = findMode(pieceInQuestion['Alto'], 0);
-		pieceInQuestion['Tenor'] = findMode(pieceInQuestion['Tenor'], 0);
-		pieceInQuestion['Bass'] = findMode(pieceInQuestion['Bass'], 0);
-		pieceInQuestion['Piano'] = findMode(pieceInQuestion['Piano'], 'No');
-		pieceInQuestion['Reference States'] = uniqueCount(pieceInQuestion['Reference States']);
-		pieceInQuestion['Names'] = uniqueCount(pieceInQuestion['Names']);
-		pieceInQuestion['Affiliations'] = uniqueCount(pieceInQuestion['Affiliations']);
-		pieceInQuestion['Grades'] = uniqueCount(pieceInQuestion['Grades']);
-		pieceInQuestion['Classifications'] = uniqueCount(pieceInQuestion['Classifications']);
-		pieceInQuestion['Languages'] = uniqueCount(pieceInQuestion['Languages']);
-	};
-
-	return pieceInQuestion;
-};
+//Functions to process ensemble-specific attributes of a piece
+function setUpAttributes(onePiece) {
+	onePiece['Soprano'] = [];
+	onePiece['Alto'] = [];
+	onePiece['Tenor'] = [];
+	onePiece['Bass'] = [];
+	onePiece['Piano'] = [];
+	onePiece['Languages'] = [];
 	
-//Function to add canvas for graph and blank instrumentation pane
-function addGraphCanvas() {
-	$('#dataPane').empty();
-	$('#dataPane').append(
-			'<div id="canvasContainer">' +
-				'<canvas id="myEns" width="300" height="300"></canvas>' +
-			'</div>' +
-				'<table id="instrumentationPane">' +
-					'<tr>' +
-						'<td id="sopranos" class="instrument">S</td>' +
-						'<td id="altos" class="instrument">A</td>' +
-						'<td id="tenors" class="instrument">T</td>' +
-						'<td id="basses" class="instrument">B</td>' +
-						'<td id="piano" class="instrument">P</td>' +
-					'</tr>' +
-					'<tr>' +
-						'<td colspan="4" id="voicing" class="instrument"></td>' +
-					'</tr>' +
-				'</table>' +
-				'<div id="help">?</div>'
-			);
+	return onePiece;
+};
+
+function aggregateAttributes(onePiece, currentPieceList, iteration) {
+	onePiece['Soprano'].push(currentPieceList[iteration][' [Soprano]']);
+	onePiece['Alto'].push(currentPieceList[iteration][' [Alto]']);
+	onePiece['Tenor'].push(currentPieceList[iteration][' [Tenor]']);
+	onePiece['Bass'].push(currentPieceList[iteration][' [Bass]']);
+	onePiece['Piano'].push(currentPieceList[iteration]['Piano']);
+	
+	//Languages
+	var languageList = currentPieceList[iteration]['Language'].split(', ');
+	
+	for (var cp = 0; cp < languageList.length; cp++) {
+		onePiece['Languages'].push(languageList[cp]);
+	};
+	
+	return onePiece;
+};
+
+function calculateAttributes(onePiece) {
+	onePiece['Soprano'] = findMode(onePiece['Soprano'], 0);
+	onePiece['Alto'] = findMode(onePiece['Alto'], 0);
+	onePiece['Tenor'] = findMode(onePiece['Tenor'], 0);
+	onePiece['Bass'] = findMode(onePiece['Bass'], 0);
+	onePiece['Piano'] = findMode(onePiece['Piano'], 'No');
+	onePiece['Languages'] = uniqueCount(onePiece['Languages']);
+	
+	return onePiece;
+};
+
+//Function to add blank instrumentation pane
+function addEnsInstrumentGraph() {
+	$('#instrumentationPane').append('<tr>' +
+			'<td id="sopranos" class="instrument">S</td>' +
+			'<td id="altos" class="instrument">A</td>' +
+			'<td id="tenors" class="instrument">T</td>' +
+			'<td id="basses" class="instrument">B</td>' +
+			'<td id="piano" class="instrument">P</td>' +
+		'</tr>' +
+		'<tr>' +
+			'<td colspan="4" id="voicing" class="instrument"></td>' +
+		'</tr>');
 };
 
 //Function to load voicing when a piece is selected
 function changeInstrumentation(piece) {
 	$('#voicing').empty();
-
-	$('.instrument').removeClass('red');
-	$('.instrument').removeClass('orage');
-	$('.instrument').removeClass('yellow');
+	
+	$('.instrument').removeClass('black');
+	$('.instrument').removeClass('maroon');
+	$('.instrument').removeClass('pink');
 	$('.instrument').removeClass('green');
 
 	var soprano;
@@ -231,15 +131,16 @@ function changeInstrumentation(piece) {
 			$('#sopranos').addClass('green');
 			break;
 		case 2:
-			$('#sopranos').addClass('yellow');
+			$('#sopranos').addClass('pink');
 			break;
 		case 3:
-			$('#sopranos').addClass('orange');
+			$('#sopranos').addClass('maroon');
 			break;
 		case 4:
-			$('#sopranos').addClass('red');
+			$('#sopranos').addClass('black');
 			break;
 		default:
+			break;
 	};
 
 	switch (alto) {
@@ -249,15 +150,16 @@ function changeInstrumentation(piece) {
 			$('#altos').addClass('green');
 			break;
 		case 2:
-			$('#altos').addClass('yellow');
+			$('#altos').addClass('pink');
 			break;
 		case 3:
-			$('#altos').addClass('orange');
+			$('#altos').addClass('maroon');
 			break;
 		case 4:
-			$('#altos').addClass('red');
+			$('#altos').addClass('black');
 			break;
 		default:
+			break;
 	};
 
 	switch (tenor) {
@@ -267,15 +169,16 @@ function changeInstrumentation(piece) {
 			$('#tenors').addClass('green');
 			break;
 		case 2:
-			$('#tenors').addClass('yellow');
+			$('#tenors').addClass('pink');
 			break;
 		case 3:
-			$('#tenors').addClass('orange');
+			$('#tenors').addClass('maroon');
 			break;
 		case 4:
-			$('#tenors').addClass('red');
+			$('#tenors').addClass('black');
 			break;
 		default:
+			break;
 	};
 
 	switch (bass) {
@@ -285,63 +188,65 @@ function changeInstrumentation(piece) {
 			$('#basses').addClass('green');
 			break;
 		case 2:
-			$('#basses').addClass('yellow');
+			$('#basses').addClass('pink');
 			break;
 		case 3:
-			$('#basses').addClass('orange');
+			$('#basses').addClass('maroon');
 			break;
 		case 4:
-			$('#basses').addClass('red');
+			$('#basses').addClass('black');
 			break;
 		default:
+			break;
 	};
 
 	switch (piece['Piano']) {
 		case 'None':
 			break;
 		case 'Optional':
-			$('#piano').addClass('yellow');
+			$('#piano').addClass('pink');
 			break;
 		case 'Required':
-			$('#piano').addClass('red');
+			$('#piano').addClass('maroon');
 			break;
 		default:
+			break;
 	};
 };
 	
 //----------------------------------------------------------------------------------------------------------------------------------Tooltips
 function createAdvancedChoirToolTip(hoverDiv, part) {
-        $(document).on({
-            mouseenter: function (evt) {
-                if ($('#help').hasClass('on')) {
-                    switch (true) {
-                        case $(hoverDiv).hasClass('green'):
-                            $('#toolTip').html('This piece has 1 ' + part + ' part.');
-                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
-                            break;
-                        case $(hoverDiv).hasClass('yellow'):
-                            $('#toolTip').html('This piece has 2 ' + part + ' parts.');
-                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
-                            break;
-                        case $(hoverDiv).hasClass('orange'):
-                            $('#toolTip').html('This piece has 3 ' + part + ' parts.');
-                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
-                            break;
-                        case $(hoverDiv).hasClass('red'):
-                            $('#toolTip').html('This piece has 4 or more ' + part + ' parts.');
-                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
-                            break;
-                        default:
-                            $('#toolTip').html('This piece has no ' + part + ' parts.');
-                            $('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
-                    };
-                };
-            },
-            mouseleave: function () {
-                $('#toolTip').css('display', 'none');
-            }
-        }, hoverDiv);
-    };
+	$(document).on({
+		mouseenter: function (evt) {
+			if ($('#help').hasClass('on')) {
+				switch (true) {
+					case $(hoverDiv).hasClass('green'):
+						$('#toolTip').html('This piece has 1 ' + part + ' part.');
+						$('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+						break;
+					case $(hoverDiv).hasClass('pink'):
+						$('#toolTip').html('This piece has 2 ' + part + ' parts.');
+						$('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+						break;
+					case $(hoverDiv).hasClass('maroon'):
+						$('#toolTip').html('This piece has 3 ' + part + ' parts.');
+						$('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+						break;
+					case $(hoverDiv).hasClass('black'):
+						$('#toolTip').html('This piece has 4 or more ' + part + ' parts.');
+						$('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+						break;
+					default:
+						$('#toolTip').html('This piece has no ' + part + ' parts.');
+						$('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+				};
+			};
+		},
+		mouseleave: function () {
+			$('#toolTip').css('display', 'none');
+		}
+	}, hoverDiv);
+};
 
 $(document).on('ready', function() {	
 	createAdvancedChoirToolTip('#sopranos', 'soprano');
@@ -349,9 +254,47 @@ $(document).on('ready', function() {
     createAdvancedChoirToolTip('#tenors', 'tenor');
     createAdvancedChoirToolTip('#basses', 'bass');
 });
+
+//Voicing tooltip
+$(document).on({
+	mouseenter: function (evt) {
+		if ($('#voicing').html() !== "" && $('#help').hasClass('on')) {
+			$('#toolTip').html('This piece has a voicing of at least ' + $('#voicing').html() + '.');
+			$('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+		};            
+	},
+	mouseleave: function () {
+		$('#toolTip').css('display', 'none');
+	}
+}, '#voicing');
+
+//Piano tooltip
+$(document).on({
+	mouseenter: function (evt) {
+		if ($('#help').hasClass('on')) {
+			if ($('#piano').hasClass('pink')) {
+				$('#toolTip').html('This piece has an optional piano part.');
+				$('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+			}
+			else if ($('#piano').hasClass('maroon')) {
+				$('#toolTip').html('This piece has a required piano part.');
+				$('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+			}
+			else {
+				$('#toolTip').html('This piece has no piano part.');
+				if ($('#toolTip').html() !== "") {
+					$('#toolTip').css({ 'top': evt.pageY, 'left': evt.pageX + 20, 'display': 'block' }).fadeIn();
+				};
+			}
+		};
+	},
+	mouseleave: function () {
+		$('#toolTip').css('display', 'none');
+	}
+}, '#piano');
 	
 //----------------------------------------------------------------------------------------------------------------------------------Filters
-//Process ensemble-specific filters
+//Display ensemble-specific filters
 function showEnsFilters() {	
 	//Language filter
 	$('#filterBox').append('<select class="filter" id="languageFilter" name="languageFilter"><option value="Any Language">Any Language</option></select>');
@@ -365,8 +308,11 @@ function showEnsFilters() {
 			};							
 		};
 	};
+	
+	if (sessionStorage.getItem(ensVars.ensembleNameLower + 'language') !== null) { $('#languageFilter').val(sessionStorage.getItem(ensVars.ensembleNameLower + 'language')); };
 };
 
+//Apply ensemble-specific filters
 function ensFilters(iteration) {
 	//Master 'allow' variable for ensemble-specific filters
 	var allowEns = true;
@@ -375,7 +321,7 @@ function ensFilters(iteration) {
 	var languageValue = $('#languageFilter').val();
 
 	//Process language filter
-	if (languageValue !== 'Any Language') {		
+	if (languageValue !== 'Any Language') {
 		var thisPieceLanguages = activePieceList[$('.piece:eq(' + iteration + ')').attr('id') / 1]['Languages'];
 		var allowLanguage = false;
 			
@@ -386,9 +332,14 @@ function ensFilters(iteration) {
 		};
 	};
 	
-	//Add ensemble specific filters by deleting "true" and using &&
+	//Add ensemble specific filters by using &&
 	allowEns = (allowLanguage);
 	
 	//Return true or false
 	return(allowEns);
+};
+
+//Remember ensemble-specific filters
+function rememberEnsFilters() {
+	sessionStorage.setItem(ensVars.ensembleNameLower + 'language', $('#languageFilter').val());
 };

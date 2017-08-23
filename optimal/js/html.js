@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('#topMenu').append('<div id="info"><span id="versionNumber">Version 1.3.2</span><br />&copy; 2017 Seth Taft<br /><span id="emailLink">optimal.efficient@gmail.com</span></div>');
+	$('#topMenu').append('<div id="info"><span id="versionNumber">Version 1.4.0</span><br />&copy; 2017 Seth Taft<br /><span id="emailLink">optimal.efficient@gmail.com</span></div>');
 	
 	$('body').append('<div id="optionsMenu"></div>');
 		$('#optionsMenu').append('<div class="menuOption a m" id="search">Search');

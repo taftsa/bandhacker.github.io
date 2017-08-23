@@ -199,11 +199,6 @@ body {
     text-align: center;
 }
 
-.trueAdvanced {
-    background-color: maroon;
-    color: lightgrey;
-}
-
 #notesPane {   
     overflow-y: auto;
     text-align: center;

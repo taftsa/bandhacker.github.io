@@ -461,6 +461,18 @@ function login(emailAttempt, ensAttempt) {
 	};
 };
 
+//Function to prepare the graph canvas
+function addGraphCanvas() {
+	$('#dataPane').empty();
+	
+	$('#dataPane').append('<div id="canvasContainer"></div>');
+		$('#canvasContainer').append('<canvas id="myEns" width="300" height="300"></canvas>');
+	$('#dataPane').append('<table id="instrumentationPane"></table>');
+	$('#dataPane').append('<div id="help">?</div>');
+			
+	addEnsInstrumentGraph();
+};
+
 //Function to display the graph
 function createGraph() {
 	$('#canvasContainer').empty();
@@ -534,7 +546,7 @@ function loadPieces(callback) {
 			activePieceList = [];
 
 			for (var i = 0; i < numberOfPieces; i++) {
-				var testTwo = checkForDuplicates(i);
+				var testTwo = generatePiece(i);
 
 				if (testTwo !== false) {
 					activePieceList.push(testTwo);
@@ -551,6 +563,122 @@ function loadPieces(callback) {
 		},
 		simpleSheet: true
 	});
+};
+
+//Process multiples of individual pieces into one piece and create usable data for individual properties
+function generatePiece(t) {
+	var alreadyDone = false;
+	var pieceInQuestion = false;
+	
+	for (var a = 0; a < t; a++) {
+		if (pieceList[t]['Title'].toUpperCase() == pieceList[a]['Title'].toUpperCase() && pieceList[t]['Composer'].toUpperCase() == pieceList[a]['Composer'].toUpperCase() && pieceList[t]['Arranger'].toUpperCase() == pieceList[a]['Arranger'].toUpperCase() && pieceList[t]['Publisher'].toUpperCase() == pieceList[a]['Publisher'].toUpperCase()) {
+			alreadyDone = true;
+		};
+	};
+	
+	if (!alreadyDone) {
+		pieceInQuestion = {};
+
+		//Direct Attributes
+		pieceInQuestion['Title'] = pieceList[t]['Title'];
+		pieceInQuestion['Composer'] = pieceList[t]['Composer'];
+		pieceInQuestion['Publisher'] = pieceList[t]['Publisher'];
+		pieceInQuestion['Arranger'] = pieceList[t]['Arranger'];
+
+		//Calculated Attribute Setup
+		pieceInQuestion['Rapidity'] = [];
+		pieceInQuestion['Rhythm'] = [];
+		pieceInQuestion['Dynamics'] = [];
+		pieceInQuestion['Texture'] = [];
+		pieceInQuestion['Tonality'] = [];
+		pieceInQuestion['Range'] = [];
+		pieceInQuestion['Difficulty Notes'] = [];
+		pieceInQuestion[ensVars.typeOfNotes] = [];
+		pieceInQuestion['Number of Analyses'] = 0;
+		pieceInQuestion['Reference States'] = [];
+		pieceInQuestion['Names'] = [];
+		pieceInQuestion['Affiliations'] = [];
+		pieceInQuestion['Grades'] = [];
+		pieceInQuestion['Classifications'] = [];
+		pieceInQuestion['Names'] = [];
+		
+		//Set up ensemble-specific attributes
+		pieceInQuestion = setUpAttributes(pieceInQuestion);
+
+		//For each piece, loop through each piece again
+		for (var a = t; a < numberOfPieces; a++) {
+			
+			//If it is the same piece...
+			if (pieceList[t]['Title'] == pieceList[a]['Title'] && pieceList[t]['Composer'] == pieceList[a]['Composer'] && pieceList[t]['Arranger'] == pieceList[a]['Arranger'] && pieceList[t]['Publisher'] == pieceList[a]['Publisher']) {
+
+				pieceInQuestion['Rapidity'].push(pieceList[a][' [Rapidity]'] / 1);
+				pieceInQuestion['Rhythm'].push(pieceList[a][' [Rhythm]'] / 1);
+				pieceInQuestion['Dynamics'].push(pieceList[a][' [Dynamics]'] / 1);
+				pieceInQuestion['Texture'].push(pieceList[a][' [Texture]'] / 1);
+				pieceInQuestion['Tonality'].push(pieceList[a][' [Tonality]'] / 1);
+				pieceInQuestion['Range'].push(pieceList[a][' [Range]'] / 1);
+				pieceInQuestion['Number of Analyses']++;
+				pieceInQuestion['Reference States'].push(pieceList[a]['Reference State']);
+				pieceInQuestion['Names'].push(pieceList[a]['Your Name']);
+				pieceInQuestion['Affiliations'].push(pieceList[a]['Your Affiliation']);
+				pieceInQuestion['Grades'].push(pieceList[a]['Grade']);
+				
+				//Aggregate ensemble-specific attributes
+				pieceInQuestion = aggregateAttributes(pieceInQuestion, pieceList, a);
+				
+				//Classifications
+				var classificationList = pieceList[a]['Classification'].split(', ');
+				
+				for (var cp = 0; cp < classificationList.length; cp++) {
+					pieceInQuestion['Classifications'].push(classificationList[cp]);
+				};	
+				
+				//Difficulty Notes
+				if (pieceList[a]['Difficulty Notes'] !== '') {
+					var diff = pieceList[a]['Difficulty Notes'];
+					var diff2 = diff.split('.');
+
+					for (var h = 0; h < (diff2.length); h++) {
+						if (diff2[h] !== '') {
+							var thisn = diff2[h] + '.';
+							pieceInQuestion['Difficulty Notes'].push(thisn);
+						};
+					};
+				};
+				
+				//Instrumentation/Voicing Notes
+				if (pieceList[a][ensVars.typeOfNotes] !== '') {
+					var diff = pieceList[a][ensVars.typeOfNotes];
+					var diff2 = diff.split('.');
+
+					for (var h = 0; h < (diff2.length); h++) {
+						if (diff2[h] !== '') {
+							var thisn = diff2[h] + '.';
+							pieceInQuestion[ensVars.typeOfNotes].push(thisn);
+						};
+					};
+				};
+			};
+		};
+
+		//Calculated Attribute Calculations
+		pieceInQuestion['Rapidity'] = Math.round(findMean(pieceInQuestion['Rapidity']));
+		pieceInQuestion['Rhythm'] = Math.round(findMean(pieceInQuestion['Rhythm']));
+		pieceInQuestion['Dynamics'] = Math.round(findMean(pieceInQuestion['Dynamics']));
+		pieceInQuestion['Texture'] = Math.round(findMean(pieceInQuestion['Texture']));
+		pieceInQuestion['Tonality'] = Math.round(findMean(pieceInQuestion['Tonality']));
+		pieceInQuestion['Range'] = Math.round(findMean(pieceInQuestion['Range']));
+		pieceInQuestion['Reference States'] = uniqueCount(pieceInQuestion['Reference States']);
+		pieceInQuestion['Names'] = uniqueCount(pieceInQuestion['Names']);
+		pieceInQuestion['Affiliations'] = uniqueCount(pieceInQuestion['Affiliations']);
+		pieceInQuestion['Grades'] = uniqueCount(pieceInQuestion['Grades']);
+		pieceInQuestion['Classifications'] = uniqueCount(pieceInQuestion['Classifications']);
+		
+		//Calculate ensemble-specific attributes
+		pieceInQuestion = calculateAttributes(pieceInQuestion);
+	};
+
+	return pieceInQuestion;
 };
 
 //Function to display a single piece after a query
@@ -902,7 +1030,7 @@ $(document).on('click', '#forgotNameButton', function () {
 });
 
 //----------------------------------------------------------------------------------------------------------------------------------Filters
-//Select Filters
+//Display Filters
 var animating = false;
 var viewingFilters = false;
 
@@ -956,13 +1084,18 @@ $(document).on('click', '#filterBox', function() {
 			showEnsFilters();
 
 			$(this).append('<div id="applyFilters">Apply</div>');
+			
+			//Set filters based on sessionStorage
+			if (sessionStorage.getItem(ensVars.ensembleNameLower + 'state') !== null) { $('#stateFilter').val(sessionStorage.getItem(ensVars.ensembleNameLower + 'state')); };
+			if (sessionStorage.getItem(ensVars.ensembleNameLower + 'grade') !== null) { $('#gradeFilter').val(sessionStorage.getItem(ensVars.ensembleNameLower + 'grade')); };
+			if (sessionStorage.getItem(ensVars.ensembleNameLower + 'classification') !== null) { $('#classificationFilter').val(sessionStorage.getItem(ensVars.ensembleNameLower + 'classification')); };
 		});
 	};
 });
 
 //Apply Filters
 $(document).on('click', '#applyFilters', function(){
-	$('.piece').css('display', 'unset');		
+	$('.piece').css('display', 'unset');
 
 	//Create "allowed" array for faster filtering
 	var allowed = new Array($('.piece').length);
@@ -1037,6 +1170,13 @@ $(document).on('click', '#applyFilters', function(){
 			$('.piece:eq(' + fil + ')').css('display', 'none');
 		};
 	};
+	
+	//Remember filters in sessionStorage
+	sessionStorage.setItem(ensVars.ensembleNameLower + 'state', $('#stateFilter').val());
+	sessionStorage.setItem(ensVars.ensembleNameLower + 'grade', $('#gradeFilter').val());
+	sessionStorage.setItem(ensVars.ensembleNameLower + 'classification', $('#classificationFilter').val());
+	
+	rememberEnsFilters();
 	
 	//Return 'filter' button to normal
 		setTimeout( function() { viewingFilters = false }, 1);

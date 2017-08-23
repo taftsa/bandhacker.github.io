@@ -41,6 +41,20 @@
     background-color: lightpink;
 }
 
-.trueBasic {
-    background-color: lightpink;
+.green {
+	background-color: palegreen;
+}
+
+.pink {
+	background-color: lightpink;
+}
+
+.maroon {
+	background-color: maroon;
+	color: lightgrey;
+}
+
+.black {
+	background-color: black;
+	color: lightgrey;
 }

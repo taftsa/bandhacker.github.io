@@ -1,0 +1,55 @@
+.menuOption:hover {
+    color: gold;
+    border-top: 1px solid gold;
+}
+
+#addPiece:hover {
+    background-color: gold;
+}
+
+.selectedPiece {
+    background-color: gold;
+}
+
+.dataCat {
+    color: gold;
+}
+
+.analysisCount {
+    color: gold;
+}
+
+.button:hover {
+    border-bottom: 3px solid gold;
+    color: gold;
+}
+
+#rememberButton.forgetMe {
+	border-bottom: 3px solid gold;
+    color: gold;
+}
+
+.loader {
+    border-top: 6px solid gold;
+}
+
+.loaderExternal {
+    border-top: 6px solid gold;
+}
+
+.checkbox:checked {
+    background-color: gold;
+}
+
+.trueBasic {
+    background-color: gold;
+}
+
+.trueAdvanced {
+	background-color: maroon;
+	color: lightgrey;
+}
+
+.trueEasy {
+	background-color: palegreen;
+}
