@@ -27,7 +27,6 @@ var searchArranger;
 var newEnsCreated = false;
 var newPieceCreated = false;
 var numberOfUsers;
-var oldPieceCount;
 var timeoutCount = 0;
 var loadAnimate;
 
@@ -201,13 +200,12 @@ function openOverlay(url, external, callback) {
 		$('#overlayPane').prepend('<div class="loaderExternal"></div>');
 
 		numberOfUsers = listOfUsers.length;
-		oldPieceCount = numberOfPieces;
 
 		document.getElementById('pageContent').onload = (function () {
 			$('.loaderExternal').remove();
 			$('#pageContent').css({ height: '100%', width: '100%' });
-
-			callback();
+			
+			if (callback) { callback(); };
 		});
 	};
 };
@@ -537,7 +535,7 @@ function createGraph() {
 };
 
 //Function to clear "activePieceList" and load data from Google sheet into it
-function loadPieces(callback) {
+function loadPieces(afterFunction) {
 	Tabletop.init({ key: ensVars.pieceListKey,
 		callback: function (data, tabletop) {
 			pieceList = data;
@@ -559,10 +557,23 @@ function loadPieces(callback) {
 			pieceListLoading = false;
 
 			piecesLoaded = true;
-			if (callback) { callback(); };
+			if (afterFunction) { afterFunction(); };
 		},
 		simpleSheet: true
 	});
+};
+
+var pieceEntriesCount = 0;
+
+function countPieces(afterFunction) {
+	Tabletop.init({ key: '1S1e9WcPa87XheaOzDrOEFwUk5oyjdCMrnNBdTWxYLug',
+		callback: function (data, tabletop) {
+			pieceEntriesCount = data.length;
+			if (afterFunction) { afterFunction(); };
+			pieceEntriesCount = 0;
+		},
+		simpleSheet: true
+	});	
 };
 
 //Process multiples of individual pieces into one piece and create usable data for individual properties
@@ -880,17 +891,17 @@ $(document).on('click', '#rememberButton', function() {
 
 $(document).on('click', '#newAccountButton', function () {
 	openOverlay(ensVars.newAccountForm, true, function () {
-		$('iframe#pageContent').load(function () {
+		document.getElementById('pageContent').onload = (function () {
 			$('#overlayPane').empty();
 			$('#overlayPane').prepend('<div class="loaderExternal"></div>');
 			$('#overlayPane').append('<p id="verifying">Verifying registration and preparing to load ' + ensVars.ensembleNameLower + '...</p>');
 
-			function checkUntilLoaded() {
-				getUserList();
-				
+			function checkUntilLoaded() {			
 				if (timeoutCount == 15) {
 					$('#verifying').html('Something went wrong. Reload the page and try to log in. If you cannot, try again to create an account. If this fails again, contact optimal.efficient@gmail.com');
 				};
+				
+				getUserList();
 
 				//This checks to see if a new ensemble has been created
 				if (listOfUsers.length > numberOfUsers) {
@@ -926,52 +937,74 @@ $(document).on('click', '#listOptimal', function () { listOptimalPieces(); });
 $(document).on('click', '#listAllPlayable', function () { listPlayablePieces(); });
 $(document).on('click', '#listChallenge', function () { listChallengePieces(); });
 $(document).on('click', '#listAll', function () { listAllPieces(); });
-$(document).on('click', '#addPiece', function () {
-	openOverlay(ensVars.newPieceForm, true, function () {
-		$('iframe#pageContent').load(function () {
-			$('#overlayPane').empty();
-			$('#overlayPane').prepend('<div class="loaderExternal"></div>');
-			$('#overlayPane').append('<p id="verifying">Verifying that piece was logged...</p>');
 
-			function checkUntilLoaded() {
-				
-				if (timeoutCount == 15) {
-					$('#verifying').html('Something went wrong. Reload the page. If your piece does not appear with 10 minutes, try again to add it. If this fails again, contact optimal.efficient@gmail.com');
+function waitForPieceChange() {
+	//Get the existing number of pieces
+	var oldPieceCount;
+	var newPieceCount;
+	
+	countPieces(function(){
+		oldPieceCount = pieceEntriesCount;
+	});
+	
+	document.getElementById('pageContent').onload = (function () {
+		$('#overlayPane').empty();
+		$('#overlayPane').prepend('<div class="loaderExternal"></div>');
+		$('#overlayPane').append('<p id="verifying">Verifying that piece was logged...</p>');
+
+		function checkUntilLoaded() {		
+			if (timeoutCount == 15) {
+				$('#verifying').html('Something went wrong. Reload the page. If your piece does not appear within 10 minutes, try again to add it. If this fails again, contact optimal.efficient@gmail.com');
+			};			
+			
+			countPieces(function(){
+				newPieceCount = pieceEntriesCount;
+			});
+			
+			//This checks to see if a new ensemble has been created
+			if (newPieceCount > oldPieceCount) {
+				//newPieceCreated makes sure that, if an extra Timeout event is fired, the function doesn't run twice
+				if (!newPieceCreated) {
+					newPieceCreated = true;
+					closeOverlay();
+					loadPieces(function () {
+						addGraphCanvas();						
+						createGraph();
+						$('#notesPane').empty();
+						listAllPieces();
+					});
+					setTimeout(function () {
+						newPieceCreated = false;
+						timeoutCount = 0;
+					}, 2000);
 				};
-				
-				loadPieces(function () {
-					//This checks to see if a new ensemble has been created
-					if (numberOfPieces > oldPieceCount) {
-						//newPieceCreated makes sure that, if an extra Timeout event is fired, the function doesn't run twice
-						if (!newPieceCreated) {
-							newPieceCreated = true;
-							closeOverlay();
-							loadPieces(function () {
-								addGraphCanvas();						
-								createGraph();
-								$('#notesPane').empty();
-								listAllPieces();
-							});
-							setTimeout(function () {
-								newPieceCreated = false;
-								timeoutCount = 0;
-							}, 2000);
-						};
-					}
-					else {
-						setTimeout(function () {
-							if (!newPieceCreated) {
-								checkUntilLoaded();
-							};
-						}, 2000);
+			}
+			else {
+				setTimeout(function () {
+					if (!newPieceCreated) {
+						checkUntilLoaded();
 					};
-					
-					timeoutCount++;
-				});
+				}, 2000);
 			};
+			
+			timeoutCount++;			
+		};
 
-			setTimeout(function () { checkUntilLoaded(); }, 2000);
-		});
+		setTimeout(function () { checkUntilLoaded(); }, 2000);
+	});
+};
+
+$(document).on('click', '#addPiece', function () {
+	openOverlay(ensVars.newPieceForm, true, function () {		
+		waitForPieceChange();
+	});
+});
+
+//Open Overlay to Analyze Existing Piece
+$(document).on('click', '.analyzeThis', function () {
+	var thisPiece = activePieceList[$(this).parent().attr('id')];
+	openOverlay(ensVars.newPieceForm +'?usp=pp_url&entry.290029157=' + thisPiece['Title'] + '&entry.1725435401=' + thisPiece['Composer'] + '&entry.1690364591=' + thisPiece['Arranger'] + '&entry.16958485=__other_option__&entry.16958485.other_option_response=' + thisPiece['Publisher'], true, function() {
+		waitForPieceChange();
 	});
 });
 
@@ -998,13 +1031,6 @@ $(document).on('click', '#emailLink', function () { openWindow('mailto:optimal.e
 
 //Clickable pieces that display the graph
 $(document).on('click', '.piece', function () { selectPiece(this); });
-
-//Open Overlay to Analyze Existing Piece
-$(document).on('click', '.analyzeThis', function () {
-	var thisPiece = activePieceList[$(this).parent().attr('id')];
-
-	openOverlay(ensVars.newPieceForm +'?usp=pp_url&entry.290029157=' + thisPiece['Title'] + '&entry.1725435401=' + thisPiece['Composer'] + '&entry.1690364591=' + thisPiece['Arranger'] + '&entry.16958485=__other_option__&entry.16958485.other_option_response=' + thisPiece['Publisher'], true);
-});
 
 //Retrieve forgotten ensemble name
 $(document).on('click', '#forgotNameButton', function () {
