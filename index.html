@@ -11,9 +11,11 @@
         <style>
             body {
                 margin: 0;
+				padding: 0;
                 background-color: white;
                 font-family: 'Arial Black', sans-serif;
                 font-weight: 900;
+				overflow-x:hidden
             }
             
             #topBar {
@@ -30,7 +32,7 @@
                 color: lightgrey;
             }
             
-            #wrapper {
+            .wrapper {
                 opacity: 0;
                 width: 100%;;
                 margin: auto;
@@ -41,21 +43,18 @@
             
             .link {
                 display: inline-block;
-                width: 200px;
-                margin: 50px;
+                width: 250px;
+                margin-left: 50px;
+				margin-right: 50px;
             }            
 
             a {
                 text-decoration: none;
             }
             
-            #optimal:hover, #oForChoir:hover, #oForStrings:hover {
+            #optimal:hover, #oForChoir:hover, #oForStrings:hover, #principal:hover {
                 color: black;
                 cursor: pointer;
-            }
-            
-            .icon {
-                width: 200px;
             }
             
             .lightblue {
@@ -66,11 +65,16 @@
                 color: lightpink;
             }
 			
+			.burntorange {
+				color: #c45a11;
+			}
+			
 			.gold {
 				color: gold;
 			}
 			
 			.icon {
+				width: 200px;
 				border-radius: 50%;
 			}
 			
@@ -85,6 +89,10 @@
                 bottom: 0;
                 background-color: lightgrey;
             }
+			
+			.larger {
+				font-size: 1.6em;
+			}
         </style>
 
 
@@ -94,26 +102,34 @@
             <span class="grey">band</span>hacker
         </div>
         
-        <div id="wrapper">
+        <div class="wrapper">
             <div id="optimal" class="link" onclick="openOptimal();">
                 <img class="icon" alt="optimal" src="optimal/img/bandLogo.png" />
 
-                <p>optimal for <span class="lightblue">band</span></p>        
+                <p><span class="larger">optimal</span> for <span class="lightblue">band</span></p>        
             </div>
 			
 			<div id="oForStrings" class="link" onclick="openStringsOptimal();">
                 <img class="icon" alt="optimal" src="optimal/img/stringsLogo.png" />
 
-                <p>optimal for <span class="gold">strings</span></p>
+                <p><span class="larger">optimal</span> for <span class="gold">strings</span></p>
             </div>  
 			
             <div id="oForChoir" class="link" onclick="openChoirOptimal();">
                 <img class="icon" alt="optimal" src="optimal/img/choirLogo.png" />
 
-                <p>optimal for <span class="lightpink">choir</span></p>        
+                <p><span class="larger">optimal</span> for <span class="lightpink">choir</span></p>        
             </div> 
         </div>
+		
+		<div class="wrapper">
+            <div id="principal" class="link" onclick="openPrincipal();">
+                <img class="icon" alt="optimal" src="principal/logo.png" />
 
+                <p><span class="larger burntorange">principal</span> for auditions</p>        
+            </div>
+        </div>
+		
         <div id="bottomBar">
             
         </div>
@@ -121,17 +137,21 @@
 </html>
 
 <script>
-    $('#wrapper').animate({ opacity: 1.0 }, 1800);
+    $('.wrapper').animate({ opacity: 1.0 }, 1200);
 
     function openOptimal (){
-        window.open("http://bandhacker.com/optimal/band.html", "_self");
+        window.open("optimal/band.html", "_self");
     }
 	
 	function openChoirOptimal (){
-        window.open("http://bandhacker.com/optimal/choir.html", "_self");
+        window.open("optimal/choir.html", "_self");
     } 
 
 	function openStringsOptimal (){
-        window.open("http://bandhacker.com/optimal/strings.html", "_self");
+        window.open("optimal/strings.html", "_self");
+    }
+	
+	function openPrincipal (){
+        window.open("principal/principal.html", "_self");
     } 
 </script>
