@@ -385,15 +385,13 @@ $(document).on({
 }, '.cLevel');
 
 //----------------------------------------------------------------------------------------------------------------------------------Initialization Functions
-//Startup function (loads user list)
-function getUserList() {
+//Function to re-load the list of users
+function getUserList(afterFunction) {
 	//userListKey variable is defined in HTML files
 	Tabletop.init({ key: ensVars.userListKey,
 		callback: function (data, tabletop) {
 			listOfUsers = data;
-			$('#loginButton').removeAttr('disabled');
-			document.getElementById('loginButton').value = 'Load ' + ensVars.ensembleName;
-			clearInterval(loadAnimate);
+			if (afterFunction) { afterFunction() };
 		},
 		simpleSheet: true
 	});
@@ -860,7 +858,11 @@ $(document).ready(function () {
         };
     }, 500);	
 	
-	getUserList();
+	getUserList(function() {
+		$('#loginButton').removeAttr('disabled');
+		document.getElementById('loginButton').value = 'Load ' + ensVars.ensembleName;
+		clearInterval(loadAnimate);
+	});
 	
 	//Set "?" button
 	if (localStorage.getItem(ensVars.ensembleNameLower + 'help') === null) {
