@@ -151,79 +151,77 @@
             <li>Click "Select" and naviagate to and select all of the audition files at once.</li>
             <li>Listen to each file and drag each box to reorder the recordings.</li>
             <li>Click "Reveal" to see which student finished in which chair.</li>
-        </ol>        
-		
+        </ol>       
 		<div id="interface">
-			<button class="button">Select<input type="file" id="input" multiple /></button>
-			<button class="button" id="clear" onclick="clearall();">Clear</button>
-			<button class="button" id="reveal" onclick="reveal();">Reveal</button>
-			<br />
-			<div id="rankList"></div>
-			<div id="audioList"></div>
-		</div>
+		<button class="button">Select<input type="file" id="input" multiple /></button>
+		<button class="button" id="clear" onclick="clearall();">Clear</button>
+		<button class="button" id="reveal" onclick="reveal();">Reveal</button>
+		<br />
+		<div id="rankList"></div>
+		<div id="audioList"></div>
+	</div>
+	<script>
+	    $('#audioList').sortable();
+	    $('#audioList').disableSelection();
+
+	    function shuffle(array) {
+		var currentIndex = array.length, temporaryValue, randomIndex;
+
+		// While there remain elements to shuffle...
+		while (0 !== currentIndex) {
+
+		    // Pick a remaining element...
+		    randomIndex = Math.floor(Math.random() * currentIndex);
+		    currentIndex -= 1;
+
+		    // And swap it with the current element.
+		    temporaryValue = array[currentIndex];
+		    array[currentIndex] = array[randomIndex];
+		    array[randomIndex] = temporaryValue;
+		}
+
+		return array;
+	    };
+
+	    var auditionIds = [];
+
+		function clearall() {
+			$('#rankList').empty();
+			$('#audioList').empty();
+			$('#audioList').sortable('enable');
+		};
+
+	    function reveal() {
+		for (var n = 0; n < auditionIds.length; n++) {
+		    $("#" + n).html(auditionIds[n]);
+		};
+			$('#audioList').sortable('disable');
+	    };
+
+	    input.onchange = function (e) {
+			$('#audioList').empty();
+			$('#rankList').empty();
+		var fileArray = [];
+
+		for (var g = 0; g < this.files.length; g++) {
+		    fileArray.push(g);
+		};
+
+		fileArray = shuffle(fileArray);
+
+		for (var i = 0; i < fileArray.length; i++) {
+		    var p = fileArray[i];
+
+		    $('#rankList').append('<div class="rank">Chair ' + (i + 1) + '</div>');
+		    $('#audioList').append('<div class ="fileDiv" id="' + p + '"><audio id="sound' + p + '" controls></audio><textarea class="note" placeholder="note" style="resize: none;" /></div>');
+		    var sound = document.getElementById('sound' + p);
+		    sound.src = URL.createObjectURL(this.files[p]);
+		    sound.onend = function (e) {
+			URL.revokeObjectURL(this.src);
+		    };
+		    auditionIds[p] = this.files[p].name;
+		};
+	    };
+	</script>
     </body>    
 </html>
-
-<script>
-	$('#audioList').sortable();
-    $('#audioList').disableSelection();
-
-    function shuffle(array) {
-        var currentIndex = array.length, temporaryValue, randomIndex;
-
-        // While there remain elements to shuffle...
-        while (0 !== currentIndex) {
-
-            // Pick a remaining element...
-            randomIndex = Math.floor(Math.random() * currentIndex);
-            currentIndex -= 1;
-
-            // And swap it with the current element.
-            temporaryValue = array[currentIndex];
-            array[currentIndex] = array[randomIndex];
-            array[randomIndex] = temporaryValue;
-        }
-
-        return array;
-    };
-
-    var auditionIds = [];
-	
-	function clearall() {
-		$('#rankList').empty();
-		$('#audioList').empty();
-		$('#audioList').sortable('enable');
-	};
-	
-    function reveal() {
-        for (var n = 0; n < auditionIds.length; n++) {
-            $("#" + n).html(auditionIds[n]);
-        };
-		$('#audioList').sortable('disable');
-    };
-
-    input.onchange = function (e) {
-		$('#audioList').empty();
-		$('#rankList').empty();
-        var fileArray = [];
-
-        for (var g = 0; g < this.files.length; g++) {
-            fileArray.push(g);
-        };
-
-        fileArray = shuffle(fileArray);
-
-        for (var i = 0; i < fileArray.length; i++) {
-            var p = fileArray[i];
-			
-            $('#rankList').append('<div class="rank">Chair ' + (i + 1) + '</div>');
-            $('#audioList').append('<div class ="fileDiv" id="' + p + '"><audio id="sound' + p + '" controls></audio><textarea class="note" placeholder="note" style="resize: none;" /></div>');
-            var sound = document.getElementById('sound' + p);
-            sound.src = URL.createObjectURL(this.files[p]);
-            sound.onend = function (e) {
-                URL.revokeObjectURL(this.src);
-            };
-            auditionIds[p] = this.files[p].name;
-        };
-    };
-</script>
